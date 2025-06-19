@@ -1,0 +1,6 @@
+@EmprendeTiendaBackend_HostAddress = http://localhost:5171
+
+GET {{EmprendeTiendaBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
