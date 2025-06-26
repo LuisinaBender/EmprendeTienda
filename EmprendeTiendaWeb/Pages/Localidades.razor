@@ -1,0 +1,41 @@
+﻿@page "/localidades"
+@using Service.Models
+@inject IGenericService<Localidad> LocalidadesService
+
+<h3>Localidades</h3>
+
+@if (localidades == null)
+{
+    <p><em>Obteniendo lista de Localidades </em></p>
+}
+
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var localidad in localidades)
+            {
+                <tr>
+                    <td>@localidad.Id</td>
+                    <td>@localidad.Nombre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Localidad>? localidades;
+
+    protected override async Task OnInitializedAsync()
+    {
+        localidades = await LocalidadesService.GetAllAsync();
+    }
+}

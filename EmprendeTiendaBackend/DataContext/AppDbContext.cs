@@ -12,8 +12,6 @@ namespace BackendEmprendeTienda.DataContext
         public AppDbContext()
         {
         }
-
-        // Aquí definís tus tablas (DbSet = una tabla)
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Venta> Ventas { get; set; }

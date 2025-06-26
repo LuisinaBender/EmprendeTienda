@@ -70,7 +70,7 @@ namespace Service.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://datakioscoale.azurewebsites.net/api/.
+        ///   Busca una cadena traducida similar a .
         /// </summary>
         internal static string UrlApi {
             get {
@@ -79,7 +79,7 @@ namespace Service.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a https://localhost:7238/api/.
+        ///   Busca una cadena traducida similar a .
         /// </summary>
         internal static string UrlApiLocal {
             get {

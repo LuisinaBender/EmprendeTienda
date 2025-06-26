@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="UrlApi" xml:space="preserve">
-    <value>https://datakioscoale.azurewebsites.net/api/</value>
-  </data>
   <data name="Remoto" xml:space="preserve">
-    <value>true</value>
-  </data>
-  <data name="UrlApiLocal" xml:space="preserve">
-    <value>https://localhost:7238/api/</value>
+    <value>i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040</value>
   </data>
 </root>
