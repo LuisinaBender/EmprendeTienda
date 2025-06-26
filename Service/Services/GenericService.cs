@@ -2,11 +2,9 @@
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace Service.Services
 {
@@ -16,13 +14,13 @@ namespace Service.Services
         protected readonly JsonSerializerOptions options;
         protected readonly string _endpoint;
 
-        public GenericService()
+        public GenericService(HttpClient httpClient)
         {
-            client = new HttpClient();
-            options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
-            var urlApi = Properties.Resources.UrlApi;
-            _endpoint = urlApi + ApiEndpoints.GetEndpoint(typeof(T).Name);
+            client = httpClient;
+            options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            _endpoint = ApiEndpoints.GetEndpoint(typeof(T).Name); // debe devolver por ejemplo: "clientes"
         }
+
 
         public async Task<List<T>> GetAllAsync()
         {
@@ -32,9 +30,8 @@ namespace Service.Services
             {
                 throw new ApplicationException(content?.ToString());
             }
-            return JsonSerializer.Deserialize<List<T>>(content, options); ;
+            return JsonSerializer.Deserialize<List<T>>(content, options);
         }
-
         public async Task<T> GetByIdAsync(int id)
         {
             var response = await client.GetAsync($"{_endpoint}/{id}");

@@ -8,12 +8,12 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// Cambiado para apuntar al backend real
+
 builder.Services.AddScoped(sp => new HttpClient
 {
     BaseAddress = new Uri("https://localhost:7186/api/")
-});
 
+});
 
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
