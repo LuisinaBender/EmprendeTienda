@@ -13,5 +13,7 @@ namespace Service.Models
         public Cliente Cliente { get; set; }
 
         public List<DetalleVenta> Detalles { get; set; }
+
+        
     }
 }

@@ -16,8 +16,5 @@ namespace EmprendeTiendaDescktop.View
         {
             InitializeComponent();
         }
-
-     
-
     }
 }

@@ -11,7 +11,7 @@
         public int LocalidadId { get; set; }          
         public Localidad? Localidad { get; set; }
 
-
+        public List<Venta> Ventas { get; set; } = new List<Venta>();
     }
 }
 

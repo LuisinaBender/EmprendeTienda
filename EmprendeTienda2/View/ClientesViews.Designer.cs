@@ -51,7 +51,7 @@
             panel1.Controls.Add(label1);
             panel1.Location = new Point(2, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(634, 75);
+            panel1.Size = new Size(628, 75);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -66,12 +66,13 @@
             // 
             // tabControl1
             // 
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Location = new Point(2, 86);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(640, 302);
+            tabControl1.Size = new Size(626, 302);
             tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -80,7 +81,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(632, 274);
+            tabPage1.Size = new Size(618, 274);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Lista";
             tabPage1.UseVisualStyleBackColor = true;
@@ -89,12 +90,12 @@
             // 
             dataGridClientes.AllowUserToAddRows = false;
             dataGridClientes.AllowUserToDeleteRows = false;
-            dataGridClientes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridClientes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridClientes.Location = new Point(0, 0);
             dataGridClientes.Name = "dataGridClientes";
             dataGridClientes.ReadOnly = true;
-            dataGridClientes.Size = new Size(632, 278);
+            dataGridClientes.Size = new Size(622, 278);
             dataGridClientes.TabIndex = 0;
             // 
             // tabPage2
@@ -157,7 +158,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(638, 389);
+            ClientSize = new Size(629, 389);
             Controls.Add(tabControl1);
             Controls.Add(panel1);
             Name = "ClientesViews";
