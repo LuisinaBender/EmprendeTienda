@@ -97,6 +97,7 @@
             dataGridClientes.ReadOnly = true;
             dataGridClientes.Size = new Size(622, 278);
             dataGridClientes.TabIndex = 0;
+            
             // 
             // tabPage2
             // 
@@ -107,7 +108,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(632, 274);
+            tabPage2.Size = new Size(618, 274);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Agregar/Editar";
             tabPage2.UseVisualStyleBackColor = true;
