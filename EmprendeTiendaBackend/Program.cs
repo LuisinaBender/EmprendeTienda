@@ -35,12 +35,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configuración del pipeline HTTP
+// Habilitar Swagger SIEMPRE (desarrollo y producción)
+app.UseSwagger();
+app.UseSwaggerUI();
+
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
     // Aplicar migraciones automáticamente en desarrollo
     using (var scope = app.Services.CreateScope())
     {
