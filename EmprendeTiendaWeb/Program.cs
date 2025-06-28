@@ -8,11 +8,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("https://54.175.74.81:5001/")
-
+    BaseAddress = new Uri("http://54.175.74.81:5001/api/")
 });
 
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
