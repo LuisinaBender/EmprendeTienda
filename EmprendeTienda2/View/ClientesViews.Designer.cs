@@ -49,18 +49,20 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(2, 5);
+            panel1.Location = new Point(3, 7);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(628, 75);
+            panel1.Size = new Size(807, 105);
             panel1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Calibri", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(236, 18);
+            label1.Location = new Point(303, 25);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(93, 29);
+            label1.Size = new Size(115, 37);
             label1.TabIndex = 0;
             label1.Text = "Clientes";
             // 
@@ -69,19 +71,21 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(2, 86);
+            tabControl1.Location = new Point(3, 120);
+            tabControl1.Margin = new Padding(4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(626, 302);
+            tabControl1.Size = new Size(805, 423);
             tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             tabPage1.Controls.Add(dataGridClientes);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.Location = new Point(4, 30);
+            tabPage1.Margin = new Padding(4);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(618, 274);
+            tabPage1.Padding = new Padding(4);
+            tabPage1.Size = new Size(797, 389);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Lista";
             tabPage1.UseVisualStyleBackColor = true;
@@ -93,9 +97,11 @@
             dataGridClientes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridClientes.Location = new Point(0, 0);
+            dataGridClientes.Margin = new Padding(4);
             dataGridClientes.Name = "dataGridClientes";
             dataGridClientes.ReadOnly = true;
-            dataGridClientes.Size = new Size(622, 278);
+            dataGridClientes.RowHeadersWidth = 51;
+            dataGridClientes.Size = new Size(800, 389);
             dataGridClientes.TabIndex = 0;
             
             // 
@@ -105,10 +111,11 @@
             tabPage2.Controls.Add(btnGuardar);
             tabPage2.Controls.Add(txtNombre);
             tabPage2.Controls.Add(label2);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.Location = new Point(4, 30);
+            tabPage2.Margin = new Padding(4);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(618, 274);
+            tabPage2.Padding = new Padding(4);
+            tabPage2.Size = new Size(797, 389);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Agregar/Editar";
             tabPage2.UseVisualStyleBackColor = true;
@@ -119,9 +126,10 @@
             bntCancelar.IconColor = Color.Black;
             bntCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             bntCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            bntCancelar.Location = new Point(327, 214);
+            bntCancelar.Location = new Point(420, 300);
+            bntCancelar.Margin = new Padding(4);
             bntCancelar.Name = "bntCancelar";
-            bntCancelar.Size = new Size(138, 53);
+            bntCancelar.Size = new Size(177, 74);
             bntCancelar.TabIndex = 3;
             bntCancelar.Text = "Cancelar";
             bntCancelar.UseVisualStyleBackColor = true;
@@ -132,36 +140,40 @@
             btnGuardar.IconColor = Color.Black;
             btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGuardar.Location = new Point(135, 214);
+            btnGuardar.Location = new Point(174, 300);
+            btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(138, 53);
+            btnGuardar.Size = new Size(177, 74);
             btnGuardar.TabIndex = 2;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(164, 54);
+            txtNombre.Location = new Point(211, 76);
+            txtNombre.Margin = new Padding(4);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(245, 23);
+            txtNombre.Size = new Size(314, 29);
             txtNombre.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(97, 56);
+            label2.Location = new Point(125, 78);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(54, 15);
+            label2.Size = new Size(71, 21);
             label2.TabIndex = 0;
             label2.Text = "Nombre:";
             // 
             // ClientesViews
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(629, 389);
+            ClientSize = new Size(809, 545);
             Controls.Add(tabControl1);
             Controls.Add(panel1);
+            Margin = new Padding(4);
             Name = "ClientesViews";
             Text = "Cliente";
             panel1.ResumeLayout(false);

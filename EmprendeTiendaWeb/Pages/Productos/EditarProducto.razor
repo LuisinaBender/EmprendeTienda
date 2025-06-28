@@ -6,7 +6,7 @@
 
 @if (producto == null)
 {
-    <p><em>Obteniendo localidad a editar... </em></p>
+    <p><em>Obteniendo producto a editar... </em></p>
 }
 
 else
@@ -18,6 +18,19 @@ else
            <label for"Nombre">Nombre</label>
            <InputText id="Nombre" class="form-control" @bind-Value="producto.Nombre"/>
        </div>
+         <div class="form-group">
+              <label for="Descripcion">Descripcion</label>
+            <InputText id="Descripcion" class="form-control" @bind-Value="producto.Descripcion" />
+        </div>
+         <div class="form-group">
+              <label for="Precio">Precio</label>
+            <InputNumber id="Precio" class="form-control" @bind-Value="producto.Precio" />
+         </div>
+            <div class="form-group">
+                <label for="Stock">Stock</label>
+            <InputNumber id="Stock" class="form-control" @bind-Value="producto.Stock" />
+        </div>
+
        
        <button type="submit" class="btn btn-primary">Guardar</button>
         <ValidationSummary />

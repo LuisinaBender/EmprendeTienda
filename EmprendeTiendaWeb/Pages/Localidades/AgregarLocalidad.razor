@@ -1,0 +1,59 @@
+﻿@page "/agregarlocalidad"
+@inject IGenericService<Localidad> LocalidadService
+@inject NavigationManager NavigationManager
+
+<HeaderPage TitlePage="Agregando Localidad" />
+
+@if (localidad == null)
+{
+    <p><em>CARGANDO....</em></p>
+}
+else
+{
+    <EditForm Model="localidad" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <InputText id="Nombre" class="form-control" @bind-Value="producto.Nombre" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <ValidationSummary />
+    </EditForm>
+}
+    @code {
+
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public int? IdLocalidadAgregado { get; set; } 
+
+    private Localidad localidad = new Localidad(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (IdLocalidadAgregado.HasValue && IdLocalidadAgregado.Value != 0)
+        {
+            localidad = await LocalidadService.GetByIdAsync(IdLocalidadAgregado.Value);
+        }
+        else
+        {
+            localidad = new Localidad(); 
+        }
+    }
+
+    private async Task Guardar()
+    {
+        if (localidad.Id == 0) 
+        {
+            await LocalidadService.AddAsync(localidad);
+        }
+        else
+        {
+           
+        }
+
+        NavigationManager.NavigateTo("/localidades");
+    }
+
+}

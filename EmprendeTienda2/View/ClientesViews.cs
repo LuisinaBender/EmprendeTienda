@@ -24,18 +24,12 @@ namespace EmprendeTiendaDescktop.View
             dataGridClientes.DataSource = listaClientes;
             dataGridClientes.AutoGenerateColumns = true;
             CargarGrilla();
+
         }
+
         private void CargarGrilla()
         {
-            try
-            {
-                listaClientes.DataSource = db.Clientes.ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar clientes: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            listaClientes.DataSource = db.Clientes.ToList();
         }
     }
 }

@@ -1,0 +1,75 @@
+﻿@page "/agregarcliente"
+@inject IGenericService<Cliente> ClienteService
+@inject NavigationManager NavigationManager
+
+<HeaderPage TitlePage="Agregando Cliente" />
+
+@if (cliente == null)
+{
+    <p><em>CARGANDO....</em></p>
+}
+else
+{
+    <EditForm Model="cliente" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <InputText id="Nombre" class="form-control" @bind-Value="cliente.Nombre" />
+        </div>
+        <div class="form-group">
+            <label for="Apellido">Apellido</label>
+            <InputText id="Apellido" class="form-control" @bind-Value="cliente.Apellido" />
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <InputText id="Email" class="form-control" @bind-Value="cliente.Email" />
+        </div>
+        <div class="form-group">
+            <label for="Telefono">Telefono</label>
+            <InputText id="Telefono" class="form-control" @bind-Value="cliente.Telefono" />
+        </div>
+        <div class="form-group">
+            <label for="Localidad">Localidad</label>
+            <InputText id="Localidad" class="form-control" @bind-Value="cliente.Localidad" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <ValidationSummary />
+    </EditForm>
+}
+    @code {
+
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public int? IdClienteAgregado { get; set; } 
+
+    private Cliente cliente = new Cliente(); 
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (IdClienteAgregado.HasValue && IdClienteAgregado.Value != 0)
+        {
+            cliente = await ClienteService.GetByIdAsync(IdClienteAgregado.Value);
+        }
+        else
+        {
+            cliente = new Cliente(); 
+        }
+    }
+
+    private async Task Guardar()
+    {
+        if (cliente.Id == 0) 
+        {
+            await ClienteService.AddAsync(cliente);
+        }
+        else
+        {
+           
+        }
+
+        NavigationManager.NavigateTo("/clientes");
+    }
+
+}
