@@ -11,7 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("https://localhost:7186/api/")
+    BaseAddress = new Uri("https://54.175.74.81:5001/")
 
 });
 
