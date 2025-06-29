@@ -43,7 +43,6 @@ namespace BackendEmprendeTienda.Controllers
         }
 
         // PUT: api/Localidades/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLocalidad(int id, Localidad localidad)
         {
@@ -52,7 +51,9 @@ namespace BackendEmprendeTienda.Controllers
                 return BadRequest();
             }
 
+            // Marcar la entidad como modificada, pero ignorar la navegación 'Clientes'
             _context.Entry(localidad).State = EntityState.Modified;
+            _context.Entry(localidad).Collection(l => l.Clientes).IsModified = false;
 
             try
             {
@@ -73,8 +74,7 @@ namespace BackendEmprendeTienda.Controllers
             return NoContent();
         }
 
-        // POST: api/Localidads
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Localidades
         [HttpPost]
         public async Task<ActionResult<Localidad>> PostLocalidad(Localidad localidad)
         {
@@ -84,7 +84,7 @@ namespace BackendEmprendeTienda.Controllers
             return CreatedAtAction("GetLocalidad", new { id = localidad.Id }, localidad);
         }
 
-        // DELETE: api/Localidads/5
+        // DELETE: api/Localidades/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocalidad(int id)
         {

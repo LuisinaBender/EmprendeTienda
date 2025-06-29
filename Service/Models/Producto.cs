@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Service.Models
+﻿namespace Service.Models
 {
     public class Producto
     {
         public int Id { get; set; }
 
-
-        [Required(ErrorMessage = "El campo Nombre es Obligatorio")] public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string Descripcion { get; set; } = string.Empty;
         public decimal Precio { get; set; }
         public int Stock { get; set; }
     }

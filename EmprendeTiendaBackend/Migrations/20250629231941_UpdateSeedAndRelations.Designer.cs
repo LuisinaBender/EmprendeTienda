@@ -4,6 +4,7 @@ using BackendEmprendeTienda.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmprendeTiendaBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250629231941_UpdateSeedAndRelations")]
+    partial class UpdateSeedAndRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,11 +38,6 @@ namespace EmprendeTiendaBackend.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -70,7 +68,6 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 1,
                             Apellido = "Pérez",
-                            Direccion = "San Juan 123",
                             Email = "juan@example.com",
                             LocalidadId = 1,
                             Nombre = "Juan",
@@ -80,7 +77,6 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 2,
                             Apellido = "Gómez",
-                            Direccion = "Mitre 456",
                             Email = "maria@example.com",
                             LocalidadId = 2,
                             Nombre = "María",
@@ -90,11 +86,37 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 3,
                             Apellido = "López",
-                            Direccion = "Belgrano 789",
                             Email = "carlos@example.com",
                             LocalidadId = 3,
                             Nombre = "Carlos",
                             Telefono = "3815345678"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Apellido = "Cettout",
+                            Email = "julian.cettoutar@gmail.com",
+                            LocalidadId = 4,
+                            Nombre = "Julian",
+                            Telefono = "3498462504"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Apellido = "Bender",
+                            Email = "luisinabender@hotmail.com",
+                            LocalidadId = 5,
+                            Nombre = "Luisina",
+                            Telefono = "3498469745"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Apellido = "Kramer",
+                            Email = "kramertita@hotmail.com",
+                            LocalidadId = 6,
+                            Nombre = "Cosmo Tita",
+                            Telefono = "3498456789"
                         });
                 });
 
@@ -185,6 +207,21 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 3,
                             Nombre = "Rivadavia"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nombre = "San Justo"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nombre = "Videla"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nombre = "Gobernador Crespo"
                         });
                 });
 

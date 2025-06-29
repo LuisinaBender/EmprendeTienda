@@ -6,9 +6,7 @@ namespace BackendEmprendeTienda.DataContext
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
@@ -18,19 +16,9 @@ namespace BackendEmprendeTienda.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuración del charset para MySQL
             modelBuilder.HasCharSet("utf8mb4");
 
-            // Configuración de modelos y relaciones
-            ConfigureModels(modelBuilder);
-
-            // Datos semilla iniciales
-            SeedInitialData(modelBuilder);
-        }
-
-        private void ConfigureModels(ModelBuilder modelBuilder)
-        {
-            // Configuración de Localidad
+            // Localidad
             modelBuilder.Entity<Localidad>(entity =>
             {
                 entity.HasKey(l => l.Id);
@@ -39,26 +27,16 @@ namespace BackendEmprendeTienda.DataContext
                     .HasMaxLength(100);
             });
 
-            // Configuración de Cliente
+            // Cliente
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.HasKey(c => c.Id);
 
-                entity.Property(c => c.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(c => c.Apellido)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(c => c.Email)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(c => c.Telefono)
-                    .IsRequired()
-                    .HasMaxLength(20);
+                entity.Property(c => c.Nombre).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.Apellido).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.Email).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.Telefono).IsRequired().HasMaxLength(20);
+                entity.Property(c => c.Direccion).IsRequired().HasMaxLength(200); // NUEVA COLUMNA
 
                 entity.HasOne(c => c.Localidad)
                     .WithMany(l => l.Clientes)
@@ -66,49 +44,38 @@ namespace BackendEmprendeTienda.DataContext
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Configuración de Producto
+            // Producto
             modelBuilder.Entity<Producto>(entity =>
             {
                 entity.HasKey(p => p.Id);
-
-                entity.Property(p => p.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(p => p.Descripcion)
-                    .HasMaxLength(500);
-
-                entity.Property(p => p.Precio)
-                    .HasColumnType("decimal(18,2)");
-
-                entity.Property(p => p.Stock)
-                    .HasDefaultValue(0);
+                entity.Property(p => p.Nombre).IsRequired().HasMaxLength(100);
+                entity.Property(p => p.Descripcion).HasMaxLength(500);
+                entity.Property(p => p.Precio).HasColumnType("decimal(18,2)");
+                entity.Property(p => p.Stock).HasDefaultValue(0);
             });
 
-
+            // Venta
             modelBuilder.Entity<Venta>(entity =>
             {
-                entity.Property(v => v.Fecha)
-                      .HasColumnType("timestamp") // Tipo timestamp acepta CURRENT_TIMESTAMP
-                      .HasDefaultValueSql("CURRENT_TIMESTAMP");
-        
+                entity.HasKey(v => v.Id);
 
-            entity.HasOne(v => v.Cliente)
+                entity.Property(v => v.Fecha)
+                      .HasColumnType("timestamp")
+                      .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.HasOne(v => v.Cliente)
                     .WithMany(c => c.Ventas)
                     .HasForeignKey(v => v.ClienteId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Configuración de DetalleVenta
+            // DetalleVenta
             modelBuilder.Entity<DetalleVenta>(entity =>
             {
                 entity.HasKey(d => d.Id);
 
-                entity.Property(d => d.Cantidad)
-                    .IsRequired();
-
-                entity.Property(d => d.PrecioUnitario)
-                    .HasColumnType("decimal(18,2)");
+                entity.Property(d => d.Cantidad).IsRequired();
+                entity.Property(d => d.PrecioUnitario).HasColumnType("decimal(18,2)");
 
                 entity.HasOne(d => d.Venta)
                     .WithMany(v => v.Detalles)
@@ -120,12 +87,13 @@ namespace BackendEmprendeTienda.DataContext
                     .HasForeignKey(d => d.ProductoId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+            // Seed de datos actualizado
+            SeedInitialData(modelBuilder);
         }
 
         private void SeedInitialData(ModelBuilder modelBuilder)
         {
-            // Orden IMPORTANTE: 1. Localidades, 2. Productos, 3. Clientes, 4. Ventas, 5. DetallesVenta
-
             // Localidades
             modelBuilder.Entity<Localidad>().HasData(
                 new Localidad { Id = 1, Nombre = "Capital" },
@@ -135,111 +103,30 @@ namespace BackendEmprendeTienda.DataContext
 
             // Productos
             modelBuilder.Entity<Producto>().HasData(
-                new Producto
-                {
-                    Id = 1,
-                    Nombre = "Laptop Gamer",
-                    Descripcion = "Laptop de alto rendimiento para juegos",
-                    Precio = 120000m,
-                    Stock = 10
-                },
-                new Producto
-                {
-                    Id = 2,
-                    Nombre = "Smartphone",
-                    Descripcion = "Teléfono inteligente de última generación",
-                    Precio = 80000m,
-                    Stock = 15
-                },
-                new Producto
-                {
-                    Id = 3,
-                    Nombre = "Tablet",
-                    Descripcion = "Tablet con pantalla HD",
-                    Precio = 45000m,
-                    Stock = 8
-                }
+                new Producto { Id = 1, Nombre = "Laptop Gamer", Descripcion = "Laptop de alto rendimiento para juegos", Precio = 120000m, Stock = 10 },
+                new Producto { Id = 2, Nombre = "Smartphone", Descripcion = "Teléfono inteligente de última generación", Precio = 80000m, Stock = 15 },
+                new Producto { Id = 3, Nombre = "Tablet", Descripcion = "Tablet con pantalla HD", Precio = 45000m, Stock = 8 }
             );
 
-            // Clientes
+            // Clientes con dirección
             modelBuilder.Entity<Cliente>().HasData(
-                new Cliente
-                {
-                    Id = 1,
-                    Nombre = "Juan",
-                    Apellido = "Pérez",
-                    Email = "juan@example.com",
-                    Telefono = "3815123456",
-                    LocalidadId = 1
-                },
-                new Cliente
-                {
-                    Id = 2,
-                    Nombre = "María",
-                    Apellido = "Gómez",
-                    Email = "maria@example.com",
-                    Telefono = "3815234567",
-                    LocalidadId = 2
-                },
-                new Cliente
-                {
-                    Id = 3,
-                    Nombre = "Carlos",
-                    Apellido = "López",
-                    Email = "carlos@example.com",
-                    Telefono = "3815345678",
-                    LocalidadId = 3
-                }
+                new Cliente { Id = 1, Nombre = "Juan", Apellido = "Pérez", Email = "juan@example.com", Telefono = "3815123456", Direccion = "San Juan 123", LocalidadId = 1 },
+                new Cliente { Id = 2, Nombre = "María", Apellido = "Gómez", Email = "maria@example.com", Telefono = "3815234567", Direccion = "Mitre 456", LocalidadId = 2 },
+                new Cliente { Id = 3, Nombre = "Carlos", Apellido = "López", Email = "carlos@example.com", Telefono = "3815345678", Direccion = "Belgrano 789", LocalidadId = 3 }
             );
 
-            // Ventas (con fechas explícitas para seed data)
+            // Ventas
             modelBuilder.Entity<Venta>().HasData(
-                new Venta
-                {
-                    Id = 1,
-                    ClienteId = 1,
-                    Fecha = DateTime.Now.AddDays(-5)
-                },
-                new Venta
-                {
-                    Id = 2,
-                    ClienteId = 2,
-                    Fecha = DateTime.Now.AddDays(-3)
-                },
-                new Venta
-                {
-                    Id = 3,
-                    ClienteId = 3,
-                    Fecha = DateTime.Now.AddDays(-1)
-                }
+                new Venta { Id = 1, ClienteId = 1, Fecha = new DateTime(2024, 6, 1) },
+                new Venta { Id = 2, ClienteId = 2, Fecha = new DateTime(2024, 6, 3) },
+                new Venta { Id = 3, ClienteId = 3, Fecha = new DateTime(2024, 6, 5) }
             );
 
             // DetallesVenta
             modelBuilder.Entity<DetalleVenta>().HasData(
-                new DetalleVenta
-                {
-                    Id = 1,
-                    VentaId = 1,
-                    ProductoId = 1,
-                    Cantidad = 1,
-                    PrecioUnitario = 120000m
-                },
-                new DetalleVenta
-                {
-                    Id = 2,
-                    VentaId = 1,
-                    ProductoId = 2,
-                    Cantidad = 2,
-                    PrecioUnitario = 80000m
-                },
-                new DetalleVenta
-                {
-                    Id = 3,
-                    VentaId = 2,
-                    ProductoId = 3,
-                    Cantidad = 3,
-                    PrecioUnitario = 45000m
-                }
+                new DetalleVenta { Id = 1, VentaId = 1, ProductoId = 1, Cantidad = 1, PrecioUnitario = 120000m },
+                new DetalleVenta { Id = 2, VentaId = 1, ProductoId = 2, Cantidad = 2, PrecioUnitario = 80000m },
+                new DetalleVenta { Id = 3, VentaId = 2, ProductoId = 3, Cantidad = 3, PrecioUnitario = 45000m }
             );
         }
     }
