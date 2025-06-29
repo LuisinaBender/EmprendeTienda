@@ -1,16 +1,21 @@
 ﻿@page "/clientes"
 @using Service.Models
 @inject IGenericService<Cliente> ClientesService
+@inject NavigationManager NavigationManager
 
 <h3>Clientes</h3>
 
 @if (clientesList == null)
 {
-    <p><em>Obteniendo lista de Clientes </em></p>
+    <p><em>Obteniendo lista de Clientes</em></p>
 }
-
 else
 {
+    <!-- Botón Agregar Cliente (fuera de la tabla) -->
+    <button class="btn btn-primary mb-3" @onclick="AgregarCliente">
+        Agregar Cliente
+    </button>
+
     <table class="table">
         <thead>
             <tr>
@@ -20,10 +25,9 @@ else
                 <th>Email</th>
                 <th>Telefono</th>
                 <th>Localidad</th>
-
+                <th>Acciones</th>
             </tr>
         </thead>
-
         <tbody>
             @foreach (var cliente in clientesList)
             {
@@ -33,7 +37,11 @@ else
                     <td>@cliente.Apellido</td>
                     <td>@cliente.Email</td>
                     <td>@cliente.Telefono</td>
-                    <td>@cliente.Localidad</td>
+                    <td>@cliente.Localidad?.Nombre</td>
+                    <td>
+                        <!-- Botón Editar -->
+                        <button class="btn btn-warning btn-sm" @onclick="@(() => EditarCliente(cliente.Id))">Editar</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -46,6 +54,16 @@ else
     protected override async Task OnInitializedAsync()
     {
         clientesList = await ClientesService.GetAllAsync();
+    }
+
+    private void AgregarCliente()
+    {
+        NavigationManager.NavigateTo("/agregarcliente");
+    }
+
+    private void EditarCliente(int id)
+    {
+        NavigationManager.NavigateTo($"/editarcliente/{id}");
     }
 }
 

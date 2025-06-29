@@ -1,10 +1,11 @@
 ﻿@page "/agregarcliente"
 @inject IGenericService<Cliente> ClienteService
+@inject IGenericService<Localidad> LocalidadService
 @inject NavigationManager NavigationManager
 
 <HeaderPage TitlePage="Agregando Cliente" />
 
-@if (cliente == null)
+@if (cliente == null || localidades == null)
 {
     <p><em>CARGANDO....</em></p>
 }
@@ -31,45 +32,53 @@ else
         </div>
         <div class="form-group">
             <label for="Localidad">Localidad</label>
-            <InputText id="Localidad" class="form-control" @bind-Value="cliente.Localidad" />
+            <InputSelect id="Localidad" class="form-control" @bind-Value="cliente.LocalidadId">
+                <option value="">Seleccione una localidad</option>
+                @foreach (var loc in localidades)
+                {
+                    <option value="@loc.Id">@loc.Nombre</option>
+                }
+            </InputSelect>
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>
         <ValidationSummary />
     </EditForm>
 }
-    @code {
 
+@code {
     [SupplyParameterFromQuery]
     [Parameter]
-    public int? IdClienteAgregado { get; set; } 
+    public int? IdClienteAgregado { get; set; }
 
-    private Cliente cliente = new Cliente(); 
+    private Cliente cliente = new Cliente();
+    private List<Localidad>? localidades;
 
     protected override async Task OnInitializedAsync()
     {
+        localidades = await LocalidadService.GetAllAsync();
+
         if (IdClienteAgregado.HasValue && IdClienteAgregado.Value != 0)
         {
             cliente = await ClienteService.GetByIdAsync(IdClienteAgregado.Value);
         }
         else
         {
-            cliente = new Cliente(); 
+            cliente = new Cliente();
         }
     }
 
     private async Task Guardar()
     {
-        if (cliente.Id == 0) 
+        if (cliente.Id == 0)
         {
             await ClienteService.AddAsync(cliente);
         }
         else
         {
-           
+            // Aquí podrías actualizar el cliente si es necesario
         }
 
         NavigationManager.NavigateTo("/clientes");
     }
-
 }

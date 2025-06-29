@@ -3,15 +3,16 @@
     public class Cliente
     {
         public int Id { get; set; }
-        required public string Nombre { get; set; }
-        required public string Apellido { get; set; }
-        required public string Email { get; set; }
-        required public string Telefono { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string Apellido { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Telefono { get; set; } = string.Empty;
 
-        public int LocalidadId { get; set; }          
+        public int LocalidadId { get; set; }
         public Localidad? Localidad { get; set; }
-
         public List<Venta> Ventas { get; set; } = new List<Venta>();
+
+        // El constructor puede estar vacío, o incluso puedes eliminarlo
+        public Cliente() { }
     }
 }
-
