@@ -12,6 +12,7 @@ else
 {
     <EditForm Model="localidad" OnValidSubmit="Guardar">
         <DataAnnotationsValidator />
+        <ValidationSummary />
 
         <div class="form-group">
             <label for="Nombre">Nombre</label>
@@ -19,16 +20,15 @@ else
         </div>
 
         <button type="submit" class="btn btn-primary">Agregar Localidad</button>
-        <ValidationSummary />
     </EditForm>
 }
-    @code {
 
+@code {
     [SupplyParameterFromQuery]
     [Parameter]
-    public int? IdLocalidadAgregado { get; set; } 
+    public int? IdLocalidadAgregado { get; set; }
 
-    private Localidad localidad = new Localidad(); 
+    private Localidad localidad = new Localidad();
 
     protected override async Task OnInitializedAsync()
     {
@@ -36,24 +36,17 @@ else
         {
             localidad = await LocalidadService.GetByIdAsync(IdLocalidadAgregado.Value);
         }
-        else
-        {
-            localidad = new Localidad(); 
-        }
     }
 
     private async Task Guardar()
     {
-        if (localidad.Id == 0) 
+        if (localidad.Clientes == null)
+            localidad.Clientes = new List<Cliente>();
+
+        if (localidad.Id == 0)
         {
             await LocalidadService.AddAsync(localidad);
         }
-        else
-        {
-           
-        }
-
         NavigationManager.NavigateTo("/localidades");
     }
-
 }

@@ -8,20 +8,19 @@
 {
     <p><em>Obteniendo localidad a editar... </em></p>
 }
-
 else
 {
-   <EditForm Model="localidad" OnValidSubmit="Guardar">
-       <DataAnnotationsValidator/>
-       
-       <div class="form-group">
-           <label for"Nombre">Nombre</label>
-           <InputText id="Nombre" class="form-control" @bind-Value="localidad.Nombre"/>
-       </div>
-       
-       <button type="submit" class="btn btn-primary">Guardar</button>
+    <EditForm Model="localidad" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
         <ValidationSummary />
-   </EditForm>
+
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <InputText id="Nombre" class="form-control" @bind-Value="localidad.Nombre" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </EditForm>
 }
 
 @code {
@@ -32,12 +31,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        localidad = await LocalidadService.GetByIdAsync(IdLocalidadEditado);    
+        localidad = await LocalidadService.GetByIdAsync(IdLocalidadEditado);
     }
 
-    private void Guardar()
+    private async Task Guardar()
     {
-        LocalidadService.UpdateAsync(localidad);
-        NavigationManager.NavigateTo("/localidades");
+        if (localidad != null)
+        {
+            await LocalidadService.UpdateAsync(localidad);
+            NavigationManager.NavigateTo("/localidades");
+        }
     }
 }

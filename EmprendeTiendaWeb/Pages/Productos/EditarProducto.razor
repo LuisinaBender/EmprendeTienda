@@ -8,33 +8,31 @@
 {
     <p><em>Obteniendo producto a editar... </em></p>
 }
-
 else
 {
-   <EditForm Model="producto" OnValidSubmit="Guardar">
-       <DataAnnotationsValidator/>
-       
-       <div class="form-group">
-           <label for"Nombre">Nombre</label>
-           <InputText id="Nombre" class="form-control" @bind-Value="producto.Nombre"/>
-       </div>
-         <div class="form-group">
-              <label for="Descripcion">Descripcion</label>
+    <EditForm Model="producto" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <InputText id="Nombre" class="form-control" @bind-Value="producto.Nombre" />
+        </div>
+        <div class="form-group">
+            <label for="Descripcion">Descripcion</label>
             <InputText id="Descripcion" class="form-control" @bind-Value="producto.Descripcion" />
         </div>
-         <div class="form-group">
-              <label for="Precio">Precio</label>
+        <div class="form-group">
+            <label for="Precio">Precio</label>
             <InputNumber id="Precio" class="form-control" @bind-Value="producto.Precio" />
-         </div>
-            <div class="form-group">
-                <label for="Stock">Stock</label>
+        </div>
+        <div class="form-group">
+            <label for="Stock">Stock</label>
             <InputNumber id="Stock" class="form-control" @bind-Value="producto.Stock" />
         </div>
 
-       
-       <button type="submit" class="btn btn-primary">Guardar</button>
-        <ValidationSummary />
-   </EditForm>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </EditForm>
 }
 
 @code {
@@ -45,12 +43,20 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        producto = await ProductoService.GetByIdAsync(IdProductoEditado);    
+        producto = await ProductoService.GetByIdAsync(IdProductoEditado);
     }
 
-    private void Guardar()
+    private async Task Guardar()
     {
-        ProductoService.UpdateAsync(producto);
-        NavigationManager.NavigateTo("/producto");
+        if (producto != null)
+        {
+            await ProductoService.UpdateAsync(producto);
+            NavigationManager.NavigateTo("/productos");
+        }
+    }
+
+    private void AgregarProducto()
+    {
+        NavigationManager.NavigateTo("/agregarproducto");
     }
 }

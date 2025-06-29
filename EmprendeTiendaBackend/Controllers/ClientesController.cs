@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendEmprendeTienda.DataContext;
@@ -25,14 +23,18 @@ namespace BackendEmprendeTienda.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            return await _context.Clientes.ToListAsync();
+            return await _context.Clientes
+                .Include(c => c.Localidad) // <<--- Incluye la localidad
+                .ToListAsync();
         }
 
         // GET: api/Clientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes
+                .Include(c => c.Localidad)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (cliente == null)
             {
@@ -43,7 +45,6 @@ namespace BackendEmprendeTienda.Controllers
         }
 
         // PUT: api/Clientes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
@@ -52,7 +53,9 @@ namespace BackendEmprendeTienda.Controllers
                 return BadRequest();
             }
 
+            // Evita sobreescribir la propiedad de navegación
             _context.Entry(cliente).State = EntityState.Modified;
+            _context.Entry(cliente).Reference(c => c.Localidad).IsModified = false;
 
             try
             {
@@ -74,7 +77,6 @@ namespace BackendEmprendeTienda.Controllers
         }
 
         // POST: api/Clientes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {

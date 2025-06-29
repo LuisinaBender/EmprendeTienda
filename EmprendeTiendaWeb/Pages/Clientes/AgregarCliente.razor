@@ -13,6 +13,7 @@ else
 {
     <EditForm Model="cliente" OnValidSubmit="Guardar">
         <DataAnnotationsValidator />
+        <ValidationSummary />
 
         <div class="form-group">
             <label for="Nombre">Nombre</label>
@@ -33,7 +34,7 @@ else
         <div class="form-group">
             <label for="Localidad">Localidad</label>
             <InputSelect id="Localidad" class="form-control" @bind-Value="cliente.LocalidadId">
-                <option value="">Seleccione una localidad</option>
+                <option value="-1">Seleccione una localidad</option>
                 @foreach (var loc in localidades)
                 {
                     <option value="@loc.Id">@loc.Nombre</option>
@@ -42,7 +43,6 @@ else
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>
-        <ValidationSummary />
     </EditForm>
 }
 
@@ -65,6 +65,7 @@ else
         else
         {
             cliente = new Cliente();
+            cliente.LocalidadId = -1; // Para forzar selección válida
         }
     }
 
@@ -73,10 +74,6 @@ else
         if (cliente.Id == 0)
         {
             await ClienteService.AddAsync(cliente);
-        }
-        else
-        {
-            // Aquí podrías actualizar el cliente si es necesario
         }
 
         NavigationManager.NavigateTo("/clientes");

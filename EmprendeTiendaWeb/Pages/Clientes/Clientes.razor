@@ -38,10 +38,7 @@ else
                     <td>@cliente.Email</td>
                     <td>@cliente.Telefono</td>
                     <td>@cliente.Localidad?.Nombre</td>
-                    <td>
-                        <!-- Botón Editar -->
-                        <button class="btn btn-warning btn-sm" @onclick="@(() => EditarCliente(cliente.Id))">Editar</button>
-                    </td>
+                    <td><a href="/editarcliente?IdClienteEditado=@cliente.Id">Editar</a></td>
                 </tr>
             }
         </tbody>

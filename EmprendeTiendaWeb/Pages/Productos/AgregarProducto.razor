@@ -12,6 +12,7 @@ else
 {
     <EditForm Model="producto" OnValidSubmit="Guardar">
         <DataAnnotationsValidator />
+        <ValidationSummary />
 
         <div class="form-group">
             <label for="Nombre">Nombre</label>
@@ -21,28 +22,25 @@ else
             <label for="Descripcion">Descripcion</label>
             <InputText id="Descripcion" class="form-control" @bind-Value="producto.Descripcion" />
         </div>
-
         <div class="form-group">
             <label for="Precio">Precio</label>
             <InputNumber id="Precio" class="form-control" @bind-Value="producto.Precio" />
         </div>
-
         <div class="form-group">
             <label for="Stock">Stock</label>
             <InputNumber id="Stock" class="form-control" @bind-Value="producto.Stock" />
         </div>
 
         <button type="submit" class="btn btn-primary">Agregar Producto</button>
-        <ValidationSummary />
     </EditForm>
 }
-    @code {
 
+@code {
     [SupplyParameterFromQuery]
     [Parameter]
-    public int? IdProductoAgregado { get; set; } 
+    public int? IdProductoAgregado { get; set; }
 
-    private Producto producto = new Producto(); 
+    private Producto producto = new Producto();
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,22 +50,22 @@ else
         }
         else
         {
-            producto = new Producto(); 
+            producto = new Producto();
         }
     }
 
     private async Task Guardar()
     {
-        if (producto.Id == 0) 
+        if (producto.Id == 0)
         {
             await ProductoService.AddAsync(producto);
+            // Opcional: Navegar a la lista de productos al guardar
+            NavigationManager.NavigateTo("/productos");
         }
         else
         {
-           
+            await ProductoService.UpdateAsync(producto);
+            NavigationManager.NavigateTo("/productos");
         }
-
-        NavigationManager.NavigateTo("/productos");
     }
-
 }
