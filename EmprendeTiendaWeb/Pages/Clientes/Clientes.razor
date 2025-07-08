@@ -1,0 +1,51 @@
+﻿@page "/clientes"
+@using Service.Models
+@inject IGenericService<Cliente> ClientesService
+
+<h3>Clientes</h3>
+
+@if (clientesList == null)
+{
+    <p><em>Obteniendo lista de Clientes </em></p>
+}
+
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Localidad</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var cliente in clientesList)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Apellido</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.Telefono</td>
+                    <td>@cliente.Localidad</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Cliente>? clientesList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientesList = await ClientesService.GetAllAsync();
+    }
+}
+

@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmprendeTiendaDesktop", "EmprendeTienda2\EmprendeTiendaDesktop.csproj", "{2DA34A52-267E-434D-8E88-8A16B6EAFB96}"
+	ProjectSection(ProjectDependencies) = postProject
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414} = {766562BF-1D89-4A5A-90C3-56D29A8D8414}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{766562BF-1D89-4A5A-90C3-56D29A8D8414}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmprendeTiendaApp", "EmprendeTiendaApp\EmprendeTiendaApp.csproj", "{0A83A311-FA11-41BB-87B3-6DD45929A395}"
+	ProjectSection(ProjectDependencies) = postProject
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414} = {766562BF-1D89-4A5A-90C3-56D29A8D8414}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmprendeTiendaBackend", "EmprendeTiendaBackend\EmprendeTiendaBackend.csproj", "{C34AD5FD-C80D-4324-9C2D-D70D1AA0B0C3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414} = {766562BF-1D89-4A5A-90C3-56D29A8D8414}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmprendeTiendaWeb", "EmprendeTiendaWeb\EmprendeTiendaWeb.csproj", "{D76A95EF-A68B-420D-8FA0-A2E38E481488}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DA34A52-267E-434D-8E88-8A16B6EAFB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DA34A52-267E-434D-8E88-8A16B6EAFB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DA34A52-267E-434D-8E88-8A16B6EAFB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DA34A52-267E-434D-8E88-8A16B6EAFB96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{766562BF-1D89-4A5A-90C3-56D29A8D8414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A83A311-FA11-41BB-87B3-6DD45929A395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A83A311-FA11-41BB-87B3-6DD45929A395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A83A311-FA11-41BB-87B3-6DD45929A395}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0A83A311-FA11-41BB-87B3-6DD45929A395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A83A311-FA11-41BB-87B3-6DD45929A395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C34AD5FD-C80D-4324-9C2D-D70D1AA0B0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C34AD5FD-C80D-4324-9C2D-D70D1AA0B0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C34AD5FD-C80D-4324-9C2D-D70D1AA0B0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C34AD5FD-C80D-4324-9C2D-D70D1AA0B0C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D76A95EF-A68B-420D-8FA0-A2E38E481488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76A95EF-A68B-420D-8FA0-A2E38E481488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76A95EF-A68B-420D-8FA0-A2E38E481488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76A95EF-A68B-420D-8FA0-A2E38E481488}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F789581D-DBA9-43F6-A37C-E533CCD52C01}
+	EndGlobalSection
+EndGlobal
