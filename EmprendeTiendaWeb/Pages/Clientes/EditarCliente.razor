@@ -1,0 +1,75 @@
+﻿@page "/editarcliente"
+@using Service.Models
+@inject IGenericService<Cliente> ClienteService
+@inject IGenericService<Localidad> LocalidadService
+@inject NavigationManager NavigationManager
+
+<h3>Editar Cliente</h3>
+
+@if (cliente == null)
+{
+    <p><em>Obteniendo cliente a editar...</em></p>
+}
+else
+{
+    <EditForm Model="cliente" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <InputText id="Nombre" class="form-control" @bind-Value="cliente.Nombre" />
+        </div>
+        <div class="form-group">
+            <label for="Apellido">Apellido</label>
+            <InputText id="Apellido" class="form-control" @bind-Value="cliente.Apellido" />
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <InputText id="Email" class="form-control" @bind-Value="cliente.Email" />
+        </div>
+        <div class="form-group">
+            <label for="Telefono">Teléfono</label>
+            <InputText id="Telefono" class="form-control" @bind-Value="cliente.Telefono" />
+        </div>
+        <div class="form-group">
+            <label for="Direccion">Dirección</label>
+            <InputText id="Direccion" class="form-control" @bind-Value="cliente.Direccion" />
+        </div>
+        <div class="form-group">
+            <label for="Localidad">Localidad</label>
+            <InputSelect id="Localidad" class="form-control" @bind-Value="cliente.LocalidadId">
+                <option value="">Seleccione una localidad</option>
+                @foreach (var loc in localidades)
+                {
+                    <option value="@loc.Id">@loc.Nombre</option>
+                }
+            </InputSelect>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <ValidationSummary />
+    </EditForm>
+}
+
+@code {
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public int IdClienteEditado { get; set; }
+    private Cliente? cliente;
+    private List<Localidad> localidades = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        cliente = await ClienteService.GetByIdAsync(IdClienteEditado);
+        localidades = await LocalidadService.GetAllAsync();
+    }
+
+    private async Task Guardar()
+    {
+        if (cliente != null)
+        {
+            await ClienteService.UpdateAsync(cliente);
+            NavigationManager.NavigateTo("/clientes");
+        }
+    }
+}

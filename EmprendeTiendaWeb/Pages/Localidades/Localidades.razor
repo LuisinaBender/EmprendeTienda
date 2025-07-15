@@ -1,8 +1,11 @@
 ﻿@page "/localidades"
 @using Service.Models
 @inject IGenericService<Localidad> LocalidadesService
+@inject NavigationManager NavigationManager
 
 <h3>Localidades</h3>
+
+<button class="btn btn-success mb-3" @onclick="AgregarLocalidad">Agregar Localidad</button>
 
 @if (localidades == null)
 {
@@ -15,6 +18,7 @@ else
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +27,9 @@ else
                 <tr>
                     <td>@localidad.Id</td>
                     <td>@localidad.Nombre</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" @onclick="() => EditarLocalidad(localidad.Id)">Editar</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -35,5 +42,15 @@ else
     protected override async Task OnInitializedAsync()
     {
         localidades = await LocalidadesService.GetAllAsync();
+    }
+
+    private void AgregarLocalidad()
+    {
+        NavigationManager.NavigateTo("/agregarlocalidad");
+    }
+
+    private void EditarLocalidad(int id)
+    {
+        NavigationManager.NavigateTo($"/editarlocalidad?IdLocalidadEditada={id}");
     }
 }
