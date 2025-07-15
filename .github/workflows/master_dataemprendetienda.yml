@@ -35,17 +35,15 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    
     permissions:
-      id-token: write
-      contents: read
-
+      id-token: write     # <-- ¡Esta línea es clave!
+      contents: read      # <-- ¡Esta línea también!
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-          path: ./publish 
+          path: ./publish
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -60,4 +58,4 @@ jobs:
         with:
           app-name: 'dataEmprendeTienda'
           slot-name: 'Production'
-          package: ./publish 
+          package: ./publish
