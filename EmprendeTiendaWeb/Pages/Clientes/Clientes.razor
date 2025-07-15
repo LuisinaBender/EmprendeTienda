@@ -17,8 +17,9 @@ else
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Email</th>
+                <th>Email</th>               
                 <th>Telefono</th>
+                <th>Direccion</th>
                 <th>Localidad</th>
 
             </tr>
@@ -33,7 +34,8 @@ else
                     <td>@cliente.Apellido</td>
                     <td>@cliente.Email</td>
                     <td>@cliente.Telefono</td>
-                    <td>@cliente.Localidad</td>
+                    <td>@cliente.Direccion</td>
+                    <td>@cliente.Localidad?.Nombre</td>
                 </tr>
             }
         </tbody>

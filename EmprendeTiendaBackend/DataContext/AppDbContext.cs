@@ -13,7 +13,6 @@ namespace BackendEmprendeTienda.DataContext
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<Venta> Ventas { get; set; }
-        public virtual DbSet<DetalleVenta> DetallesVentas { get; set; }
         public virtual DbSet<Localidad> Localidades { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -103,29 +102,7 @@ namespace BackendEmprendeTienda.DataContext
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Configuración de DetalleVenta
-            modelBuilder.Entity<DetalleVenta>(entity =>
-            {
-                entity.HasKey(d => d.Id);
-
-                entity.Property(d => d.Cantidad)
-                    .IsRequired();
-
-                entity.Property(d => d.PrecioUnitario)
-                    .HasColumnType("decimal(18,2)");
-
-                entity.HasOne(d => d.Venta)
-                    .WithMany(v => v.Detalles)
-                    .HasForeignKey(d => d.VentaId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(d => d.Producto)
-                    .WithMany()
-                    .HasForeignKey(d => d.ProductoId)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
-        }
-
+            
         private void SeedInitialData(ModelBuilder modelBuilder)
         {
             // Orden IMPORTANTE: 1. Localidades, 2. Productos, 3. Clientes, 4. Ventas, 5. DetallesVenta
@@ -221,32 +198,7 @@ namespace BackendEmprendeTienda.DataContext
                 }
             );
 
-            // DetallesVenta
-            modelBuilder.Entity<DetalleVenta>().HasData(
-                new DetalleVenta
-                {
-                    Id = 1,
-                    VentaId = 1,
-                    ProductoId = 1,
-                    Cantidad = 1,
-                    PrecioUnitario = 120000m
-                },
-                new DetalleVenta
-                {
-                    Id = 2,
-                    VentaId = 1,
-                    ProductoId = 2,
-                    Cantidad = 2,
-                    PrecioUnitario = 80000m
-                },
-                new DetalleVenta
-                {
-                    Id = 3,
-                    VentaId = 2,
-                    ProductoId = 3,
-                    Cantidad = 3,
-                    PrecioUnitario = 45000m
-                }
+            
             );
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendEmprendeTienda.DataContext;
@@ -25,14 +24,26 @@ namespace BackendEmprendeTienda.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentas()
         {
-            return await _context.Ventas.ToListAsync();
+            var ventas = await _context.Ventas
+                .Include(v => v.Cliente)
+                    .ThenInclude(c => c.Localidad)
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .ToListAsync();
+
+            return ventas;
         }
 
         // GET: api/Ventas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Venta>> GetVenta(int id)
         {
-            var venta = await _context.Ventas.FindAsync(id);
+            var venta = await _context.Ventas
+                .Include(v => v.Cliente)
+                    .ThenInclude(c => c.Localidad)
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto)
+                .FirstOrDefaultAsync(v => v.Id == id);
 
             if (venta == null)
             {
@@ -43,7 +54,6 @@ namespace BackendEmprendeTienda.Controllers
         }
 
         // PUT: api/Ventas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVenta(int id, Venta venta)
         {
@@ -74,7 +84,6 @@ namespace BackendEmprendeTienda.Controllers
         }
 
         // POST: api/Ventas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Venta>> PostVenta(Venta venta)
         {

@@ -1,0 +1,65 @@
+﻿@page "/ventas"
+@using Service.Models
+@inject IGenericService<Venta> VentaService
+
+<h3>Ventas</h3>
+
+@if (ventas == null)
+{
+    <p><em>Obteniendo lista de Ventas...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>ClienteId</th>
+                <th>Cliente</th>
+                <th>Localidad</th>
+                <th>Detalles de Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var venta in ventas)
+            {
+                <tr>
+                    <td>@venta.Id</td>
+                    <td>@venta.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@venta.ClienteId</td>
+                    <td>@venta.Cliente?.Nombre</td>
+                    <td>@venta.Cliente?.Localidad?.Nombre</td>
+                    <td>
+                        @if (venta.Detalles != null && venta.Detalles.Any())
+                        {
+                            <ul style="padding-left: 16px;">
+                                @foreach (var detalle in venta.Detalles)
+                                {
+                                    <li>
+                                        <b>Producto:</b> @detalle.Producto?.Nombre |
+                                        <b>Cantidad:</b> @detalle.Cantidad |
+                                        <b>Precio:</b> @detalle.PrecioUnitario
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>Sin detalles</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Venta>? ventas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ventas = await VentaService.GetAllAsync();
+    }
+}
