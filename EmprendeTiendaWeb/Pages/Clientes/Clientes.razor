@@ -8,7 +8,6 @@
 {
     <p><em>Obteniendo lista de Clientes </em></p>
 }
-
 else
 {
     <table class="table">
@@ -17,14 +16,12 @@ else
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Email</th>               
+                <th>Email</th>
                 <th>Telefono</th>
                 <th>Direccion</th>
                 <th>Localidad</th>
-
             </tr>
         </thead>
-
         <tbody>
             @foreach (var cliente in clientesList)
             {
@@ -50,4 +47,3 @@ else
         clientesList = await ClientesService.GetAllAsync();
     }
 }
-

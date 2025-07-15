@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendEmprendeTienda.DataContext;
@@ -25,7 +23,11 @@ namespace BackendEmprendeTienda.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            return await _context.Clientes.ToListAsync();
+            
+            // Incluye la navegación a Localidad
+            return await _context.Clientes
+                .Include(c => c.Localidad)
+                .ToListAsync();
         }
 
         // GET: api/Clientes/5
@@ -42,8 +44,6 @@ namespace BackendEmprendeTienda.Controllers
             return cliente;
         }
 
-        // PUT: api/Clientes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
@@ -73,8 +73,6 @@ namespace BackendEmprendeTienda.Controllers
             return NoContent();
         }
 
-        // POST: api/Clientes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
@@ -84,7 +82,6 @@ namespace BackendEmprendeTienda.Controllers
             return CreatedAtAction("GetCliente", new { id = cliente.Id }, cliente);
         }
 
-        // DELETE: api/Clientes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {
@@ -104,5 +101,6 @@ namespace BackendEmprendeTienda.Controllers
         {
             return _context.Clientes.Any(e => e.Id == id);
         }
+
     }
 }

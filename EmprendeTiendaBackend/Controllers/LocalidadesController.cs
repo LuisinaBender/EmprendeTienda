@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendEmprendeTienda.DataContext;
@@ -42,8 +40,6 @@ namespace BackendEmprendeTienda.Controllers
             return localidad;
         }
 
-        // PUT: api/Localidades/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLocalidad(int id, Localidad localidad)
         {
@@ -73,8 +69,6 @@ namespace BackendEmprendeTienda.Controllers
             return NoContent();
         }
 
-        // POST: api/Localidads
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Localidad>> PostLocalidad(Localidad localidad)
         {
@@ -84,7 +78,6 @@ namespace BackendEmprendeTienda.Controllers
             return CreatedAtAction("GetLocalidad", new { id = localidad.Id }, localidad);
         }
 
-        // DELETE: api/Localidads/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocalidad(int id)
         {

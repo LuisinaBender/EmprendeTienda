@@ -60,7 +60,7 @@ namespace BackendEmprendeTienda.DataContext
                     .HasMaxLength(20);
                 entity.Property(c => c.Direccion)
                     .IsRequired()
-                    .HasMaxLength(200); 
+                    .HasMaxLength(200);
 
 
                 entity.HasOne(c => c.Localidad)
@@ -94,15 +94,16 @@ namespace BackendEmprendeTienda.DataContext
                 entity.Property(v => v.Fecha)
                       .HasColumnType("timestamp") // Tipo timestamp acepta CURRENT_TIMESTAMP
                       .HasDefaultValueSql("CURRENT_TIMESTAMP");
-        
 
-            entity.HasOne(v => v.Cliente)
-                    .WithMany(c => c.Ventas)
-                    .HasForeignKey(v => v.ClienteId)
-                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(v => v.Cliente)
+                        .WithMany(c => c.Ventas)
+                        .HasForeignKey(v => v.ClienteId)
+                        .OnDelete(DeleteBehavior.Restrict);
             });
+        }
 
-            
+
         private void SeedInitialData(ModelBuilder modelBuilder)
         {
             // Orden IMPORTANTE: 1. Localidades, 2. Productos, 3. Clientes, 4. Ventas, 5. DetallesVenta
@@ -196,10 +197,10 @@ namespace BackendEmprendeTienda.DataContext
                     ClienteId = 3,
                     Fecha = DateTime.Now.AddDays(-1)
                 }
-            );
+            ); 
+        }
 
             
-            );
+            
         }
     }
-}

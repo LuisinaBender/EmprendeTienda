@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -27,8 +26,8 @@ namespace BackendEmprendeTienda.Controllers
             var ventas = await _context.Ventas
                 .Include(v => v.Cliente)
                     .ThenInclude(c => c.Localidad)
-                .Include(v => v.Detalles)
-                    .ThenInclude(d => d.Producto)
+                // .Include(v => v.Detalles)
+                //     .ThenInclude(d => d.Producto)
                 .ToListAsync();
 
             return ventas;
@@ -41,8 +40,8 @@ namespace BackendEmprendeTienda.Controllers
             var venta = await _context.Ventas
                 .Include(v => v.Cliente)
                     .ThenInclude(c => c.Localidad)
-                .Include(v => v.Detalles)
-                    .ThenInclude(d => d.Producto)
+                // .Include(v => v.Detalles)
+                //     .ThenInclude(d => d.Producto)
                 .FirstOrDefaultAsync(v => v.Id == id);
 
             if (venta == null)
@@ -53,7 +52,6 @@ namespace BackendEmprendeTienda.Controllers
             return venta;
         }
 
-        // PUT: api/Ventas/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVenta(int id, Venta venta)
         {
@@ -83,7 +81,6 @@ namespace BackendEmprendeTienda.Controllers
             return NoContent();
         }
 
-        // POST: api/Ventas
         [HttpPost]
         public async Task<ActionResult<Venta>> PostVenta(Venta venta)
         {
@@ -93,7 +90,6 @@ namespace BackendEmprendeTienda.Controllers
             return CreatedAtAction("GetVenta", new { id = venta.Id }, venta);
         }
 
-        // DELETE: api/Ventas/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVenta(int id)
         {

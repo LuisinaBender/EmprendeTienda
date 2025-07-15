@@ -7,7 +7,6 @@
 {
     <p><em>Obteniendo lista de Productos </em></p>
 }
-
 else
 {
     <table class="table">
@@ -18,24 +17,24 @@ else
                 <th>Descripcion</th>
                 <th>Precio</th>
                 <th>Stock</th>
+                <th>Acciones</th>
             </tr>
         </thead>
-    
-    <tbody>
-        @foreach (var productos in productos)
-        {
-            <tr>
-                <td>@productos.Id</td>
-                <td>@productos.Nombre</td>
-                <td>@productos.Descripcion</td>
-                <td>@productos.Precio</td>
-                <td>@productos.Stock</td>
-                <td>
-                    <a href="/editarproducto?IdProductoEditado=@productos.Id">Editar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+        <tbody>
+            @foreach (var producto in productos)
+            {
+                <tr>
+                    <td>@producto.Id</td>
+                    <td>@producto.Nombre</td>
+                    <td>@producto.Descripcion</td>
+                    <td>@producto.Precio</td>
+                    <td>@producto.Stock</td>
+                    <td>
+                        <a href="/editarproducto?IdProductoEditado=@producto.Id">Editar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 
@@ -44,6 +43,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        productos = await ProductoService.GetAllAsync();    
+        productos = await ProductoService.GetAllAsync();
     }
 }

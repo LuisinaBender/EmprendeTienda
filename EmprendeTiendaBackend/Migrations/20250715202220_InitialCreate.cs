@@ -65,6 +65,8 @@ namespace EmprendeTiendaBackend.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefono = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Direccion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     LocalidadId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -101,7 +103,7 @@ namespace EmprendeTiendaBackend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "DetallesVentas",
+                name: "DetalleVenta",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -109,19 +111,19 @@ namespace EmprendeTiendaBackend.Migrations
                     VentaId = table.Column<int>(type: "int", nullable: false),
                     ProductoId = table.Column<int>(type: "int", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
-                    PrecioUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PrecioUnitario = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetallesVentas", x => x.Id);
+                    table.PrimaryKey("PK_DetalleVenta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DetallesVentas_Productos_ProductoId",
+                        name: "FK_DetalleVenta_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DetallesVentas_Ventas_VentaId",
+                        name: "FK_DetalleVenta_Ventas_VentaId",
                         column: x => x.VentaId,
                         principalTable: "Ventas",
                         principalColumn: "Id",
@@ -151,12 +153,12 @@ namespace EmprendeTiendaBackend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Clientes",
-                columns: new[] { "Id", "Apellido", "Email", "LocalidadId", "Nombre", "Telefono" },
+                columns: new[] { "Id", "Apellido", "Direccion", "Email", "LocalidadId", "Nombre", "Telefono" },
                 values: new object[,]
                 {
-                    { 1, "Pérez", "juan@example.com", 1, "Juan", "3815123456" },
-                    { 2, "Gómez", "maria@example.com", 2, "María", "3815234567" },
-                    { 3, "López", "carlos@example.com", 3, "Carlos", "3815345678" }
+                    { 1, "Pérez", "Calle Falsa 123", "juan@example.com", 1, "Juan", "3815123456" },
+                    { 2, "Gómez", "Avenida Siempre Viva 456", "maria@example.com", 2, "María", "3815234567" },
+                    { 3, "López", "Boulevard de los Sueños Rotos 789", "carlos@example.com", 3, "Carlos", "3815345678" }
                 });
 
             migrationBuilder.InsertData(
@@ -164,19 +166,9 @@ namespace EmprendeTiendaBackend.Migrations
                 columns: new[] { "Id", "ClienteId", "Fecha" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 6, 21, 23, 22, 13, 696, DateTimeKind.Local).AddTicks(6806) },
-                    { 2, 2, new DateTime(2025, 6, 23, 23, 22, 13, 696, DateTimeKind.Local).AddTicks(6822) },
-                    { 3, 3, new DateTime(2025, 6, 25, 23, 22, 13, 696, DateTimeKind.Local).AddTicks(6823) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "DetallesVentas",
-                columns: new[] { "Id", "Cantidad", "PrecioUnitario", "ProductoId", "VentaId" },
-                values: new object[,]
-                {
-                    { 1, 1, 120000m, 1, 1 },
-                    { 2, 2, 80000m, 2, 1 },
-                    { 3, 3, 45000m, 3, 2 }
+                    { 1, 1, new DateTime(2025, 7, 10, 17, 22, 20, 70, DateTimeKind.Local).AddTicks(2897) },
+                    { 2, 2, new DateTime(2025, 7, 12, 17, 22, 20, 70, DateTimeKind.Local).AddTicks(2913) },
+                    { 3, 3, new DateTime(2025, 7, 14, 17, 22, 20, 70, DateTimeKind.Local).AddTicks(2914) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -185,13 +177,13 @@ namespace EmprendeTiendaBackend.Migrations
                 column: "LocalidadId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetallesVentas_ProductoId",
-                table: "DetallesVentas",
+                name: "IX_DetalleVenta_ProductoId",
+                table: "DetalleVenta",
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetallesVentas_VentaId",
-                table: "DetallesVentas",
+                name: "IX_DetalleVenta_VentaId",
+                table: "DetalleVenta",
                 column: "VentaId");
 
             migrationBuilder.CreateIndex(
@@ -204,7 +196,7 @@ namespace EmprendeTiendaBackend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DetallesVentas");
+                name: "DetalleVenta");
 
             migrationBuilder.DropTable(
                 name: "Productos");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmprendeTiendaBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250627022214_InitialCreate")]
+    [Migration("20250715202220_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,6 +38,11 @@ namespace EmprendeTiendaBackend.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -68,6 +73,7 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 1,
                             Apellido = "Pérez",
+                            Direccion = "Calle Falsa 123",
                             Email = "juan@example.com",
                             LocalidadId = 1,
                             Nombre = "Juan",
@@ -77,6 +83,7 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 2,
                             Apellido = "Gómez",
+                            Direccion = "Avenida Siempre Viva 456",
                             Email = "maria@example.com",
                             LocalidadId = 2,
                             Nombre = "María",
@@ -86,6 +93,7 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 3,
                             Apellido = "López",
+                            Direccion = "Boulevard de los Sueños Rotos 789",
                             Email = "carlos@example.com",
                             LocalidadId = 3,
                             Nombre = "Carlos",
@@ -105,7 +113,7 @@ namespace EmprendeTiendaBackend.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecioUnitario")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int>("ProductoId")
                         .HasColumnType("int");
@@ -119,33 +127,7 @@ namespace EmprendeTiendaBackend.Migrations
 
                     b.HasIndex("VentaId");
 
-                    b.ToTable("DetallesVentas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Cantidad = 1,
-                            PrecioUnitario = 120000m,
-                            ProductoId = 1,
-                            VentaId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Cantidad = 2,
-                            PrecioUnitario = 80000m,
-                            ProductoId = 2,
-                            VentaId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Cantidad = 3,
-                            PrecioUnitario = 45000m,
-                            ProductoId = 3,
-                            VentaId = 2
-                        });
+                    b.ToTable("DetalleVenta");
                 });
 
             modelBuilder.Entity("Service.Models.Localidad", b =>
@@ -267,19 +249,19 @@ namespace EmprendeTiendaBackend.Migrations
                         {
                             Id = 1,
                             ClienteId = 1,
-                            Fecha = new DateTime(2025, 6, 21, 23, 22, 13, 696, DateTimeKind.Local).AddTicks(6806)
+                            Fecha = new DateTime(2025, 7, 10, 17, 22, 20, 70, DateTimeKind.Local).AddTicks(2897)
                         },
                         new
                         {
                             Id = 2,
                             ClienteId = 2,
-                            Fecha = new DateTime(2025, 6, 23, 23, 22, 13, 696, DateTimeKind.Local).AddTicks(6822)
+                            Fecha = new DateTime(2025, 7, 12, 17, 22, 20, 70, DateTimeKind.Local).AddTicks(2913)
                         },
                         new
                         {
                             Id = 3,
                             ClienteId = 3,
-                            Fecha = new DateTime(2025, 6, 25, 23, 22, 13, 696, DateTimeKind.Local).AddTicks(6823)
+                            Fecha = new DateTime(2025, 7, 14, 17, 22, 20, 70, DateTimeKind.Local).AddTicks(2914)
                         });
                 });
 
@@ -299,7 +281,7 @@ namespace EmprendeTiendaBackend.Migrations
                     b.HasOne("Service.Models.Producto", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Service.Models.Venta", "Venta")
