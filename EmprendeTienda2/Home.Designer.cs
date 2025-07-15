@@ -64,7 +64,6 @@
             btn_clientes.Text = "Clientes";
             btn_clientes.TextAlign = ContentAlignment.MiddleRight;
             btn_clientes.UseVisualStyleBackColor = false;
-            btn_clientes.Click += btn_clientes_Click_1;
             // 
             // iconPictureBox1
             // 

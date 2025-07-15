@@ -8,11 +8,7 @@ namespace EmprendeTienda
         {
             InitializeComponent();
         }
-        private void btn_clientes_Click_1(object sender, EventArgs e)
-        {
-            ClientesViews clientesViews = new ClientesViews();
-            clientesViews.ShowDialog();
-        }
+      
 
         private void btn_productos_Click(object sender, EventArgs e)
         {
