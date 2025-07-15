@@ -19,18 +19,21 @@ namespace BackendEmprendeTienda.Controllers
             _context = context;
         }
 
-        // GET: api/Clientes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            
-            // Incluye la navegación a Localidad
-            return await _context.Clientes
-                .Include(c => c.Localidad)
-                .ToListAsync();
+            try
+            {
+                return await _context.Clientes
+                    .Include(c => c.Localidad)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener clientes: {ex.Message}");
+            }
         }
 
-        // GET: api/Clientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
@@ -101,6 +104,5 @@ namespace BackendEmprendeTienda.Controllers
         {
             return _context.Clientes.Any(e => e.Id == id);
         }
-
     }
 }

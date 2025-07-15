@@ -17,19 +17,13 @@ namespace BackendEmprendeTienda.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuración del charset para MySQL
             modelBuilder.HasCharSet("utf8mb4");
-
-            // Configuración de modelos y relaciones
             ConfigureModels(modelBuilder);
-
-            // Datos semilla iniciales
             SeedInitialData(modelBuilder);
         }
 
         private void ConfigureModels(ModelBuilder modelBuilder)
         {
-            // Configuración de Localidad
             modelBuilder.Entity<Localidad>(entity =>
             {
                 entity.HasKey(l => l.Id);
@@ -38,7 +32,6 @@ namespace BackendEmprendeTienda.DataContext
                     .HasMaxLength(100);
             });
 
-            // Configuración de Cliente
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.HasKey(c => c.Id);
@@ -58,10 +51,10 @@ namespace BackendEmprendeTienda.DataContext
                 entity.Property(c => c.Telefono)
                     .IsRequired()
                     .HasMaxLength(20);
+
                 entity.Property(c => c.Direccion)
                     .IsRequired()
                     .HasMaxLength(200);
-
 
                 entity.HasOne(c => c.Localidad)
                     .WithMany(l => l.Clientes)
@@ -69,7 +62,6 @@ namespace BackendEmprendeTienda.DataContext
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Configuración de Producto
             modelBuilder.Entity<Producto>(entity =>
             {
                 entity.HasKey(p => p.Id);
@@ -88,13 +80,11 @@ namespace BackendEmprendeTienda.DataContext
                     .HasDefaultValue(0);
             });
 
-
             modelBuilder.Entity<Venta>(entity =>
             {
                 entity.Property(v => v.Fecha)
-                      .HasColumnType("timestamp") // Tipo timestamp acepta CURRENT_TIMESTAMP
+                      .HasColumnType("timestamp")
                       .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
 
                 entity.HasOne(v => v.Cliente)
                         .WithMany(c => c.Ventas)
@@ -103,11 +93,8 @@ namespace BackendEmprendeTienda.DataContext
             });
         }
 
-
         private void SeedInitialData(ModelBuilder modelBuilder)
         {
-            // Orden IMPORTANTE: 1. Localidades, 2. Productos, 3. Clientes, 4. Ventas, 5. DetallesVenta
-
             // Localidades
             modelBuilder.Entity<Localidad>().HasData(
                 new Localidad { Id = 1, Nombre = "Capital" },
@@ -177,30 +164,24 @@ namespace BackendEmprendeTienda.DataContext
                 }
             );
 
-            // Ventas (con fechas explícitas para seed data)
+            
             modelBuilder.Entity<Venta>().HasData(
                 new Venta
                 {
                     Id = 1,
-                    ClienteId = 1,
-                    Fecha = DateTime.Now.AddDays(-5)
+                    ClienteId = 1
                 },
                 new Venta
                 {
                     Id = 2,
-                    ClienteId = 2,
-                    Fecha = DateTime.Now.AddDays(-3)
+                    ClienteId = 2
                 },
                 new Venta
                 {
                     Id = 3,
-                    ClienteId = 3,
-                    Fecha = DateTime.Now.AddDays(-1)
+                    ClienteId = 3
                 }
-            ); 
-        }
-
-            
-            
+            );
         }
     }
+}
