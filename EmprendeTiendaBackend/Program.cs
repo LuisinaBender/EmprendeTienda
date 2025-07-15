@@ -1,24 +1,25 @@
-using BackendEmprendeTienda.DataContext;
+ï»¿using BackendEmprendeTienda.DataContext;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de DbContext para MySQL
+// ConfiguraciÃ³n de DbContext para MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 33)), // Especifica versión de MySQL
+        new MySqlServerVersion(new Version(8, 0, 33)),
         options =>
         {
             options.EnableRetryOnFailure(
                 maxRetryCount: 5,
                 maxRetryDelay: TimeSpan.FromSeconds(30),
                 errorNumbersToAdd: null);
-            options.CommandTimeout(180); // Timeout de 3 minutos
+            options.CommandTimeout(180);
         }
     ));
 
-// Configuración de CORS
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -29,19 +30,26 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
+// âœ… ConfiguraciÃ³n para evitar referencias circulares
+builder.Services.AddControllers()
+    .AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configuración del pipeline HTTP
+// ConfiguraciÃ³n HTTP pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    // Aplicar migraciones automáticamente en desarrollo
+    // âœ… Muestra errores detallados
+    app.UseDeveloperExceptionPage();
+
+    // Aplicar migraciones automÃ¡ticamente
     using (var scope = app.Services.CreateScope())
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -55,3 +63,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
