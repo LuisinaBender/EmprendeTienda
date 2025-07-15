@@ -59,6 +59,10 @@ namespace BackendEmprendeTienda.DataContext
                 entity.Property(c => c.Telefono)
                     .IsRequired()
                     .HasMaxLength(20);
+                entity.Property(c => c.Direccion)
+                    .IsRequired()
+                    .HasMaxLength(200); 
+
 
                 entity.HasOne(c => c.Localidad)
                     .WithMany(l => l.Clientes)
@@ -169,6 +173,7 @@ namespace BackendEmprendeTienda.DataContext
                     Nombre = "Juan",
                     Apellido = "Pérez",
                     Email = "juan@example.com",
+                    Direccion = "Calle Falsa 123",
                     Telefono = "3815123456",
                     LocalidadId = 1
                 },
@@ -178,6 +183,7 @@ namespace BackendEmprendeTienda.DataContext
                     Nombre = "María",
                     Apellido = "Gómez",
                     Email = "maria@example.com",
+                    Direccion = "Avenida Siempre Viva 456",
                     Telefono = "3815234567",
                     LocalidadId = 2
                 },
@@ -187,6 +193,7 @@ namespace BackendEmprendeTienda.DataContext
                     Nombre = "Carlos",
                     Apellido = "López",
                     Email = "carlos@example.com",
+                    Direccion = "Boulevard de los Sueños Rotos 789",
                     Telefono = "3815345678",
                     LocalidadId = 3
                 }
