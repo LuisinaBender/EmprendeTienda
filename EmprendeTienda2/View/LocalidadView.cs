@@ -37,15 +37,17 @@ namespace EmprendeTiendaDesktop.View
                 listaLocalidades = new BindingSource();
                 listaLocalidades.DataSource = db.Localidades.ToList();
                 dataGridLocalidades.DataSource = listaLocalidades;
+
             }
         }
 
         private void bntAgregar_Click(object sender, EventArgs e)
         {
             tabControlLocalidad.SelectedTab = tabPageAgregarEditar;
+
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private async void btnGuardar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
@@ -56,7 +58,17 @@ namespace EmprendeTiendaDesktop.View
             if (localidadCurrent != null)
             {
                 localidadCurrent.Nombre = txtNombre.Text;
-                localidadCurrent = null;
+                var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
+                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
+                using (var db = new AppDbContext(optionsBuilder.Options))
+                {
+                    db.Localidades.Update(localidadCurrent);
+                    await db.SaveChangesAsync();
+                }
+
+
             }
             else
             {
@@ -79,6 +91,10 @@ namespace EmprendeTiendaDesktop.View
                 CargarGrilla();
                 tabControlLocalidad.SelectedTab = tabPageLista;
             }
+
+            MessageBox.Show("Localidad guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CargarGrilla();
+            tabControlLocalidad.SelectedTab = tabPageLista;
         }
 
         private void btn_modificar_Click(object sender, EventArgs e)
@@ -86,6 +102,30 @@ namespace EmprendeTiendaDesktop.View
             localidadCurrent = (Localidad)listaLocalidades.Current;
             txtNombre.Text = localidadCurrent.Nombre;
             tabControlLocalidad.SelectedTab = tabPageAgregarEditar;
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("¿Estás seguro de que deseas eliminar esta localidad?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                localidadCurrent = (Localidad)listaLocalidades.Current;
+                if (localidadCurrent != null)
+                {
+                    var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
+                    var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                    using (var db = new AppDbContext(optionsBuilder.Options))
+                    {
+                        db.Localidades.Remove(localidadCurrent);
+                        db.SaveChanges();
+                    }
+                    MessageBox.Show("Localidad eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarGrilla();
+                }
+
+
+            }
         }
     }
 }

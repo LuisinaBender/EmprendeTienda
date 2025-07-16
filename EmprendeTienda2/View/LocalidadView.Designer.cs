@@ -31,6 +31,8 @@
             label1 = new Label();
             tabControlLocalidad = new TabControl();
             tabPageLista = new TabPage();
+            btnEliminar = new FontAwesome.Sharp.IconButton();
+            btn_modificar = new FontAwesome.Sharp.IconButton();
             bntAgregar = new FontAwesome.Sharp.IconButton();
             dataGridLocalidades = new DataGridView();
             tabPageAgregarEditar = new TabPage();
@@ -38,7 +40,6 @@
             btnGuardar = new FontAwesome.Sharp.IconButton();
             txtNombre = new TextBox();
             label2 = new Label();
-            btn_modificar = new FontAwesome.Sharp.IconButton();
             tabControlLocalidad.SuspendLayout();
             tabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridLocalidades).BeginInit();
@@ -68,6 +69,7 @@
             // 
             // tabPageLista
             // 
+            tabPageLista.Controls.Add(btnEliminar);
             tabPageLista.Controls.Add(btn_modificar);
             tabPageLista.Controls.Add(bntAgregar);
             tabPageLista.Controls.Add(dataGridLocalidades);
@@ -78,6 +80,36 @@
             tabPageLista.TabIndex = 0;
             tabPageLista.Text = "Lista";
             tabPageLista.UseVisualStyleBackColor = true;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.DeleteLeft;
+            btnEliminar.IconColor = Color.Black;
+            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEliminar.Location = new Point(391, 152);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(105, 47);
+            btnEliminar.TabIndex = 3;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.TextAlign = ContentAlignment.MiddleRight;
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
+            // btn_modificar
+            // 
+            btn_modificar.IconChar = FontAwesome.Sharp.IconChar.Pencil;
+            btn_modificar.IconColor = Color.Black;
+            btn_modificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btn_modificar.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_modificar.Location = new Point(391, 88);
+            btn_modificar.Name = "btn_modificar";
+            btn_modificar.Size = new Size(105, 47);
+            btn_modificar.TabIndex = 2;
+            btn_modificar.Text = "Modificar ";
+            btn_modificar.TextAlign = ContentAlignment.MiddleRight;
+            btn_modificar.UseVisualStyleBackColor = true;
+            btn_modificar.Click += btn_modificar_Click;
             // 
             // bntAgregar
             // 
@@ -103,7 +135,7 @@
             dataGridLocalidades.Location = new Point(3, 6);
             dataGridLocalidades.Name = "dataGridLocalidades";
             dataGridLocalidades.ReadOnly = true;
-            dataGridLocalidades.Size = new Size(309, 245);
+            dataGridLocalidades.Size = new Size(281, 245);
             dataGridLocalidades.TabIndex = 0;
             // 
             // tabPageAgregarEditar
@@ -163,21 +195,6 @@
             label2.TabIndex = 4;
             label2.Text = "Nombre:";
             // 
-            // btn_modificar
-            // 
-            btn_modificar.IconChar = FontAwesome.Sharp.IconChar.Pencil;
-            btn_modificar.IconColor = Color.Black;
-            btn_modificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btn_modificar.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_modificar.Location = new Point(391, 88);
-            btn_modificar.Name = "btn_modificar";
-            btn_modificar.Size = new Size(105, 47);
-            btn_modificar.TabIndex = 2;
-            btn_modificar.Text = "Modificar ";
-            btn_modificar.TextAlign = ContentAlignment.MiddleRight;
-            btn_modificar.UseVisualStyleBackColor = true;
-        
-            // 
             // LocalidadView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -210,5 +227,6 @@
         private Label label2;
         private FontAwesome.Sharp.IconButton bntAgregar;
         private FontAwesome.Sharp.IconButton btn_modificar;
+        private FontAwesome.Sharp.IconButton btnEliminar;
     }
 }
