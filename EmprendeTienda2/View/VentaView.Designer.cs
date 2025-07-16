@@ -1,6 +1,6 @@
-﻿namespace EmprendeTiendaDescktop.View
+﻿namespace EmprendeTiendaDesktop.View
 {
-    partial class ProductosViews
+    partial class VentaView
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            dataGridProductos = new DataGridView();
+            dataGridVentas = new DataGridView();
             tabPage2 = new TabPage();
             bntCancelar = new FontAwesome.Sharp.IconButton();
             btnGuardar = new FontAwesome.Sharp.IconButton();
@@ -39,43 +39,43 @@
             label1 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridVentas).BeginInit();
             tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
-            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(2, 83);
+            tabControl1.Location = new Point(-1, 72);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(695, 261);
-            tabControl1.TabIndex = 2;
+            tabControl1.Size = new Size(602, 265);
+            tabControl1.TabIndex = 3;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(dataGridProductos);
+            tabPage1.Controls.Add(dataGridVentas);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(687, 233);
+            tabPage1.Size = new Size(594, 237);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Lista";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridProductos
+            // dataGridVentas
             // 
-            dataGridProductos.AllowUserToAddRows = false;
-            dataGridProductos.AllowUserToDeleteRows = false;
-            dataGridProductos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridProductos.Location = new Point(1, 1);
-            dataGridProductos.Name = "dataGridProductos";
-            dataGridProductos.ReadOnly = true;
-            dataGridProductos.Size = new Size(683, 229);
-            dataGridProductos.TabIndex = 0;
+            dataGridVentas.AllowUserToAddRows = false;
+            dataGridVentas.AllowUserToDeleteRows = false;
+            dataGridVentas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridVentas.Location = new Point(2, 0);
+            dataGridVentas.Name = "dataGridVentas";
+            dataGridVentas.ReadOnly = true;
+            dataGridVentas.Size = new Size(592, 241);
+            dataGridVentas.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -86,7 +86,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(687, 233);
+            tabPage2.Size = new Size(594, 237);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Agregar/Editar";
             tabPage2.UseVisualStyleBackColor = true;
@@ -97,12 +97,11 @@
             bntCancelar.IconColor = Color.Black;
             bntCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             bntCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            bntCancelar.Location = new Point(338, 169);
+            bntCancelar.Location = new Point(344, 125);
             bntCancelar.Name = "bntCancelar";
-            bntCancelar.Size = new Size(104, 53);
-            bntCancelar.TabIndex = 3;
+            bntCancelar.Size = new Size(138, 53);
+            bntCancelar.TabIndex = 7;
             bntCancelar.Text = "Cancelar";
-            bntCancelar.TextAlign = ContentAlignment.MiddleRight;
             bntCancelar.UseVisualStyleBackColor = true;
             // 
             // btnGuardar
@@ -111,28 +110,27 @@
             btnGuardar.IconColor = Color.Black;
             btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGuardar.Location = new Point(192, 169);
+            btnGuardar.Location = new Point(144, 125);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(104, 53);
-            btnGuardar.TabIndex = 2;
+            btnGuardar.Size = new Size(138, 53);
+            btnGuardar.TabIndex = 6;
             btnGuardar.Text = "Guardar";
-            btnGuardar.TextAlign = ContentAlignment.MiddleRight;
             btnGuardar.UseVisualStyleBackColor = true;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(231, 78);
+            txtNombre.Location = new Point(198, 59);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(245, 23);
-            txtNombre.TabIndex = 1;
+            txtNombre.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(167, 83);
+            label2.Location = new Point(140, 70);
             label2.Name = "label2";
             label2.Size = new Size(54, 15);
-            label2.TabIndex = 0;
+            label2.TabIndex = 4;
             label2.Text = "Nombre:";
             // 
             // label1
@@ -140,25 +138,25 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Calibri", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(273, 31);
+            label1.Location = new Point(210, 26);
             label1.Name = "label1";
-            label1.Size = new Size(112, 29);
-            label1.TabIndex = 3;
-            label1.Text = "Productos";
+            label1.Size = new Size(80, 29);
+            label1.TabIndex = 4;
+            label1.Text = "Ventas";
             // 
-            // ProductosViews
+            // VentaView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(698, 345);
+            ClientSize = new Size(597, 336);
             Controls.Add(label1);
             Controls.Add(tabControl1);
-            Name = "ProductosViews";
+            Name = "VentaView";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Productos";
+            Text = "VentaView";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridProductos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridVentas).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ResumeLayout(false);
@@ -166,9 +164,10 @@
         }
 
         #endregion
+
         private TabControl tabControl1;
         private TabPage tabPage1;
-        private DataGridView dataGridProductos;
+        private DataGridView dataGridVentas;
         private TabPage tabPage2;
         private FontAwesome.Sharp.IconButton bntCancelar;
         private FontAwesome.Sharp.IconButton btnGuardar;

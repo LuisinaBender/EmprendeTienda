@@ -10,15 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EmprendeTiendaDescktop.View
+namespace EmprendeTiendaDesktop.View
 {
-    public partial class ProductosViews : Form
+    public partial class ClienteView : Form
     {
-        BindingSource listaProductos = new BindingSource();
-        public ProductosViews()
+        BindingSource listaClientes = new BindingSource();
+        public ClienteView()
         {
             InitializeComponent();
-            dataGridProductos.DataSource = listaProductos;
+            dataGridClientes.DataSource = listaClientes;
             CargarGrilla();
         }
 
@@ -31,10 +31,9 @@ namespace EmprendeTiendaDescktop.View
 
             using (var db = new AppDbContext(optionsBuilder.Options))
             {
-                listaProductos = new BindingSource();
-                listaProductos.DataSource = db.Productos.ToList();
-                dataGridProductos.DataSource = listaProductos;
-
+                listaClientes = new BindingSource();
+                listaClientes.DataSource = db.Clientes.ToList();
+                dataGridClientes.DataSource = listaClientes;
             }
         }
     }

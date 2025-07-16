@@ -27,7 +27,13 @@ namespace EmprendeTiendaDesktop.View
             // lanzamos la ventana principal
             Home home = new Home();
             home.ShowDialog();
+
             this.Close();
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
