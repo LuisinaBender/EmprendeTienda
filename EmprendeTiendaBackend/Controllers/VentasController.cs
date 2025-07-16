@@ -19,19 +19,65 @@ namespace BackendEmprendeTienda.Controllers
             _context = context;
         }
 
+        // Endpoint de prueba para confirmar que el controller está accesible
+        // GET: api/ventas/test
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok("Ventas endpoint OK");
+        }
+
         // GET: api/Ventas
+        // Endpoint principal: Incluye Cliente y Localidad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentas()
         {
             try
             {
-                return await _context.Ventas
-                    // NO usar .Include() aquí
+                var ventas = await _context.Ventas
+                    .Include(v => v.Cliente)
+                        .ThenInclude(c => c.Localidad)
                     .ToListAsync();
+                return ventas;
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error al obtener ventas: {ex.Message}");
+                return StatusCode(500, $"Error al obtener ventas: {ex.Message} | Inner: {ex.InnerException?.Message}");
+            }
+        }
+
+        // GET: api/ventas/concliente (opcional, solo Cliente)
+        [HttpGet("concliente")]
+        public async Task<ActionResult<IEnumerable<Venta>>> GetVentasConCliente()
+        {
+            try
+            {
+                var ventas = await _context.Ventas
+                    .Include(v => v.Cliente)
+                    .ToListAsync();
+                return ventas;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener ventas con Cliente: {ex.Message} | Inner: {ex.InnerException?.Message}");
+            }
+        }
+
+        // GET: api/ventas/completo (opcional, Cliente y Localidad)
+        [HttpGet("completo")]
+        public async Task<ActionResult<IEnumerable<Venta>>> GetVentasCompleto()
+        {
+            try
+            {
+                var ventas = await _context.Ventas
+                    .Include(v => v.Cliente)
+                        .ThenInclude(c => c.Localidad)
+                    .ToListAsync();
+                return ventas;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener ventas completo: {ex.Message} | Inner: {ex.InnerException?.Message}");
             }
         }
 
@@ -39,23 +85,30 @@ namespace BackendEmprendeTienda.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Venta>> GetVenta(int id)
         {
-            var venta = await _context.Ventas.FindAsync(id);
-
-            if (venta == null)
+            try
             {
-                return NotFound();
-            }
+                var venta = await _context.Ventas
+                    .Include(v => v.Cliente)
+                        .ThenInclude(c => c.Localidad)
+                    .FirstOrDefaultAsync(v => v.Id == id);
 
-            return venta;
+                if (venta == null)
+                    return NotFound();
+
+                return venta;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener venta por id: {ex.Message} | Inner: {ex.InnerException?.Message}");
+            }
         }
 
+        // PUT: api/Ventas/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVenta(int id, Venta venta)
         {
             if (id != venta.Id)
-            {
                 return BadRequest();
-            }
 
             _context.Entry(venta).State = EntityState.Modified;
 
@@ -66,40 +119,54 @@ namespace BackendEmprendeTienda.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!VentaExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar venta: {ex.Message} | Inner: {ex.InnerException?.Message}");
             }
 
             return NoContent();
         }
 
+        // POST: api/Ventas
         [HttpPost]
         public async Task<ActionResult<Venta>> PostVenta(Venta venta)
         {
-            _context.Ventas.Add(venta);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Ventas.Add(venta);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVenta", new { id = venta.Id }, venta);
+                return CreatedAtAction("GetVenta", new { id = venta.Id }, venta);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear venta: {ex.Message} | Inner: {ex.InnerException?.Message}");
+            }
         }
 
+        // DELETE: api/Ventas/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVenta(int id)
         {
-            var venta = await _context.Ventas.FindAsync(id);
-            if (venta == null)
+            try
             {
-                return NotFound();
+                var venta = await _context.Ventas.FindAsync(id);
+                if (venta == null)
+                    return NotFound();
+
+                _context.Ventas.Remove(venta);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
-
-            _context.Ventas.Remove(venta);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar venta: {ex.Message} | Inner: {ex.InnerException?.Message}");
+            }
         }
 
         private bool VentaExists(int id)
