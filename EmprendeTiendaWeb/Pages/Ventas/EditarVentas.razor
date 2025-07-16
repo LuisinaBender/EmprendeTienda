@@ -1,0 +1,52 @@
+﻿@page "/editarventa"
+@using Service.Models
+@inject IGenericService<Venta> VentaService
+@inject NavigationManager NavigationManager
+
+<h3>Editar Venta</h3>
+
+@if (venta == null)
+{
+    <p><em>Obteniendo venta a editar...</em></p>
+}
+else
+{
+    <EditFor Model="venta" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label for="Fecha">Fecha</label>
+            <InputDate id="Fecha" class="form-control" @bind-Value="venta.Fecha" />
+        </div>
+
+        <div class="form-group">
+            <label for="ClienteId">Cliente</label>
+            <InputNumber id="ClienteId" class="form-control" @bind-Value="venta.ClienteId" TValue="int" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <ValidationSummary />
+    </EditFor>
+}   
+
+@code {
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public int IdVentaEditada { get; set; }
+
+    private Venta? venta;
+
+    protected override async Task OnInitializedAsync()
+    {
+        venta = await VentaService.GetByIdAsync(IdVentaEditada);
+    }
+
+    private async Task Guardar()
+    {
+        if (venta != null)
+        {
+            await VentaService.UpdateAsync(venta);
+            NavigationManager.NavigateTo("/ventas");
+        }
+    }
+}
