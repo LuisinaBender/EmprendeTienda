@@ -1,8 +1,11 @@
 ﻿@page "/ventas"
 @using Service.Models
 @inject IGenericService<Venta> VentaService
+@inject NavigationManager NavigationManager
 
 <h3>Ventas</h3>
+
+<button class="btn btn-success mb-3" @onclick="AgregarVenta">Agregar Venta</button>
 
 @if (ventas == null)
 {
@@ -18,6 +21,7 @@ else
                 <th>ClienteId</th>
                 <th>Cliente</th>
                 <th>Localidad</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +33,9 @@ else
                     <td>@venta.ClienteId</td>
                     <td>@venta.Cliente?.Nombre</td>
                     <td>@venta.Cliente?.Localidad?.Nombre</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" @onclick="() => EditarVenta(venta.Id)">Editar</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -41,5 +48,15 @@ else
     protected override async Task OnInitializedAsync()
     {
         ventas = await VentaService.GetAllAsync();
+    }
+
+    private void AgregarVenta()
+    {
+        NavigationManager.NavigateTo("/agregarventa");
+    }
+
+    private void EditarVenta(int id)
+    {
+        NavigationManager.NavigateTo($"/editarventa?IdVentaEditada={id}");
     }
 }

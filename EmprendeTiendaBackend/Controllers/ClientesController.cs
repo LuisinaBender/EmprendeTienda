@@ -25,7 +25,7 @@ namespace BackendEmprendeTienda.Controllers
             try
             {
                 return await _context.Clientes
-                    .Include(c => c.Localidad)
+                    
                     .ToListAsync();
             }
             catch (Exception ex)

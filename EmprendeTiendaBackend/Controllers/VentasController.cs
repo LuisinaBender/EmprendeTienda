@@ -23,26 +23,23 @@ namespace BackendEmprendeTienda.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentas()
         {
-            var ventas = await _context.Ventas
-                .Include(v => v.Cliente)
-                    .ThenInclude(c => c.Localidad)
-                // .Include(v => v.Detalles)
-                //     .ThenInclude(d => d.Producto)
-                .ToListAsync();
-
-            return ventas;
+            try
+            {
+                return await _context.Ventas
+                    // NO usar .Include() aquí
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener ventas: {ex.Message}");
+            }
         }
 
         // GET: api/Ventas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Venta>> GetVenta(int id)
         {
-            var venta = await _context.Ventas
-                .Include(v => v.Cliente)
-                    .ThenInclude(c => c.Localidad)
-                // .Include(v => v.Detalles)
-                //     .ThenInclude(d => d.Producto)
-                .FirstOrDefaultAsync(v => v.Id == id);
+            var venta = await _context.Ventas.FindAsync(id);
 
             if (venta == null)
             {

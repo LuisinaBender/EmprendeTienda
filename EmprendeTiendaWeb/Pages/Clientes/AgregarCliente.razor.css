@@ -1,0 +1,96 @@
+﻿/* Contenedor general del formulario */
+form {
+    max-width: 300px; 
+    margin: 4rem auto 5rem; 
+    background-color: #fff;
+    padding: 1.2rem 1.5rem; 
+    border-radius: 16px; 
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #34495e;
+    border: 1px solid #e3e6eb; 
+}
+
+/* Título */
+h3, .header-page-title {
+    font-size: 1.7rem; 
+    text-align: center;
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.02em;
+}
+
+/* Grupos de campos */
+.form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas */
+label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #3a5068;
+}
+
+/* Inputs y selects */
+input.form-control,
+select.form-control {
+    padding: 0.45rem 0.6rem; 
+    border: 1.3px solid #ccc;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: #34495e;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+    input.form-control:focus,
+    select.form-control:focus {
+        border-color: #5a8ddb;
+        outline: none;
+        box-shadow: 0 0 6px rgba(90, 141, 219, 0.3);
+    }
+
+/* Botón guardar */
+.btn-primary {
+    background-color: #5a8ddb;
+    color: white;
+    font-size: 0.95rem; 
+    padding: 0.45rem 1.2rem; 
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(90, 141, 219, 0.5);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    display: block;
+    width: 100%;
+    margin-top: 1.4rem;
+}
+
+    .btn-primary:hover {
+        background-color: #4174d7;
+        box-shadow: 0 4px 12px rgba(65, 116, 215, 0.7);
+    }
+
+/* Mensajes de validación */
+.validation-summary-valid,
+.validation-message {
+    color: #e74c3c;
+    font-weight: 600;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+}
+
+/* Responsive para dispositivos móviles */
+@media (max-width: 640px) {
+    form {
+        max-width: 90vw;
+        margin: 2rem auto 3rem;
+        padding: 1.2rem 1.5rem;
+    }
+}
