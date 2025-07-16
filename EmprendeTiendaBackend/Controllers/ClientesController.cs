@@ -25,7 +25,7 @@ namespace BackendEmprendeTienda.Controllers
             try
             {
                 return await _context.Clientes
-                    
+                    .Include(c => c.Localidad)
                     .ToListAsync();
             }
             catch (Exception ex)
@@ -37,7 +37,9 @@ namespace BackendEmprendeTienda.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes
+                .Include(c => c.Localidad)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (cliente == null)
             {

@@ -20,7 +20,6 @@ namespace BackendEmprendeTienda.Controllers
         }
 
         // Endpoint de prueba para confirmar que el controller está accesible
-        // GET: api/ventas/test
         [HttpGet("test")]
         public IActionResult Test()
         {
