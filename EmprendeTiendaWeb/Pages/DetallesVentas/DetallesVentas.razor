@@ -1,0 +1,56 @@
+﻿@page "/detalleventas"
+@using Service.Models
+@inject IGenericService<DetalleVenta> DetalleVentaService
+@inject NavigationManager NavigationManager
+
+<h3>Detalle de Ventas</h3>
+
+
+@if (detalleVentas == null)
+{
+    <p><em>Obteniendo lista de Detalles de Venta...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha de Venta</th>
+                <th>Cliente</th>
+                <th>Localidad</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in detalleVentas)
+            {
+                <tr>
+                    <td>@detalle.Venta?.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@detalle.Venta?.Cliente?.Nombre</td>
+                    <td>@detalle.Venta?.Cliente?.Localidad?.Nombre</td>
+                    <td>@detalle.Producto?.Nombre</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@detalle.PrecioUnitario.ToString("C")</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<DetalleVenta>? detalleVentas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Si tu servicio no incluye las propiedades de navegación, asegúrate de que lo haga.
+        detalleVentas = await DetalleVentaService.GetAllAsync();
+    }
+
+  
+
+    
+}

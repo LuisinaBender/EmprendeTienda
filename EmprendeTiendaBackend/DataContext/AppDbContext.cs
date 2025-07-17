@@ -14,6 +14,7 @@ namespace BackendEmprendeTienda.DataContext
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<Venta> Ventas { get; set; }
         public virtual DbSet<Localidad> Localidades { get; set; }
+        public DbSet<DetalleVenta> DetalleVentas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,7 @@ namespace BackendEmprendeTienda.DataContext
 
         private void ConfigureModels(ModelBuilder modelBuilder)
         {
+            // Localidad
             modelBuilder.Entity<Localidad>(entity =>
             {
                 entity.HasKey(l => l.Id);
@@ -32,6 +34,7 @@ namespace BackendEmprendeTienda.DataContext
                     .HasMaxLength(100);
             });
 
+            // Cliente
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.HasKey(c => c.Id);
@@ -62,6 +65,7 @@ namespace BackendEmprendeTienda.DataContext
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            // Producto
             modelBuilder.Entity<Producto>(entity =>
             {
                 entity.HasKey(p => p.Id);
@@ -80,6 +84,7 @@ namespace BackendEmprendeTienda.DataContext
                     .HasDefaultValue(0);
             });
 
+            // Venta
             modelBuilder.Entity<Venta>(entity =>
             {
                 entity.Property(v => v.Fecha)
@@ -90,6 +95,29 @@ namespace BackendEmprendeTienda.DataContext
                         .WithMany(c => c.Ventas)
                         .HasForeignKey(v => v.ClienteId)
                         .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // DetalleVenta
+            modelBuilder.Entity<DetalleVenta>(entity =>
+            {
+                entity.HasKey(dv => dv.Id);
+
+                entity.Property(dv => dv.Cantidad)
+                    .IsRequired();
+
+                entity.Property(dv => dv.PrecioUnitario)
+                    .HasColumnType("decimal(18,2)")
+                    .IsRequired();
+
+                entity.HasOne(dv => dv.Venta)
+                    .WithMany(v => v.DetalleVentas)
+                    .HasForeignKey(dv => dv.VentaId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(dv => dv.Producto)
+                    .WithMany(p => p.DetalleVentas)
+                    .HasForeignKey(dv => dv.ProductoId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
 
@@ -164,7 +192,7 @@ namespace BackendEmprendeTienda.DataContext
                 }
             );
 
-            
+            // Ventas
             modelBuilder.Entity<Venta>().HasData(
                 new Venta
                 {
@@ -180,6 +208,34 @@ namespace BackendEmprendeTienda.DataContext
                 {
                     Id = 3,
                     ClienteId = 3
+                }
+            );
+
+            // DetalleVentas
+            modelBuilder.Entity<DetalleVenta>().HasData(
+                new DetalleVenta
+                {
+                    Id = 1,
+                    VentaId = 1,
+                    ProductoId = 1,
+                    Cantidad = 2,
+                    PrecioUnitario = 120000m
+                },
+                new DetalleVenta
+                {
+                    Id = 2,
+                    VentaId = 2,
+                    ProductoId = 2,
+                    Cantidad = 1,
+                    PrecioUnitario = 80000m
+                },
+                new DetalleVenta
+                {
+                    Id = 3,
+                    VentaId = 3,
+                    ProductoId = 3,
+                    Cantidad = 3,
+                    PrecioUnitario = 45000m
                 }
             );
         }

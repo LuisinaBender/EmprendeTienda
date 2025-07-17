@@ -28,42 +28,91 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
+            tabControlVentas = new TabControl();
+            tabPageLista = new TabPage();
+            btnEliminar = new FontAwesome.Sharp.IconButton();
+            btn_modificar = new FontAwesome.Sharp.IconButton();
+            bntAgregar = new FontAwesome.Sharp.IconButton();
             dataGridVentas = new DataGridView();
-            tabPage2 = new TabPage();
+            tabPageAgregarEditar = new TabPage();
             bntCancelar = new FontAwesome.Sharp.IconButton();
             btnGuardar = new FontAwesome.Sharp.IconButton();
             txtNombre = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
+            tabControlVentas.SuspendLayout();
+            tabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridVentas).BeginInit();
-            tabPage2.SuspendLayout();
+            tabPageAgregarEditar.SuspendLayout();
             SuspendLayout();
             // 
-            // tabControl1
+            // tabControlVentas
             // 
-            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(-1, 72);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(602, 265);
-            tabControl1.TabIndex = 3;
+            tabControlVentas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControlVentas.Controls.Add(tabPageLista);
+            tabControlVentas.Controls.Add(tabPageAgregarEditar);
+            tabControlVentas.Location = new Point(-1, 72);
+            tabControlVentas.Name = "tabControlVentas";
+            tabControlVentas.SelectedIndex = 0;
+            tabControlVentas.Size = new Size(602, 265);
+            tabControlVentas.TabIndex = 3;
             // 
-            // tabPage1
+            // tabPageLista
             // 
-            tabPage1.Controls.Add(dataGridVentas);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(594, 237);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Lista";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabPageLista.Controls.Add(btnEliminar);
+            tabPageLista.Controls.Add(btn_modificar);
+            tabPageLista.Controls.Add(bntAgregar);
+            tabPageLista.Controls.Add(dataGridVentas);
+            tabPageLista.Location = new Point(4, 24);
+            tabPageLista.Name = "tabPageLista";
+            tabPageLista.Padding = new Padding(3);
+            tabPageLista.Size = new Size(594, 237);
+            tabPageLista.TabIndex = 0;
+            tabPageLista.Text = "Lista";
+            tabPageLista.UseVisualStyleBackColor = true;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.IconChar = FontAwesome.Sharp.IconChar.DeleteLeft;
+            btnEliminar.IconColor = Color.Black;
+            btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEliminar.Location = new Point(455, 156);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(105, 47);
+            btnEliminar.TabIndex = 6;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.TextAlign = ContentAlignment.MiddleRight;
+            btnEliminar.UseVisualStyleBackColor = true;
+            // 
+            // btn_modificar
+            // 
+            btn_modificar.IconChar = FontAwesome.Sharp.IconChar.Pencil;
+            btn_modificar.IconColor = Color.Black;
+            btn_modificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btn_modificar.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_modificar.Location = new Point(455, 92);
+            btn_modificar.Name = "btn_modificar";
+            btn_modificar.Size = new Size(105, 47);
+            btn_modificar.TabIndex = 5;
+            btn_modificar.Text = "Modificar ";
+            btn_modificar.TextAlign = ContentAlignment.MiddleRight;
+            btn_modificar.UseVisualStyleBackColor = true;
+            // 
+            // bntAgregar
+            // 
+            bntAgregar.IconChar = FontAwesome.Sharp.IconChar.Add;
+            bntAgregar.IconColor = Color.Black;
+            bntAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            bntAgregar.ImageAlign = ContentAlignment.MiddleLeft;
+            bntAgregar.Location = new Point(455, 28);
+            bntAgregar.Name = "bntAgregar";
+            bntAgregar.Size = new Size(105, 47);
+            bntAgregar.TabIndex = 4;
+            bntAgregar.Text = "Agregar";
+            bntAgregar.TextAlign = ContentAlignment.MiddleRight;
+            bntAgregar.UseVisualStyleBackColor = true;
+
             // 
             // dataGridVentas
             // 
@@ -74,22 +123,22 @@
             dataGridVentas.Location = new Point(2, 0);
             dataGridVentas.Name = "dataGridVentas";
             dataGridVentas.ReadOnly = true;
-            dataGridVentas.Size = new Size(592, 241);
+            dataGridVentas.Size = new Size(406, 241);
             dataGridVentas.TabIndex = 0;
             // 
-            // tabPage2
+            // tabPageAgregarEditar
             // 
-            tabPage2.Controls.Add(bntCancelar);
-            tabPage2.Controls.Add(btnGuardar);
-            tabPage2.Controls.Add(txtNombre);
-            tabPage2.Controls.Add(label2);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(594, 237);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Agregar/Editar";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPageAgregarEditar.Controls.Add(bntCancelar);
+            tabPageAgregarEditar.Controls.Add(btnGuardar);
+            tabPageAgregarEditar.Controls.Add(txtNombre);
+            tabPageAgregarEditar.Controls.Add(label2);
+            tabPageAgregarEditar.Location = new Point(4, 24);
+            tabPageAgregarEditar.Name = "tabPageAgregarEditar";
+            tabPageAgregarEditar.Padding = new Padding(3);
+            tabPageAgregarEditar.Size = new Size(594, 237);
+            tabPageAgregarEditar.TabIndex = 1;
+            tabPageAgregarEditar.Text = "Agregar/Editar";
+            tabPageAgregarEditar.UseVisualStyleBackColor = true;
             // 
             // bntCancelar
             // 
@@ -116,6 +165,7 @@
             btnGuardar.TabIndex = 6;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
+
             // 
             // txtNombre
             // 
@@ -150,29 +200,32 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 336);
             Controls.Add(label1);
-            Controls.Add(tabControl1);
+            Controls.Add(tabControlVentas);
             Name = "VentaView";
             StartPosition = FormStartPosition.CenterParent;
             Text = "VentaView";
-            tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            tabControlVentas.ResumeLayout(false);
+            tabPageLista.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridVentas).EndInit();
-            tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
+            tabPageAgregarEditar.ResumeLayout(false);
+            tabPageAgregarEditar.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TabControl tabControl1;
-        private TabPage tabPage1;
+        private TabControl tabControlVentas;
+        private TabPage tabPageLista;
         private DataGridView dataGridVentas;
-        private TabPage tabPage2;
+        private TabPage tabPageAgregarEditar;
         private FontAwesome.Sharp.IconButton bntCancelar;
         private FontAwesome.Sharp.IconButton btnGuardar;
         private TextBox txtNombre;
         private Label label2;
         public Label label1;
+        private FontAwesome.Sharp.IconButton btnEliminar;
+        private FontAwesome.Sharp.IconButton btn_modificar;
+        private FontAwesome.Sharp.IconButton bntAgregar;
     }
 }

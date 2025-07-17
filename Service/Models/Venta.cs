@@ -10,5 +10,7 @@ namespace Service.Models
         public DateTime Fecha { get; set; }
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
+
+        public ICollection<DetalleVenta> DetalleVentas { get; set; }
     }
 }

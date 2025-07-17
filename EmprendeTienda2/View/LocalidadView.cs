@@ -92,9 +92,7 @@ namespace EmprendeTiendaDesktop.View
                 tabControlLocalidad.SelectedTab = tabPageLista;
             }
 
-            MessageBox.Show("Localidad guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            CargarGrilla();
-            tabControlLocalidad.SelectedTab = tabPageLista;
+            
         }
 
         private void btn_modificar_Click(object sender, EventArgs e)
