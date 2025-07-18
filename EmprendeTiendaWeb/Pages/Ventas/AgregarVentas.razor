@@ -53,16 +53,11 @@ else
     private async Task GuardarVenta()
     {
         var ventaCreada = await VentaService.AddAsync(nuevaVenta);
-        // Redirigimos con el ID de la venta creada para agregar productos
         NavigationManager.NavigateTo($"/detalleventas/{ventaCreada.Id}");
     }
-   
-
-
 
     private void Volver()
     {
         NavigationManager.NavigateTo("/ventas");
     }
 }
-

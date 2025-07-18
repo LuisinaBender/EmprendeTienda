@@ -19,15 +19,12 @@ namespace BackendEmprendeTienda.Controllers
             _context = context;
         }
 
-        // Endpoint de prueba para confirmar que el controller está accesible
         [HttpGet("test")]
         public IActionResult Test()
         {
             return Ok("Ventas endpoint OK");
         }
 
-        // GET: api/Ventas
-        // Endpoint principal: Incluye Cliente y Localidad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentas()
         {
@@ -45,7 +42,6 @@ namespace BackendEmprendeTienda.Controllers
             }
         }
 
-        // GET: api/ventas/concliente (opcional, solo Cliente)
         [HttpGet("concliente")]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentasConCliente()
         {
@@ -62,7 +58,6 @@ namespace BackendEmprendeTienda.Controllers
             }
         }
 
-        // GET: api/ventas/completo (opcional, Cliente y Localidad)
         [HttpGet("completo")]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVentasCompleto()
         {
@@ -80,7 +75,6 @@ namespace BackendEmprendeTienda.Controllers
             }
         }
 
-        // GET: api/Ventas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Venta>> GetVenta(int id)
         {
@@ -102,7 +96,6 @@ namespace BackendEmprendeTienda.Controllers
             }
         }
 
-        // PUT: api/Ventas/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVenta(int id, Venta venta)
         {
@@ -130,10 +123,12 @@ namespace BackendEmprendeTienda.Controllers
             return NoContent();
         }
 
-        // POST: api/Ventas
         [HttpPost]
         public async Task<ActionResult<Venta>> PostVenta(Venta venta)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 _context.Ventas.Add(venta);
@@ -147,7 +142,6 @@ namespace BackendEmprendeTienda.Controllers
             }
         }
 
-        // DELETE: api/Ventas/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVenta(int id)
         {
