@@ -1,0 +1,113 @@
+﻿@page "/agregardetalleventa/{VentaId:int}"
+@using Service.Models
+@inject IGenericService<Producto> ProductoService
+@inject IGenericService<Venta> VentaService
+@inject IGenericService<DetalleVenta> DetalleVentaService
+@inject NavigationManager NavigationManager
+
+<h3>Agregar Productos a la Venta #@VentaId</h3>
+
+@if (venta == null || productos == null)
+{
+    <p><em>Cargando datos...</em></p>
+}
+else
+{
+    <p><strong>Cliente:</strong> @venta.Cliente.Nombre @venta.Cliente.Apellido</p>
+    <p><strong>Fecha:</strong> @venta.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
+
+    <EditForm Model="detalle" OnValidSubmit="AgregarDetalle">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label>Producto:</label>
+            <InputSelect class="form-select" @bind-Value="detalle.ProductoId">
+                <option value="">-- Seleccione un producto --</option>
+                @foreach (var p in productos)
+                {
+                    <option value="@p.Id">@p.Nombre (@p.Stock disponibles)</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-3">
+            <label>Cantidad:</label>
+            <InputNumber class="form-control" @bind-Value="detalle.Cantidad" />
+        </div>
+
+        <div class="mb-3">
+            <label>Precio Unitario:</label>
+            <InputNumber class="form-control" @bind-Value="detalle.PrecioUnitario" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        <button class="btn btn-secondary ms-2" @onclick="Volver">Volver</button>
+    </EditForm>
+
+    <hr />
+
+    <h5>Productos agregados:</h5>
+    @if (detallesVenta.Count == 0)
+    {
+        <p>No se han agregado productos aún.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in detallesVenta)
+                {
+                    <tr>
+                        <td>@d.Producto?.Nombre</td>
+                        <td>@d.Cantidad</td>
+                        <td>@d.PrecioUnitario.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    [Parameter]
+    public int VentaId { get; set; }
+
+    private Venta? venta;
+    private List<Producto>? productos;
+    private List<DetalleVenta> detallesVenta = new();
+    private DetalleVenta detalle = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        venta = await VentaService.GetByIdAsync(VentaId);
+        productos = await ProductoService.GetAllAsync();
+
+        var todos = await DetalleVentaService.GetAllAsync();
+        detallesVenta = todos.Where(d => d.VentaId == VentaId).ToList();
+
+        detalle.VentaId = VentaId;
+    }
+
+    private async Task AgregarDetalle()
+    {
+        await DetalleVentaService.AddAsync(detalle);
+        detalle = new DetalleVenta { VentaId = VentaId }; // limpiar formulario
+
+        var todos = await DetalleVentaService.GetAllAsync();
+        detallesVenta = todos.Where(d => d.VentaId == VentaId).ToList();
+    }
+
+    private void Volver()
+    {
+        NavigationManager.NavigateTo("/ventas");
+    }
+}
+

@@ -4,7 +4,7 @@
 @inject IGenericService<Cliente> ClienteService
 @inject NavigationManager NavigationManager
 
-<h3>Agregar Venta</h3>
+<h3>Agregar Nueva Venta</h3>
 
 @if (clientes == null)
 {
@@ -17,28 +17,32 @@ else
         <ValidationSummary />
 
         <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha</label>
-            <InputDate id="fecha" class="form-control" @bind-Value="nuevaVenta.Fecha" />
-        </div>
-
-        <div class="mb-3">
-            <label for="cliente" class="form-label">Cliente</label>
-            <InputSelect id="cliente" class="form-select" @bind-Value="nuevaVenta.ClienteId">
-                <option value="">-- Selecciona un cliente --</option>
+            <label for="cliente" class="form-label">Cliente:</label>
+            <InputSelect class="form-select" @bind-Value="nuevaVenta.ClienteId">
+                <option value="">-- Seleccione un cliente --</option>
                 @foreach (var cliente in clientes)
                 {
-                    <option value="@cliente.Id">@cliente.Nombre</option>
+                    <option value="@cliente.Id">@cliente.Nombre @cliente.Apellido</option>
                 }
             </InputSelect>
         </div>
 
-        <button type="submit" class="btn btn-success">Guardar Venta</button>
-        <button type="button" class="btn btn-secondary ms-2" @onclick="Volver">Cancelar</button>
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <InputDate class="form-control" @bind-Value="nuevaVenta.Fecha" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Venta</button>
+        <button class="btn btn-secondary ms-2" @onclick="Volver">Cancelar</button>
     </EditForm>
 }
 
 @code {
-    private Venta nuevaVenta = new() { Fecha = DateTime.Now };
+    private Venta nuevaVenta = new()
+    {
+        Fecha = DateTime.Now
+    };
+
     private List<Cliente>? clientes;
 
     protected override async Task OnInitializedAsync()
@@ -48,12 +52,17 @@ else
 
     private async Task GuardarVenta()
     {
-        // await VentaService.CreateAsync(nuevaVenta);
-        // NavigationManager.NavigateTo("/ventas");
+        var ventaCreada = await VentaService.AddAsync(nuevaVenta);
+        // Redirigimos con el ID de la venta creada para agregar productos
+        NavigationManager.NavigateTo($"/detalleventas/{ventaCreada.Id}");
     }
+   
+
+
 
     private void Volver()
     {
         NavigationManager.NavigateTo("/ventas");
     }
 }
+

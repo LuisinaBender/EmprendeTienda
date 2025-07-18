@@ -9,7 +9,7 @@ namespace Service.Class
         public static string Localidad { get; set; } = "localidades";
         public static string Producto { get; set; } = "productos";
         public static string Venta { get; set; } = "ventas";
-        public static string DetalleVenta { get; set; } = "detalleventas"; // <-- Agregado
+        public static string DetalleVenta { get; set; } = "detalleventas"; 
 
         public static string GetEndpoint(string name)
         {
@@ -19,7 +19,7 @@ namespace Service.Class
                 "Localidad" => Localidad,
                 "Producto" => Producto,
                 "Venta" => Venta,
-                "DetalleVenta" => DetalleVenta, // <-- Agregado aquí
+                "DetalleVenta" => DetalleVenta, 
                 _ => throw new ArgumentException($"Endpoint '{name}' no está definido.")
             };
         }

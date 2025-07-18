@@ -32,6 +32,16 @@ namespace BackendEmprendeTienda.Controllers
             return Ok(detalles);
         }
 
-        // OPCIONAL: otros métodos para crear, editar y eliminar si querés agregar más adelante.
+        // POST: api/detalleventas
+        [HttpPost]
+        public async Task<ActionResult<DetalleVenta>> PostDetalleVenta(DetalleVenta detalleVenta)
+        {
+            _context.DetalleVentas.Add(detalleVenta);
+            await _context.SaveChangesAsync();
+
+            // Devuelve el objeto creado con status 201
+            return CreatedAtAction(nameof(GetDetalleVentas), new { id = detalleVenta.Id }, detalleVenta);
+        }
+
     }
 }
