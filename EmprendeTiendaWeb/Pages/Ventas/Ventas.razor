@@ -3,26 +3,27 @@
 @inject IGenericService<Venta> VentaService
 @inject NavigationManager NavigationManager
 
-
-
 <h3>Ventas</h3>
 
-<button class="btn btn-success mb-3" @onclick="AgregarVenta">Agregar Venta</button>
+<button class="btn btn-success mb-3" @onclick="AgregarVenta">Nueva Venta</button>
 
 @if (ventas == null)
 {
-    <p><em>Obteniendo lista de Ventas...</em></p>
+    <p><em>Cargando ventas...</em></p>
+}
+else if (!ventas.Any())
+{
+    <p>No hay ventas registradas</p>
 }
 else
 {
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Fecha</th>
-                <th>ClienteId</th>
                 <th>Cliente</th>
-                <th>Localidad</th>
+                <th>Total</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -32,13 +33,13 @@ else
                 <tr>
                     <td>@venta.Id</td>
                     <td>@venta.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td>@venta.ClienteId</td>
                     <td>@venta.Cliente?.Nombre</td>
-                    <td>@venta.Cliente?.Localidad?.Nombre</td>
+                    <td>@ObtenerTotalVenta(venta).ToString("C")</td>
                     <td>
-                        <button class="btn btn-primary btn-sm" @onclick="() => VerDetalleVenta(venta.Id)">Ver detalle de venta</button>
+                        <button class="btn btn-info btn-sm" @onclick="() => VerDetalle(venta.Id)">
+                            Ver Detalle
+                        </button>
                     </td>
-
                 </tr>
             }
         </tbody>
@@ -50,17 +51,26 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await CargarVentas();
+    }
+
+    private async Task CargarVentas()
+    {
         ventas = await VentaService.GetAllAsync();
+    }
+
+    private decimal ObtenerTotalVenta(Venta venta)
+    {
+        return venta.DetalleVentas?.Sum(d => d.Cantidad * d.PrecioUnitario) ?? 0;
     }
 
     private void AgregarVenta()
     {
-        NavigationManager.NavigateTo("/agregarventa");
+        NavigationManager.NavigateTo("/nuevaventa");
     }
 
-    private void VerDetalleVenta(int ventaId)
+    private void VerDetalle(int ventaId)
     {
-        NavigationManager.NavigateTo($"/detalleventas/{ventaId}");
+        NavigationManager.NavigateTo($"/detalleventa/{ventaId}");
     }
-
 }

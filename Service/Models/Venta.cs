@@ -14,9 +14,10 @@ namespace Service.Models
         [Required]
         public int ClienteId { get; set; }
 
-        // No requerido al crear, pero sí útil al obtener
+        
         public Cliente? Cliente { get; set; }
 
-        public ICollection<DetalleVenta> DetalleVentas { get; set; } = new List<DetalleVenta>();
+       public virtual ICollection<DetalleVenta> DetalleVentas { get; set; } = new List<DetalleVenta>();
+       
     }
 }
