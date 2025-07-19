@@ -16,7 +16,7 @@ else
     <p><strong>Cliente:</strong> @venta.Cliente.Nombre @venta.Cliente.Apellido</p>
     <p><strong>Fecha:</strong> @venta.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
 
-    <EditForm Model="detalle" OnValidSubmit="AgregarDetalle" key="@detalleKey">
+    <EditForm Model="detalle" OnValidSubmit="AgregarDetalle">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -86,9 +86,6 @@ else
     private DetalleVenta detalle = new();
     private Producto? productoSeleccionado;
 
-    // Agregado para forzar el reseteo visual del formulario
-    private string detalleKey = Guid.NewGuid().ToString();
-
     protected override async Task OnInitializedAsync()
     {
         venta = await VentaService.GetByIdAsync(VentaId);
@@ -103,8 +100,7 @@ else
     private async Task AgregarDetalle()
     {
         await DetalleVentaService.AddAsync(detalle);
-        detalle = new DetalleVenta { VentaId = VentaId };
-        detalleKey = Guid.NewGuid().ToString(); // Fuerza el reseteo del formulario
+        detalle = new DetalleVenta { VentaId = VentaId }; 
         productoSeleccionado = null;
 
         var todos = await DetalleVentaService.GetAllAsync();
@@ -129,3 +125,5 @@ else
         NavigationManager.NavigateTo("/ventas");
     }
 }
+
+
