@@ -5,6 +5,9 @@ namespace Service.Models
 {
     public class DetalleVenta
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         public int VentaId { get; set; }
 
