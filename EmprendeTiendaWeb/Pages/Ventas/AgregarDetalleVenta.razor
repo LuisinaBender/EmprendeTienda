@@ -22,7 +22,7 @@ else
 
         <div class="mb-3">
             <label>Producto:</label>
-            <InputSelect class="form-select" @bind-Value="detalle.ProductoId">
+            <InputSelect class="form-select" @bind-Value="detalle.ProductoId" @onchange="OnProductoSeleccionado">
                 <option value="">-- Seleccione un producto --</option>
                 @foreach (var p in productos)
                 {
@@ -84,6 +84,7 @@ else
     private List<Producto>? productos;
     private List<DetalleVenta> detallesVenta = new();
     private DetalleVenta detalle = new();
+    private Producto? productoSeleccionado;
 
     protected override async Task OnInitializedAsync()
     {
@@ -100,9 +101,23 @@ else
     {
         await DetalleVentaService.AddAsync(detalle);
         detalle = new DetalleVenta { VentaId = VentaId }; // limpiar formulario
+        productoSeleccionado = null;
 
         var todos = await DetalleVentaService.GetAllAsync();
         detallesVenta = todos.Where(d => d.VentaId == VentaId).ToList();
+    }
+
+    private async Task OnProductoSeleccionado(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int productoId))
+        {
+            detalle.ProductoId = productoId;
+            productoSeleccionado = productos?.FirstOrDefault(p => p.Id == productoId);
+            if (productoSeleccionado != null)
+            {
+                detalle.PrecioUnitario = productoSeleccionado.Precio;
+            }
+        }
     }
 
     private void Volver()
@@ -110,4 +125,5 @@ else
         NavigationManager.NavigateTo("/ventas");
     }
 }
+
 
