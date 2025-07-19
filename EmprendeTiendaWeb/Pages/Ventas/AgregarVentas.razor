@@ -53,7 +53,8 @@ else
     private async Task GuardarVenta()
     {
         var ventaCreada = await VentaService.AddAsync(nuevaVenta);
-        NavigationManager.NavigateTo($"/detalleventas/{ventaCreada.Id}");
+        NavigationManager.NavigateTo($"/agregardetalleventa/{ventaCreada.Id}");
+
     }
 
     private void Volver()

@@ -34,14 +34,17 @@ namespace BackendEmprendeTienda.Controllers
 
         // POST: api/detalleventas
         [HttpPost]
-        public async Task<ActionResult<DetalleVenta>> PostDetalleVenta(DetalleVenta detalleVenta)
+        public async Task<ActionResult<DetalleVenta>> PostDetalleVenta(DetalleVenta detalle)
         {
-            _context.DetalleVentas.Add(detalleVenta);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _context.DetalleVentas.Add(detalle);
             await _context.SaveChangesAsync();
 
-            // Devuelve el objeto creado con status 201
-            return CreatedAtAction(nameof(GetDetalleVentas), new { id = detalleVenta.Id }, detalleVenta);
+            return CreatedAtAction("GetDetalleVenta", new { id = detalle.Id }, detalle);
         }
+
 
     }
 }
