@@ -20,17 +20,57 @@ namespace BackendEmprendeTienda.Controllers
 
         // GET: api/detalleventas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DetalleVenta>>> GetDetalleVentas()
+        public async Task<ActionResult> GetDetalleVentas()
         {
-            var detalles = await _context.DetalleVentas
-                .Include(d => d.Producto)
-                .Include(d => d.Venta)
-                    .ThenInclude(v => v.Cliente)
-                        .ThenInclude(c => c.Localidad)
-                .ToListAsync();
+            try
+            {
+                var detalles = await _context.DetalleVentas
+                    .Include(d => d.Producto)
+                    .Include(d => d.Venta)
+                        .ThenInclude(v => v.Cliente)
+                            .ThenInclude(c => c.Localidad)
+                    .Select(d => new
+                    {
+                        d.Id,
+                        d.Cantidad,
+                        d.PrecioUnitario,
+                        d.ProductoId,
+                        Producto = d.Producto == null ? null : new
+                        {
+                            d.Producto.Id,
+                            d.Producto.Nombre,
+                            d.Producto.Precio,
+                            d.Producto.Stock
+                        },
+                        d.VentaId,
+                        Venta = d.Venta == null ? null : new
+                        {
+                            d.Venta.Id,
+                            d.Venta.Fecha,
+                            Cliente = d.Venta.Cliente == null ? null : new
+                            {
+                                d.Venta.Cliente.Id,
+                                d.Venta.Cliente.Nombre,
+                                d.Venta.Cliente.Apellido,
+                                Localidad = d.Venta.Cliente.Localidad == null ? null : new
+                                {
+                                    d.Venta.Cliente.Localidad.Id,
+                                    d.Venta.Cliente.Localidad.Nombre
+                                }
+                            }
+                        }
+                    })
+                    .ToListAsync();
 
-            return Ok(detalles);
+                return Ok(detalles);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error en API DetalleVentas: {ex.Message}");
+            }
         }
+
+
 
         // POST: api/detalleventas
         [HttpPost]
