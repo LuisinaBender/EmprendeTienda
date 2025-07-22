@@ -1,0 +1,215 @@
+﻿@page "/nuevaventa"
+@using Service.Models
+@inject IGenericService<Venta> VentaService
+@inject IGenericService<Cliente> ClienteService
+@inject IGenericService<Producto> ProductoService
+@inject NavigationManager NavigationManager
+
+<h3>Nueva Venta</h3>
+
+@if (clientes == null || productos == null)
+{
+    <p><em>Cargando datos...</em></p>
+}
+else
+{
+    <EditForm Model="@nuevaVenta" OnValidSubmit="@GuardarVenta">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label>Cliente:</label>
+            <InputSelect class="form-select" @bind-Value="nuevaVenta.ClienteId">
+                <option value="">-- Seleccione cliente --</option>
+                @foreach (var cliente in clientes)
+                {
+                    <option value="@cliente.Id">@cliente.Nombre @cliente.Apellido</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-3">
+            <label>Fecha:</label>
+            <InputDate class="form-control" @bind-Value="nuevaVenta.Fecha" />
+        </div>
+
+        <h5 class="mt-4">Productos</h5>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-5">
+                <label>Producto:</label>
+                <InputSelect class="form-select" @bind-Value="productoSeleccionadoId">
+                    <option value="0">-- Seleccione producto --</option>
+                    @foreach (var producto in productosDisponibles)
+                    {
+                        <option value="@producto.Id">@producto.Nombre (Stock: @producto.Stock)</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="col-md-2">
+                <label>Cantidad:</label>
+                <InputNumber class="form-control" @bind-Value="cantidad" min="1" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Precio Unitario:</label>
+                <InputNumber class="form-control" @bind-Value="precioUnitario" />
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="button" class="btn btn-primary" @onclick="AgregarProducto"
+                        disabled="@(productoSeleccionadoId == 0 || cantidad <= 0)">
+                    Agregar
+                </button>
+            </div>
+        </div>
+
+        @if (detalles.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detalle in detalles)
+                        {
+                            <tr>
+                                <td>@detalle.Producto?.Nombre</td>
+                                <td>@detalle.Cantidad</td>
+                                <td>@detalle.PrecioUnitario.ToString("C")</td>
+                                <td>@((detalle.Cantidad * detalle.PrecioUnitario).ToString("C"))</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                            @onclick="() => QuitarProducto(detalle.ProductoId)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3">Total</th>
+                            <th>@TotalVenta.ToString("C")</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        }
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success" disabled="@(detalles.Count == 0)">
+                Guardar Venta 
+            </button>
+            <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">
+                Cancelar
+            </button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    private Venta nuevaVenta = new() { Fecha = DateTime.Now };
+    private List<Cliente>? clientes;
+    private List<Producto>? productos;
+    private List<DetalleVenta> detalles = new();
+    private List<Producto> productosDisponibles = new();
+
+    private int productoSeleccionadoId;
+    private int cantidad = 1;
+    private decimal precioUnitario;
+
+    private decimal TotalVenta => detalles.Sum(d => d.Cantidad * d.PrecioUnitario);
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await ClienteService.GetAllAsync();
+        productos = await ProductoService.GetAllAsync();
+        productosDisponibles = productos.ToList();
+    }
+
+    private void AgregarProducto()
+    {
+        var producto = productos?.FirstOrDefault(p => p.Id == productoSeleccionadoId);
+        if (producto == null) return;
+
+        // Verificar stock disponible
+        if (producto.Stock < cantidad)
+        {
+            // Mostrar mensaje de error
+            return;
+        }
+
+        // Agregar o actualizar detalle
+        var detalleExistente = detalles.FirstOrDefault(d => d.ProductoId == productoSeleccionadoId);
+        if (detalleExistente != null)
+        {
+            detalleExistente.Cantidad += cantidad;
+        }
+        else
+        {
+            detalles.Add(new DetalleVenta
+            {
+                ProductoId = productoSeleccionadoId,
+                Producto = producto,
+                Cantidad = cantidad,
+                PrecioUnitario = precioUnitario
+            });
+        }
+
+        // Actualizar lista de productos disponibles
+        productosDisponibles = productos?
+            .Where(p => p.Stock > 0 && !detalles.Any(d => d.ProductoId == p.Id))
+            .ToList() ?? new List<Producto>();
+
+        // Resetear controles
+        productoSeleccionadoId = 0;
+        cantidad = 1;
+    }
+
+    private void QuitarProducto(int productoId)
+    {
+        var detalle = detalles.FirstOrDefault(d => d.ProductoId == productoId);
+        if (detalle != null)
+        {
+            detalles.Remove(detalle);
+            productosDisponibles = productos?
+                .Where(p => p.Stock > 0 && !detalles.Any(d => d.ProductoId == p.Id))
+                .ToList() ?? new List<Producto>();
+        }
+    }
+
+    private async Task GuardarVenta()
+    {
+        try
+        {
+            // Asignar los detalles a la venta
+            nuevaVenta.DetalleVentas = detalles;
+
+            // Guardar la venta con todos sus detalles
+            var ventaGuardada = await VentaService.AddAsync(nuevaVenta);
+
+            // Redirigir al listado de ventas
+            NavigationManager.NavigateTo("/ventas");
+        }
+        catch (Exception ex)
+        {
+            // Mostrar mensaje de error al usuario
+            Console.WriteLine($"Error al guardar venta: {ex.Message}");
+        }
+    }
+
+    private void Cancelar()
+    {
+        NavigationManager.NavigateTo("/ventas");
+    }
+}

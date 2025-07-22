@@ -1,0 +1,105 @@
+﻿/* Títulos */
+h3 {
+    font-size: 2.2rem;
+    color: #34495e;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.03em;
+}
+
+/* Botones base */
+.btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 6px;
+    font-size: 1rem;
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+    user-select: none;
+    margin-bottom: 1.8rem;
+}
+
+/* Botón éxito */
+.btn-success {
+    background-color: #2ecc71;
+    color: white;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+}
+
+    .btn-success:hover {
+        background-color: #27ae60;
+        box-shadow: 0 6px 14px rgba(39, 174, 96, 0.6);
+    }
+
+/* Botón primario (editar) */
+.btn-primary {
+    background-color: #2980b9;
+    color: white;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.9rem;
+    box-shadow: 0 3px 8px rgba(41, 128, 185, 0.5);
+}
+
+    .btn-primary:hover {
+        background-color: #1c5980;
+        box-shadow: 0 5px 15px rgba(28, 89, 128, 0.7);
+    }
+
+/* Tabla */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    color: #34495e;
+}
+
+    .table thead {
+        background: linear-gradient(90deg, #2980b9 0%, #3498db 100%);
+        color: #fefefe;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .table th,
+    .table td {
+        padding: 1rem 1.2rem;
+        text-align: left;
+        border-bottom: 1px solid #e8e8e8;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+        .table tbody tr:hover {
+            background-color: #eaf4fc;
+        }
+
+    .table th:first-child,
+    .table td:first-child {
+        border-left: none;
+    }
+
+    .table th:last-child,
+    .table td:last-child {
+        border-right: none;
+    }
+
+    /* Accesibilidad: foco en filas */
+    .table tbody tr:focus-within {
+        outline: 2px solid #2980b9;
+        outline-offset: -2px;
+    }

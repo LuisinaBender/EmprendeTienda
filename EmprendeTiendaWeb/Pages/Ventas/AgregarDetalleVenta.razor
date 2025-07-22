@@ -1,0 +1,88 @@
+﻿@page "/detalleventa/{VentaId:int}"
+@using Service.Models
+@inject IGenericService<Venta> VentaService
+@inject NavigationManager NavigationManager
+
+<h3>Detalle de Venta #@VentaId</h3>
+
+@if (venta == null)
+{
+    <p><em>Cargando detalle de venta...</em></p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>Información de la Venta</h5>
+                    <p><strong>ID:</strong> @venta.Id</p>
+                    <p><strong>Fecha:</strong> @venta.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Información del Cliente</h5>
+                    <p><strong>Nombre:</strong> @venta.Cliente?.Nombre @venta.Cliente?.Apellido</p>
+                    <p><strong>Localidad:</strong> @venta.Cliente?.Localidad?.Nombre</p>
+                </div>
+            </div>
+
+            <h5>Productos</h5>
+            @if (venta.DetalleVentas?.Count == 0)
+            {
+                <p class="text-muted">No hay productos en esta venta</p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var detalle in venta.DetalleVentas ?? new List<DetalleVenta>())
+                        {
+                            <tr>
+                                <td>@detalle.Producto?.Nombre</td>
+                                <td>@detalle.Cantidad</td>
+                                <td>@detalle.PrecioUnitario.ToString("C")</td>
+                                <td>@((detalle.Cantidad * detalle.PrecioUnitario).ToString("C"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3">Total</th>
+                            <th>@TotalVenta.ToString("C")</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+
+            <div class="mt-3">
+                <button class="btn btn-secondary" @onclick="Volver">Volver</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int VentaId { get; set; }
+
+    private Venta? venta;
+    private decimal TotalVenta => venta?.DetalleVentas?.Sum(d => d.Cantidad * d.PrecioUnitario) ?? 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        venta = await VentaService.GetByIdAsync(VentaId);
+    }
+
+    private void Volver()
+    {
+        NavigationManager.NavigateTo("/ventas");
+    }
+}

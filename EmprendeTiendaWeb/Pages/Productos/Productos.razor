@@ -1,0 +1,62 @@
+﻿@page "/productos"
+@inject IGenericService<Producto> ProductoService
+@inject NavigationManager NavigationManager
+
+<h3>Productos</h3>
+
+<button class="btn btn-success mb-3" @onclick="AgregarProducto">Agregar Producto</button>
+
+@if (productos == null)
+{
+    <p><em>Obteniendo lista de Productos </em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var producto in productos)
+            {
+                <tr>
+                    <td>@producto.Id</td>
+                    <td>@producto.Nombre</td>
+                    <td>@producto.Descripcion</td>
+                    <td>@producto.Precio</td>
+                    <td>@producto.Stock</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm me-1" @onclick="() => EditarProducto(producto.Id)">Editar</button>
+                        <!-- Aquí puedes agregar más botones, por ejemplo Eliminar -->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Producto>? productos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        productos = await ProductoService.GetAllAsync();
+    }
+
+    private void AgregarProducto()
+    {
+        NavigationManager.NavigateTo("/agregarproducto");
+    }
+
+    private void EditarProducto(int id)
+    {
+        NavigationManager.NavigateTo($"/editarproducto?IdProductoEditado={id}");
+    }
+}

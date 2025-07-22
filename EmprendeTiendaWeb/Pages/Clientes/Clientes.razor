@@ -1,0 +1,66 @@
+﻿@page "/clientes"
+@using Service.Models
+@inject IGenericService<Cliente> ClientesService
+@inject NavigationManager NavigationManager
+
+<h3>Clientes</h3>
+
+<button class="btn btn-success mb-3" @onclick="AgregarCliente">Agregar Cliente</button>
+
+@if (clientesList == null)
+{
+    <p><em>Obteniendo lista de Clientes </em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in clientesList)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Apellido</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.Telefono</td>
+                    <td>@cliente.Direccion</td>
+                    <td>@cliente.Localidad?.Nombre</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" @onclick="() => EditarCliente(cliente.Id)">Editar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Cliente>? clientesList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientesList = await ClientesService.GetAllAsync();
+    }
+
+    private void AgregarCliente()
+    {
+        NavigationManager.NavigateTo("/agregarcliente");
+    }
+
+    private void EditarCliente(int id)
+    {
+        NavigationManager.NavigateTo($"/editarcliente?IdClienteEditado={id}");
+    }
+}

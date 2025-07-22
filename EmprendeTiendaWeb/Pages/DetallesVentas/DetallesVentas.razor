@@ -1,0 +1,119 @@
+﻿@page "/detalleventas/{VentaId:int}"
+@using Service.Models
+@inject IGenericService<DetalleVenta> DetalleVentaService
+@inject IGenericService<Producto> ProductoService
+
+<h3>Detalle de Venta @VentaId</h3>
+
+@if (detalleVentas == null)
+{
+    <p><em>Obteniendo detalles...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in detalleVentas)
+            {
+                <tr>
+                    <td>@detalle.Producto?.Nombre</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@detalle.PrecioUnitario.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h4>Agregar nuevo detalle</h4>
+
+@if (productos != null)
+{
+    <EditForm Model="nuevoDetalle" OnValidSubmit="GuardarDetalle">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label>Producto:</label>
+            <select class="form-select" @bind="nuevoDetalle.ProductoId">
+                <option value="">-- Seleccionar producto --</option>
+                @foreach (var p in productos)
+                {
+                    <option value="@p.Id">@p.Nombre</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Cantidad:</label>
+            <InputNumber class="form-control" @bind-Value="nuevoDetalle.Cantidad" />
+        </div>
+
+        <div class="mb-3">
+            <label>Precio Unitario:</label>
+            <InputNumber class="form-control" @bind-Value="nuevoDetalle.PrecioUnitario" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Agregar Detalle</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int VentaId { get; set; }
+
+    private List<DetalleVenta>? detalleVentas;
+    private List<Producto>? productos;
+    private DetalleVenta nuevoDetalle = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        productos = await ProductoService.GetAllAsync();
+
+        var todos = await DetalleVentaService.GetAllAsync();
+        detalleVentas = todos.Where(d => d.VentaId == VentaId).ToList();
+
+        // Cargar nombres de producto para los ya agregados
+        foreach (var d in detalleVentas)
+        {
+            d.Producto = productos.FirstOrDefault(p => p.Id == d.ProductoId);
+        }
+
+        nuevoDetalle = new DetalleVenta
+        {
+            VentaId = VentaId,
+            Cantidad = 1,
+            PrecioUnitario = 0
+        };
+    }
+
+    private async Task GuardarDetalle()
+    {
+        await DetalleVentaService.AddAsync(nuevoDetalle);
+
+        // Recargar detalles y limpiar el formulario
+        var todos = await DetalleVentaService.GetAllAsync();
+        detalleVentas = todos.Where(d => d.VentaId == VentaId).ToList();
+
+        foreach (var d in detalleVentas)
+        {
+            d.Producto = productos.FirstOrDefault(p => p.Id == d.ProductoId);
+        }
+
+        nuevoDetalle = new DetalleVenta
+        {
+            VentaId = VentaId,
+            Cantidad = 1,
+            PrecioUnitario = 0
+        };
+    }
+}*

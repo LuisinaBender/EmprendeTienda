@@ -1,0 +1,76 @@
+﻿@page "/ventas"
+@using Service.Models
+@inject IGenericService<Venta> VentaService
+@inject NavigationManager NavigationManager
+
+<h3>Ventas</h3>
+
+<button class="btn btn-success mb-3" @onclick="AgregarVenta">Nueva Venta</button>
+
+@if (ventas == null)
+{
+    <p><em>Cargando ventas...</em></p>
+}
+else if (!ventas.Any())
+{
+    <p>No hay ventas registradas</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var venta in ventas)
+            {
+                <tr>
+                    <td>@venta.Id</td>
+                    <td>@venta.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@venta.Cliente?.Nombre</td>
+                    <td>@ObtenerTotalVenta(venta).ToString("C")</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" @onclick="() => VerDetalle(venta.Id)">
+                            Ver Detalle
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Venta>? ventas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarVentas();
+    }
+
+    private async Task CargarVentas()
+    {
+        ventas = await VentaService.GetAllAsync();
+    }
+
+    private decimal ObtenerTotalVenta(Venta venta)
+    {
+        return venta.DetalleVentas?.Sum(d => d.Cantidad * d.PrecioUnitario) ?? 0;
+    }
+
+    private void AgregarVenta()
+    {
+        NavigationManager.NavigateTo("/nuevaventa");
+    }
+
+    private void VerDetalle(int ventaId)
+    {
+        NavigationManager.NavigateTo($"/detalleventa/{ventaId}");
+    }
+}

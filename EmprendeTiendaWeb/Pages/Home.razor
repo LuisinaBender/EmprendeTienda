@@ -1,0 +1,53 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+
+<PageTitle>Inicio</PageTitle>
+
+<div class="home-wrapper">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-text">
+            <h1>Bienvenido a <span>EmprendeTienda</span></h1>
+            <p>Gestioná tus ventas, clientes y productos en un solo lugar.</p>
+            <button class="cta-button" @onclick="IrAProductos">Comenzar</button>
+        </div>
+        <div class="hero-image">
+            <img src="images/dashboard-mockup.png" alt="Dashboard preview">
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section">
+        <h2>¿Qué podés hacer?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>Gestión de Ventas</h3>
+                <p>Registrá y consultá tus ventas de forma ágil.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-users"></i>
+                <h3>Clientes y Productos</h3>
+                <p>Mantené tu base de clientes y productos organizada.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-chart-pie"></i>
+                <h3>Estadísticas</h3>
+                <p>Visualizá métricas en tiempo real de tu emprendimiento.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2025 EmprendeTienda. Todos los derechos reservados.</p>
+    </footer>
+</div>
+
+@code {
+    private void IrAProductos()
+    {
+        Navigation.NavigateTo("/productos");
+    }
+}
+
