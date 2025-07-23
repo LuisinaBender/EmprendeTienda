@@ -52,6 +52,7 @@ namespace BackendEmprendeTienda.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
+            _context.Attach(cliente.Localidad);
             if (id != cliente.Id)
             {
                 return BadRequest();
@@ -81,6 +82,7 @@ namespace BackendEmprendeTienda.Controllers
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
+            _context.Attach(cliente.Localidad);
             _context.Clientes.Add(cliente);
             await _context.SaveChangesAsync();
 
