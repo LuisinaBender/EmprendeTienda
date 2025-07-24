@@ -23,7 +23,7 @@ namespace Service.Services
             {
                 PropertyNameCaseInsensitive = true,
                 WriteIndented = true,
-                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles
             };
             _endpoint = ApiEndpoints.GetEndpoint(typeof(T).Name);
         }
@@ -60,9 +60,9 @@ namespace Service.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(_endpoint, entity, _jsonOptions);
+                var response = await _httpClient.PostAsJsonAsync(_endpoint, entity);
                 response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<T>(_jsonOptions);
+                return await response.Content.ReadFromJsonAsync<T>();
             }
             catch (HttpRequestException ex)
             {
