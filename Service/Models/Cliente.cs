@@ -1,4 +1,6 @@
-﻿namespace Service.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Service.Models
 {
     public class Cliente
     {
@@ -11,6 +13,8 @@
 
         public int LocalidadId { get; set; }
         public Localidad? Localidad { get; set; }
+
+        [JsonIgnore]
         public List<Venta> Ventas { get; set; } = new List<Venta>();
     }
 }
