@@ -3,10 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EmprendeTiendaApp.Views.IniciarSesionView"
              Title="IniciarSesionView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid Background="{DynamicResource Theme_BackgroundBrush}">
+        <!-- App Name -->
+        <Label Text="Emprender App" FontAttributes="Bold" FontSize="20" Margin="0,56,0,0" HorizontalOptions="Center" VerticalOptions="Start"/>
+
+        <!-- Welcome Title -->
+        <Label Text="Bienvenidos/as" FontAttributes="Bold" FontSize="28" Margin="0,112,0,0" HorizontalOptions="Center" VerticalOptions="Start"/>
+
+        <!-- Email Box -->
+        <Entry WidthRequest="336" HeightRequest="48" Margin="0,176,0,0" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="#F6F6F6" TextColor="#1A1414" Placeholder="Correo Electrónico" FontSize="16"/>
+
+        <!-- Password Box -->
+        <Entry WidthRequest="336" HeightRequest="48" Margin="0,240,0,0" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="#F6F6F6" TextColor="#1A1414" IsPassword="True" Placeholder="Contraseña" FontSize="16"/>
+
+        <!-- Forgot Password -->
+        <Label Text="¿Olvidó su contraseña?" TextColor="#BC50F8" FontSize="14" Margin="56,296,0,0" HorizontalOptions="Start" VerticalOptions="Start"/>
+
+        <!-- Login Button -->
+        <Button Text="Iniciar" WidthRequest="336" HeightRequest="48" Margin="0,340,0,0" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="#BC50F8" TextColor="White" FontSize="18" FontAttributes="Bold" BorderColor="#BC50F8" BorderWidth="0"/>
+
+        <!-- No account & create one -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,412,0,0">
+            <Label Text="¿No tiene una cuenta? " FontSize="14"/>
+            <Label Text="Crear una" TextColor="#BC50F8" FontSize="14" FontAttributes="Bold"/>
+        </StackLayout>
+    </Grid>
 </ContentPage>

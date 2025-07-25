@@ -82,7 +82,7 @@ namespace BackendEmprendeTienda.Controllers
         [HttpPost]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
-            _context.Attach(cliente.Localidad);
+            cliente.Localidad = null;
             _context.Clientes.Add(cliente);
             await _context.SaveChangesAsync();
 

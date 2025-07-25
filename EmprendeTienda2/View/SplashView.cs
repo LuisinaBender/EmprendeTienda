@@ -42,6 +42,7 @@ namespace EmprendeTiendaDesktop.View
                 {
                     using (var httpClient = new HttpClient())
                     {
+                        httpClient.BaseAddress = new Uri("https://dataemprendetienda.azurewebsites.net/api/");
                         var clienteService = new GenericService<Cliente>(httpClient);
                         var clientes = await clienteService.GetAllAsync();
                     }
