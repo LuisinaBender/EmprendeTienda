@@ -14,7 +14,6 @@ namespace Service.Models
         [Required]
         public int ClienteId { get; set; }
 
-        
         public Cliente? Cliente { get; set; }
 
        public virtual ICollection<DetalleVenta> DetalleVentas { get; set; } = new List<DetalleVenta>();

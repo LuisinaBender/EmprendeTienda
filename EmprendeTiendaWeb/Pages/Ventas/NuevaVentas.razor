@@ -108,7 +108,7 @@ else
 
         <div class="mt-3">
             <button type="submit" class="btn btn-success" disabled="@(detalles.Count == 0)">
-                Guardar Venta 
+                Guardar Venta
             </button>
             <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">
                 Cancelar
@@ -142,14 +142,12 @@ else
         var producto = productos?.FirstOrDefault(p => p.Id == productoSeleccionadoId);
         if (producto == null) return;
 
-        // Verificar stock disponible
         if (producto.Stock < cantidad)
         {
-            // Mostrar mensaje de error
+            // Podés agregar un mensaje de error visual acá si querés
             return;
         }
 
-        // Agregar o actualizar detalle
         var detalleExistente = detalles.FirstOrDefault(d => d.ProductoId == productoSeleccionadoId);
         if (detalleExistente != null)
         {
@@ -160,18 +158,16 @@ else
             detalles.Add(new DetalleVenta
             {
                 ProductoId = productoSeleccionadoId,
-                Producto = producto,
+                Producto = producto, // OK para mostrar, pero se limpiará antes del envío
                 Cantidad = cantidad,
                 PrecioUnitario = precioUnitario
             });
         }
 
-        // Actualizar lista de productos disponibles
         productosDisponibles = productos?
             .Where(p => p.Stock > 0 && !detalles.Any(d => d.ProductoId == p.Id))
             .ToList() ?? new List<Producto>();
 
-        // Resetear controles
         productoSeleccionadoId = 0;
         cantidad = 1;
     }
@@ -192,18 +188,19 @@ else
     {
         try
         {
-            // Asignar los detalles a la venta
-            nuevaVenta.DetalleVentas = detalles;
+            // 🚨 Evita enviar referencias de objetos relacionados
+            nuevaVenta.DetalleVentas = detalles.Select(d => new DetalleVenta
+            {
+                ProductoId = d.ProductoId,
+                Cantidad = d.Cantidad,
+                PrecioUnitario = d.PrecioUnitario
+            }).ToList();
 
-            // Guardar la venta con todos sus detalles
             var ventaGuardada = await VentaService.AddAsync(nuevaVenta);
-
-            // Redirigir al listado de ventas
             NavigationManager.NavigateTo("/ventas");
         }
         catch (Exception ex)
         {
-            // Mostrar mensaje de error al usuario
             Console.WriteLine($"Error al guardar venta: {ex.Message}");
         }
     }
