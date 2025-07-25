@@ -99,6 +99,7 @@ namespace BackendEmprendeTienda.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVenta(int id, Venta venta)
         {
+
             if (id != venta.Id)
                 return BadRequest();
 
