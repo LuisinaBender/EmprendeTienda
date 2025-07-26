@@ -1,74 +1,75 @@
 ﻿/* Títulos */
 h3 {
     font-size: 2.2rem;
-    color: #34495e; /* un azul grisáceo más serio */
+    color: #972CC2; /* Violeta principal */
     margin-bottom: 1.2rem;
     text-align: center;
-    font-weight: 600;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    letter-spacing: 0.04em;
 }
 
 /* Botones base */
 .btn {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-radius: 6px;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    border-radius: 24px;
     font-size: 1rem;
-    padding: 0.55rem 1.25rem;
+    padding: 0.6rem 1.5rem;
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 14px rgba(151, 44, 194, 0.15);
     user-select: none;
+    font-weight: 600;
 }
 
 /* Botón éxito */
 .btn-success {
-    background-color: #2ecc71;
+    background-color: #E2AC14; /* Amarillo vibrante */
     color: white;
     margin-bottom: 1.8rem;
-    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+    box-shadow: 0 4px 12px rgba(226, 172, 20, 0.3);
 }
 
     .btn-success:hover {
-        background-color: #27ae60;
-        box-shadow: 0 6px 14px rgba(39, 174, 96, 0.6);
+        background-color: #c98d00;
+        box-shadow: 0 6px 16px rgba(201, 141, 0, 0.45);
     }
 
 /* Botón primario */
 .btn-primary {
-    background-color: #2980b9;
+    background-color: #972CC2; /* Violeta principal */
     color: white;
-    box-shadow: 0 3px 8px rgba(41, 128, 185, 0.5);
+    box-shadow: 0 4px 14px rgba(151, 44, 194, 0.25);
 }
 
     .btn-primary:hover {
-        background-color: #1c5980;
-        box-shadow: 0 5px 15px rgba(28, 89, 128, 0.7);
+        background-color: #7a20a3;
+        box-shadow: 0 6px 20px rgba(122, 32, 163, 0.3);
     }
 
 /* Tabla general */
 .table {
     width: 100%;
-    border-collapse: separate; /* para poder usar border-radius */
+    border-collapse: separate;
     border-spacing: 0;
     margin-top: 1.5rem;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(151, 44, 194, 0.12);
+    border-radius: 16px;
     overflow: hidden;
     background-color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
     font-size: 1rem;
-    color: #2c3e50;
+    color: #232829;
 }
 
     /* Cabecera */
     .table thead {
-        background: linear-gradient(90deg, #2980b9 0%, #3498db 100%);
-        color: #fefefe;
+        background: linear-gradient(90deg, #972CC2 0%, #E2C8F7 100%);
+        color: #ffffff;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.06em;
     }
 
     /* Celdas */
@@ -76,11 +77,10 @@ h3 {
     .table td {
         padding: 1rem 1.2rem;
         text-align: left;
-        border-bottom: 1px solid #e8e8e8;
+        border-bottom: 1px solid #f0e7f9;
         vertical-align: middle;
     }
 
-        /* Primera y última columna: sin borde para que la tabla se vea más limpia */
         .table th:first-child,
         .table td:first-child {
             border-left: none;
@@ -97,11 +97,11 @@ h3 {
     }
 
         .table tbody tr:hover {
-            background-color: #eaf4fc;
+            background-color: #f8f2fb;
         }
 
-        /* Para mejorar la accesibilidad */
+        /* Accesibilidad */
         .table tbody tr:focus-within {
-            outline: 2px solid #2980b9;
+            outline: 2px solid #972CC2;
             outline-offset: -2px;
         }

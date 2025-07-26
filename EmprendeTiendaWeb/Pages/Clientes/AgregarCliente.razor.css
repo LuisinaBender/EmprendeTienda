@@ -1,29 +1,29 @@
 ﻿/* Contenedor general del formulario */
 form {
-    max-width: 300px; 
-    margin: 4rem auto 5rem; 
-    background-color: #fff;
-    padding: 1.2rem 1.5rem; 
-    border-radius: 16px; 
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);  
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #34495e;
-    border: 1px solid #e3e6eb; 
+    max-width: 340px;
+    margin: 4rem auto 5rem;
+    background-color: #ffffff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 24px;
+    box-shadow: 0 6px 28px rgba(151, 44, 194, 0.08);
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    color: #232829;
+    border: 1px solid #E2C8F7;
 }
 
 /* Título */
 h3, .header-page-title {
-    font-size: 1.7rem; 
+    font-size: 1.8rem;
     text-align: center;
-    color: #2c3e50;
-    font-weight: 600;
+    color: #972CC2;
+    font-weight: 800;
     margin-bottom: 1.8rem;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
 }
 
 /* Grupos de campos */
 .form-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.3rem;
     display: flex;
     flex-direction: column;
 }
@@ -33,48 +33,50 @@ label {
     font-weight: 600;
     margin-bottom: 0.4rem;
     font-size: 0.9rem;
-    color: #3a5068;
+    color: #254844;
 }
 
 /* Inputs y selects */
 input.form-control,
 select.form-control {
-    padding: 0.45rem 0.6rem; 
-    border: 1.3px solid #ccc;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid #ccc;
+    border-radius: 18px;
+    font-size: 0.95rem;
     font-family: inherit;
-    color: #34495e;
+    color: #232829;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    background-color: #fff;
 }
 
     input.form-control:focus,
     select.form-control:focus {
-        border-color: #5a8ddb;
+        border-color: #972CC2;
         outline: none;
-        box-shadow: 0 0 6px rgba(90, 141, 219, 0.3);
+        box-shadow: 0 0 8px rgba(151, 44, 194, 0.25);
     }
 
 /* Botón guardar */
 .btn-primary {
-    background-color: #5a8ddb;
+    background-color: #972CC2;
     color: white;
-    font-size: 0.95rem; 
-    padding: 0.45rem 1.2rem; 
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
     border: none;
-    border-radius: 12px;
+    border-radius: 24px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(90, 141, 219, 0.5);
+    box-shadow: 0 4px 14px rgba(151, 44, 194, 0.3);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
     display: block;
     width: 100%;
-    margin-top: 1.4rem;
+    margin-top: 1.6rem;
+    font-weight: 700;
 }
 
     .btn-primary:hover {
-        background-color: #4174d7;
-        box-shadow: 0 4px 12px rgba(65, 116, 215, 0.7);
+        background-color: #E2AC14;
+        box-shadow: 0 4px 20px rgba(226, 172, 20, 0.25);
     }
 
 /* Mensajes de validación */
@@ -89,8 +91,8 @@ select.form-control {
 /* Responsive para dispositivos móviles */
 @media (max-width: 640px) {
     form {
-        max-width: 90vw;
+        max-width: 92vw;
         margin: 2rem auto 3rem;
-        padding: 1.2rem 1.5rem;
+        padding: 1.4rem 1.6rem;
     }
 }
