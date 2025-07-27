@@ -43,15 +43,17 @@
             // 
             // btn_productos
             // 
-            btn_productos.BackColor = Color.RosyBrown;
+            btn_productos.BackColor = Color.FromArgb(151, 46, 194);
+            btn_productos.ForeColor = SystemColors.ControlLightLight;
             btn_productos.IconChar = FontAwesome.Sharp.IconChar.CartPlus;
-            btn_productos.IconColor = Color.AntiqueWhite;
+            btn_productos.IconColor = Color.White;
             btn_productos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btn_productos.IconSize = 30;
             btn_productos.ImageAlign = ContentAlignment.MiddleLeft;
             btn_productos.Location = new Point(177, 208);
             btn_productos.Margin = new Padding(2);
             btn_productos.Name = "btn_productos";
-            btn_productos.Size = new Size(104, 47);
+            btn_productos.Size = new Size(93, 47);
             btn_productos.TabIndex = 3;
             btn_productos.Text = "Productos";
             btn_productos.TextAlign = ContentAlignment.MiddleRight;
@@ -60,15 +62,17 @@
             // 
             // btn_clientes
             // 
-            btn_clientes.BackColor = Color.RosyBrown;
+            btn_clientes.BackColor = Color.FromArgb(151, 46, 194);
+            btn_clientes.ForeColor = SystemColors.ControlLightLight;
             btn_clientes.IconChar = FontAwesome.Sharp.IconChar.PeopleGroup;
-            btn_clientes.IconColor = Color.AntiqueWhite;
+            btn_clientes.IconColor = Color.White;
             btn_clientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btn_clientes.IconSize = 35;
             btn_clientes.ImageAlign = ContentAlignment.MiddleLeft;
             btn_clientes.Location = new Point(177, 284);
             btn_clientes.Margin = new Padding(2);
             btn_clientes.Name = "btn_clientes";
-            btn_clientes.Size = new Size(104, 47);
+            btn_clientes.Size = new Size(93, 47);
             btn_clientes.TabIndex = 4;
             btn_clientes.Text = "Clientes";
             btn_clientes.TextAlign = ContentAlignment.MiddleRight;
@@ -77,15 +81,18 @@
             // 
             // bnt_ventas
             // 
-            bnt_ventas.BackColor = Color.RosyBrown;
+            bnt_ventas.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bnt_ventas.BackColor = Color.FromArgb(151, 46, 194);
+            bnt_ventas.ForeColor = SystemColors.ControlLightLight;
             bnt_ventas.IconChar = FontAwesome.Sharp.IconChar.CommentDollar;
-            bnt_ventas.IconColor = Color.AntiqueWhite;
+            bnt_ventas.IconColor = Color.White;
             bnt_ventas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            bnt_ventas.IconSize = 35;
             bnt_ventas.ImageAlign = ContentAlignment.MiddleLeft;
-            bnt_ventas.Location = new Point(318, 208);
+            bnt_ventas.Location = new Point(321, 208);
             bnt_ventas.Margin = new Padding(2);
             bnt_ventas.Name = "bnt_ventas";
-            bnt_ventas.Size = new Size(104, 47);
+            bnt_ventas.Size = new Size(93, 47);
             bnt_ventas.TabIndex = 6;
             bnt_ventas.Text = "Ventas";
             bnt_ventas.TextAlign = ContentAlignment.MiddleRight;
@@ -94,15 +101,18 @@
             // 
             // btn_localidades
             // 
-            btn_localidades.BackColor = Color.RosyBrown;
+            btn_localidades.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_localidades.BackColor = Color.FromArgb(151, 46, 194);
+            btn_localidades.ForeColor = SystemColors.ControlLightLight;
             btn_localidades.IconChar = FontAwesome.Sharp.IconChar.Location;
-            btn_localidades.IconColor = Color.AntiqueWhite;
+            btn_localidades.IconColor = Color.White;
             btn_localidades.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btn_localidades.IconSize = 30;
             btn_localidades.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_localidades.Location = new Point(318, 284);
+            btn_localidades.Location = new Point(321, 284);
             btn_localidades.Margin = new Padding(2);
             btn_localidades.Name = "btn_localidades";
-            btn_localidades.Size = new Size(104, 47);
+            btn_localidades.Size = new Size(93, 47);
             btn_localidades.TabIndex = 7;
             btn_localidades.Text = "Localidad";
             btn_localidades.TextAlign = ContentAlignment.MiddleRight;
@@ -124,7 +134,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { iconMenuItem1, iconMenuItem2 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(622, 24);
+            menuStrip1.Size = new Size(609, 24);
             menuStrip1.TabIndex = 9;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -162,8 +172,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.OldLace;
-            ClientSize = new Size(622, 376);
+            BackColor = Color.FromArgb(200, 133, 226);
+            ClientSize = new Size(609, 376);
             Controls.Add(pictureBox1);
             Controls.Add(btn_localidades);
             Controls.Add(bnt_ventas);

@@ -91,7 +91,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SplashView";
             TopMost = true;
-            Activated += SplashView_Activated;
+
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

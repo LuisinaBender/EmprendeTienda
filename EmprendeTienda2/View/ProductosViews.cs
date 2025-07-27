@@ -56,21 +56,33 @@ namespace EmprendeTiendaDescktop.View
                 return;
             }
 
+            var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
             if (productoCurrent != null)
             {
-                productoCurrent.Nombre = txtNombre.Text;
-
-                var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
-                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-
                 using (var db = new AppDbContext(optionsBuilder.Options))
                 {
-                    db.Productos.Update(productoCurrent);
-                    await db.SaveChangesAsync();
+                    var productoBD = await db.Productos.FindAsync(productoCurrent.Id);
+                    if (productoBD != null)
+                    {
+                        productoBD.Nombre = txtNombre.Text.Trim();
+                        productoBD.Descripcion = txtDescripcion.Text.Trim();
+                        productoBD.Precio = decimal.TryParse(txtPrecio.Text.Trim(), out var precio) ? precio : 0;
+                        productoBD.Stock = int.TryParse(txtStock.Text.Trim(), out var stock) ? stock : 0;
+
+                        await db.SaveChangesAsync();
+
+                        MessageBox.Show("Producto actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarGrilla();
+                        tabControlProductos.SelectedTab = tabPageLista;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el producto en la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-
-
             }
             else
             {
@@ -80,26 +92,20 @@ namespace EmprendeTiendaDescktop.View
                     Descripcion = txtDescripcion.Text.Trim(),
                     Precio = decimal.TryParse(txtPrecio.Text.Trim(), out var precio) ? precio : 0,
                     Stock = int.TryParse(txtStock.Text.Trim(), out var stock) ? stock : 0
-
-
                 };
-
-                var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
-                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
                 using (var db = new AppDbContext(optionsBuilder.Options))
                 {
                     db.Productos.Add(producto);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
 
                 MessageBox.Show("Producto guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarGrilla();
                 tabControlProductos.SelectedTab = tabPageLista;
             }
-           
         }
+
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
@@ -114,26 +120,45 @@ namespace EmprendeTiendaDescktop.View
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("¿Estás seguro de que deseas eliminar este producto", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
+            var result = MessageBox.Show("¿Está seguro que desea eliminar este producto?",
+                                         "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+                return;
+
+            productoCurrent = (Producto)listaProductos.Current;
+
+            if (productoCurrent != null)
             {
-                productoCurrent = (Producto)listaProductos.Current;
-                if (productoCurrent != null)
+                var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
+                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
+                try
                 {
-                    var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
-                    var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                     using (var db = new AppDbContext(optionsBuilder.Options))
                     {
                         db.Productos.Remove(productoCurrent);
                         db.SaveChanges();
                     }
+
                     MessageBox.Show("Producto eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarGrilla();
                 }
-
-
+                catch (DbUpdateException ex)
+                {
+                    if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                    {
+                        MessageBox.Show("Este producto no se puede eliminar porque está asociado a una o más ventas.",
+                                        "No se puede eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al eliminar el producto: " + ex.Message,
+                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
+
     }
 }

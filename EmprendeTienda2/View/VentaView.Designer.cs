@@ -51,14 +51,15 @@
             tabControlVentas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControlVentas.Controls.Add(tabPageLista);
             tabControlVentas.Controls.Add(tabPageAgregarEditar);
-            tabControlVentas.Location = new Point(-1, 72);
+            tabControlVentas.Location = new Point(0, 62);
             tabControlVentas.Name = "tabControlVentas";
             tabControlVentas.SelectedIndex = 0;
-            tabControlVentas.Size = new Size(602, 265);
+            tabControlVentas.Size = new Size(732, 337);
             tabControlVentas.TabIndex = 3;
             // 
             // tabPageLista
             // 
+            tabPageLista.BackColor = Color.FromArgb(200, 133, 226);
             tabPageLista.Controls.Add(btnEliminar);
             tabPageLista.Controls.Add(btn_modificar);
             tabPageLista.Controls.Add(bntAgregar);
@@ -66,53 +67,63 @@
             tabPageLista.Location = new Point(4, 24);
             tabPageLista.Name = "tabPageLista";
             tabPageLista.Padding = new Padding(3);
-            tabPageLista.Size = new Size(594, 237);
+            tabPageLista.Size = new Size(724, 309);
             tabPageLista.TabIndex = 0;
             tabPageLista.Text = "Lista";
-            tabPageLista.UseVisualStyleBackColor = true;
             // 
             // btnEliminar
             // 
+            btnEliminar.Anchor = AnchorStyles.Right;
+            btnEliminar.BackColor = Color.FromArgb(151, 46, 194);
+            btnEliminar.ForeColor = SystemColors.ControlLightLight;
             btnEliminar.IconChar = FontAwesome.Sharp.IconChar.DeleteLeft;
-            btnEliminar.IconColor = Color.Black;
+            btnEliminar.IconColor = Color.White;
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEliminar.IconSize = 30;
             btnEliminar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEliminar.Location = new Point(455, 156);
+            btnEliminar.Location = new Point(594, 198);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(105, 47);
             btnEliminar.TabIndex = 6;
             btnEliminar.Text = "Eliminar";
             btnEliminar.TextAlign = ContentAlignment.MiddleRight;
-            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.UseVisualStyleBackColor = false;
             // 
             // btn_modificar
             // 
+            btn_modificar.Anchor = AnchorStyles.Right;
+            btn_modificar.BackColor = Color.FromArgb(151, 46, 194);
+            btn_modificar.ForeColor = SystemColors.ControlLightLight;
             btn_modificar.IconChar = FontAwesome.Sharp.IconChar.Pencil;
-            btn_modificar.IconColor = Color.Black;
+            btn_modificar.IconColor = Color.White;
             btn_modificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btn_modificar.IconSize = 30;
             btn_modificar.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_modificar.Location = new Point(455, 92);
+            btn_modificar.Location = new Point(594, 134);
             btn_modificar.Name = "btn_modificar";
             btn_modificar.Size = new Size(105, 47);
             btn_modificar.TabIndex = 5;
             btn_modificar.Text = "Modificar ";
             btn_modificar.TextAlign = ContentAlignment.MiddleRight;
-            btn_modificar.UseVisualStyleBackColor = true;
+            btn_modificar.UseVisualStyleBackColor = false;
             // 
             // bntAgregar
             // 
+            bntAgregar.Anchor = AnchorStyles.Right;
+            bntAgregar.BackColor = Color.FromArgb(151, 46, 194);
+            bntAgregar.ForeColor = SystemColors.ControlLightLight;
             bntAgregar.IconChar = FontAwesome.Sharp.IconChar.Add;
-            bntAgregar.IconColor = Color.Black;
+            bntAgregar.IconColor = Color.White;
             bntAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            bntAgregar.IconSize = 30;
             bntAgregar.ImageAlign = ContentAlignment.MiddleLeft;
-            bntAgregar.Location = new Point(455, 28);
+            bntAgregar.Location = new Point(594, 70);
             bntAgregar.Name = "bntAgregar";
             bntAgregar.Size = new Size(105, 47);
             bntAgregar.TabIndex = 4;
             bntAgregar.Text = "Agregar";
             bntAgregar.TextAlign = ContentAlignment.MiddleRight;
-            bntAgregar.UseVisualStyleBackColor = true;
-
+            bntAgregar.UseVisualStyleBackColor = false;
             // 
             // dataGridVentas
             // 
@@ -123,11 +134,12 @@
             dataGridVentas.Location = new Point(2, 0);
             dataGridVentas.Name = "dataGridVentas";
             dataGridVentas.ReadOnly = true;
-            dataGridVentas.Size = new Size(406, 241);
+            dataGridVentas.Size = new Size(568, 320);
             dataGridVentas.TabIndex = 0;
             // 
             // tabPageAgregarEditar
             // 
+            tabPageAgregarEditar.BackColor = Color.FromArgb(200, 133, 226);
             tabPageAgregarEditar.Controls.Add(bntCancelar);
             tabPageAgregarEditar.Controls.Add(btnGuardar);
             tabPageAgregarEditar.Controls.Add(txtNombre);
@@ -138,34 +150,40 @@
             tabPageAgregarEditar.Size = new Size(594, 237);
             tabPageAgregarEditar.TabIndex = 1;
             tabPageAgregarEditar.Text = "Agregar/Editar";
-            tabPageAgregarEditar.UseVisualStyleBackColor = true;
             // 
             // bntCancelar
             // 
+            bntCancelar.BackColor = Color.FromArgb(151, 46, 194);
+            bntCancelar.ForeColor = SystemColors.ControlLightLight;
             bntCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            bntCancelar.IconColor = Color.Black;
+            bntCancelar.IconColor = Color.White;
             bntCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            bntCancelar.IconSize = 30;
             bntCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            bntCancelar.Location = new Point(344, 125);
+            bntCancelar.Location = new Point(328, 125);
             bntCancelar.Name = "bntCancelar";
-            bntCancelar.Size = new Size(138, 53);
+            bntCancelar.Size = new Size(99, 53);
             bntCancelar.TabIndex = 7;
             bntCancelar.Text = "Cancelar";
-            bntCancelar.UseVisualStyleBackColor = true;
+            bntCancelar.TextAlign = ContentAlignment.MiddleRight;
+            bntCancelar.UseVisualStyleBackColor = false;
             // 
             // btnGuardar
             // 
+            btnGuardar.BackColor = Color.FromArgb(151, 46, 194);
+            btnGuardar.ForeColor = SystemColors.ControlLightLight;
             btnGuardar.IconChar = FontAwesome.Sharp.IconChar.Save;
-            btnGuardar.IconColor = Color.Black;
+            btnGuardar.IconColor = Color.White;
             btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnGuardar.IconSize = 30;
             btnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGuardar.Location = new Point(144, 125);
+            btnGuardar.Location = new Point(159, 125);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(138, 53);
+            btnGuardar.Size = new Size(99, 53);
             btnGuardar.TabIndex = 6;
             btnGuardar.Text = "Guardar";
-            btnGuardar.UseVisualStyleBackColor = true;
-
+            btnGuardar.TextAlign = ContentAlignment.MiddleRight;
+            btnGuardar.UseVisualStyleBackColor = false;
             // 
             // txtNombre
             // 
@@ -188,7 +206,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Calibri", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(210, 26);
+            label1.Location = new Point(289, 30);
             label1.Name = "label1";
             label1.Size = new Size(80, 29);
             label1.TabIndex = 4;
@@ -198,7 +216,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(597, 336);
+            BackColor = Color.FromArgb(222, 182, 238);
+            ClientSize = new Size(725, 393);
             Controls.Add(label1);
             Controls.Add(tabControlVentas);
             Name = "VentaView";

@@ -23,40 +23,38 @@ namespace EmprendeTiendaDesktop.View
         public SplashView()
         {
             InitializeComponent();
+            this.Load += SplashView_Load;
+            // Asegúrate que tu timer esté configurado en el diseñador o en código
+            timer.Tick += timer_Tick;
         }
 
-        private async void SplashView_Activated(object sender, EventArgs e)
+        private async void SplashView_Load(object sender, EventArgs e)
         {
-            var cargarDatosTask = CargarDatosDesdeDbAsync();
-
+            await CargarDatosDesdeDbAsync();
             timer.Start();
-
-            await cargarDatosTask;
         }
 
         private async Task CargarDatosDesdeDbAsync()
         {
-            await Task.Run(async () =>
+            try
             {
-                try
+                using (var httpClient = new HttpClient())
                 {
-                    using (var httpClient = new HttpClient())
-                    {
-                        httpClient.BaseAddress = new Uri("https://dataemprendetienda.azurewebsites.net/api/");
-                        var clienteService = new GenericService<Cliente>(httpClient);
-                        var clientes = await clienteService.GetAllAsync();
-                    }
-
-                    await Task.Delay(2000); // Simula carga si es muy rápida
-
-                    dataReady = true;
+                    httpClient.BaseAddress = new Uri("https://dataemprendetienda.azurewebsites.net/api/");
+                    var clienteService = new GenericService<Cliente>(httpClient);
+                    var clientes = await clienteService.GetAllAsync();
+                    // Aquí puedes guardar los datos si es necesario
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al cargar los datos: " + ex.Message);
-                    Application.Exit();
-                }
-            });
+
+                await Task.Delay(2000); // Simula carga si es muy rápida
+
+                dataReady = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los datos: " + ex.Message);
+                Application.Exit();
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -74,5 +72,6 @@ namespace EmprendeTiendaDesktop.View
             }
         }
     }
+
 }
 

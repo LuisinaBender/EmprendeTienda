@@ -105,25 +105,40 @@ namespace EmprendeTiendaDesktop.View
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("¿Estás seguro de que deseas eliminar esta localidad?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
+            if (result != DialogResult.Yes) return;
+
+            localidadCurrent = (Localidad)listaLocalidades.Current;
+            if (localidadCurrent == null) return;
+
+            var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
+            try
             {
-                localidadCurrent = (Localidad)listaLocalidades.Current;
-                if (localidadCurrent != null)
+                using (var db = new AppDbContext(optionsBuilder.Options))
                 {
-                    var connectionString = "server=i20.com.ar;port=3306;database=i20com_2doLuisinaBender;user=i20com_luisi;password=Isp203040;AllowZeroDateTime=true;ConvertZeroDateTime=true";
-                    var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-                    using (var db = new AppDbContext(optionsBuilder.Options))
-                    {
-                        db.Localidades.Remove(localidadCurrent);
-                        db.SaveChanges();
-                    }
-                    MessageBox.Show("Localidad eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarGrilla();
+                    db.Localidades.Remove(localidadCurrent);
+                    db.SaveChanges();
                 }
 
-
+                MessageBox.Show("Localidad eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarGrilla();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    MessageBox.Show("No se puede eliminar esta localidad porque está asociada a uno o más clientes.",
+                                    "No se puede eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar la localidad: " + ex.Message,
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
     }
 }
