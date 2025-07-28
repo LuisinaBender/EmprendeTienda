@@ -160,5 +160,9 @@ namespace EmprendeTiendaDescktop.View
             }
         }
 
+        private void bntCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

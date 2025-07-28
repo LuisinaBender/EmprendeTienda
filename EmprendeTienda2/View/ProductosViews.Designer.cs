@@ -173,7 +173,7 @@
             tabPageAgregarEditar.Location = new Point(4, 24);
             tabPageAgregarEditar.Name = "tabPageAgregarEditar";
             tabPageAgregarEditar.Padding = new Padding(3);
-            tabPageAgregarEditar.Size = new Size(711, 309);
+            tabPageAgregarEditar.Size = new Size(724, 309);
             tabPageAgregarEditar.TabIndex = 1;
             tabPageAgregarEditar.Text = "Agregar/Editar";
             // 
@@ -242,6 +242,7 @@
             bntCancelar.Text = "Cancelar";
             bntCancelar.TextAlign = ContentAlignment.MiddleRight;
             bntCancelar.UseVisualStyleBackColor = false;
+            bntCancelar.Click += bntCancelar_Click;
             // 
             // btnGuardar
             // 

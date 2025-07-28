@@ -92,7 +92,7 @@ namespace EmprendeTiendaDesktop.View
                 tabControlLocalidad.SelectedTab = tabPageLista;
             }
 
-            
+
         }
 
         private void btn_modificar_Click(object sender, EventArgs e)
@@ -140,5 +140,9 @@ namespace EmprendeTiendaDesktop.View
             }
         }
 
+        private void bntCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

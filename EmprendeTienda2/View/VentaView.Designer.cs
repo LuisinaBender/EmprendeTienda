@@ -35,10 +35,18 @@
             bntAgregar = new FontAwesome.Sharp.IconButton();
             dataGridVentas = new DataGridView();
             tabPageAgregarEditar = new TabPage();
+            labelPrecio = new Label();
+            txtPrecio = new TextBox();
+            labelCantidad = new Label();
+            txtCantidad = new TextBox();
+            labelFecha = new Label();
+            dateTimeFecha = new DateTimePicker();
+            labelProductos = new Label();
+            comboCliente = new ComboBox();
+            comboProductos = new ComboBox();
             bntCancelar = new FontAwesome.Sharp.IconButton();
             btnGuardar = new FontAwesome.Sharp.IconButton();
-            txtNombre = new TextBox();
-            label2 = new Label();
+            labelNombre = new Label();
             label1 = new Label();
             tabControlVentas.SuspendLayout();
             tabPageLista.SuspendLayout();
@@ -88,6 +96,7 @@
             btnEliminar.Text = "Eliminar";
             btnEliminar.TextAlign = ContentAlignment.MiddleRight;
             btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btn_modificar
             // 
@@ -106,6 +115,7 @@
             btn_modificar.Text = "Modificar ";
             btn_modificar.TextAlign = ContentAlignment.MiddleRight;
             btn_modificar.UseVisualStyleBackColor = false;
+            btn_modificar.Click += btn_modificar_Click;
             // 
             // bntAgregar
             // 
@@ -124,6 +134,7 @@
             bntAgregar.Text = "Agregar";
             bntAgregar.TextAlign = ContentAlignment.MiddleRight;
             bntAgregar.UseVisualStyleBackColor = false;
+            bntAgregar.Click += bntAgregar_Click;
             // 
             // dataGridVentas
             // 
@@ -140,16 +151,97 @@
             // tabPageAgregarEditar
             // 
             tabPageAgregarEditar.BackColor = Color.FromArgb(200, 133, 226);
+            tabPageAgregarEditar.Controls.Add(labelPrecio);
+            tabPageAgregarEditar.Controls.Add(txtPrecio);
+            tabPageAgregarEditar.Controls.Add(labelCantidad);
+            tabPageAgregarEditar.Controls.Add(txtCantidad);
+            tabPageAgregarEditar.Controls.Add(labelFecha);
+            tabPageAgregarEditar.Controls.Add(dateTimeFecha);
+            tabPageAgregarEditar.Controls.Add(labelProductos);
+            tabPageAgregarEditar.Controls.Add(comboCliente);
+            tabPageAgregarEditar.Controls.Add(comboProductos);
             tabPageAgregarEditar.Controls.Add(bntCancelar);
             tabPageAgregarEditar.Controls.Add(btnGuardar);
-            tabPageAgregarEditar.Controls.Add(txtNombre);
-            tabPageAgregarEditar.Controls.Add(label2);
+            tabPageAgregarEditar.Controls.Add(labelNombre);
             tabPageAgregarEditar.Location = new Point(4, 24);
             tabPageAgregarEditar.Name = "tabPageAgregarEditar";
             tabPageAgregarEditar.Padding = new Padding(3);
-            tabPageAgregarEditar.Size = new Size(594, 237);
+            tabPageAgregarEditar.Size = new Size(724, 309);
             tabPageAgregarEditar.TabIndex = 1;
             tabPageAgregarEditar.Text = "Agregar/Editar";
+            // 
+            // labelPrecio
+            // 
+            labelPrecio.AutoSize = true;
+            labelPrecio.Location = new Point(155, 206);
+            labelPrecio.Name = "labelPrecio";
+            labelPrecio.Size = new Size(43, 15);
+            labelPrecio.TabIndex = 26;
+            labelPrecio.Text = "Precio:";
+            // 
+            // txtPrecio
+            // 
+            txtPrecio.Location = new Point(204, 203);
+            txtPrecio.Name = "txtPrecio";
+            txtPrecio.Size = new Size(245, 23);
+            txtPrecio.TabIndex = 25;
+            // 
+            // labelCantidad
+            // 
+            labelCantidad.AutoSize = true;
+            labelCantidad.Location = new Point(143, 175);
+            labelCantidad.Name = "labelCantidad";
+            labelCantidad.Size = new Size(58, 15);
+            labelCantidad.TabIndex = 24;
+            labelCantidad.Text = "Cantidad:";
+            // 
+            // txtCantidad
+            // 
+            txtCantidad.Location = new Point(204, 172);
+            txtCantidad.Name = "txtCantidad";
+            txtCantidad.Size = new Size(245, 23);
+            txtCantidad.TabIndex = 23;
+            // 
+            // labelFecha
+            // 
+            labelFecha.AutoSize = true;
+            labelFecha.Location = new Point(94, 149);
+            labelFecha.Name = "labelFecha";
+            labelFecha.Size = new Size(104, 15);
+            labelFecha.TabIndex = 22;
+            labelFecha.Text = "Seleccionar Fecha:";
+            // 
+            // dateTimeFecha
+            // 
+            dateTimeFecha.Location = new Point(204, 143);
+            dateTimeFecha.Name = "dateTimeFecha";
+            dateTimeFecha.Size = new Size(245, 23);
+            dateTimeFecha.TabIndex = 21;
+            // 
+            // labelProductos
+            // 
+            labelProductos.AutoSize = true;
+            labelProductos.Location = new Point(67, 122);
+            labelProductos.Name = "labelProductos";
+            labelProductos.Size = new Size(134, 15);
+            labelProductos.TabIndex = 20;
+            labelProductos.Text = "Seleccionar el Producto:";
+            // 
+            // comboCliente
+            // 
+            comboCliente.FormattingEnabled = true;
+            comboCliente.Location = new Point(204, 85);
+            comboCliente.Name = "comboCliente";
+            comboCliente.Size = new Size(245, 23);
+            comboCliente.TabIndex = 19;
+            // 
+            // comboProductos
+            // 
+            comboProductos.FormattingEnabled = true;
+            comboProductos.Location = new Point(204, 114);
+            comboProductos.Name = "comboProductos";
+            comboProductos.Size = new Size(245, 23);
+            comboProductos.TabIndex = 18;
             // 
             // bntCancelar
             // 
@@ -160,13 +252,14 @@
             bntCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             bntCancelar.IconSize = 30;
             bntCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            bntCancelar.Location = new Point(328, 125);
+            bntCancelar.Location = new Point(491, 173);
             bntCancelar.Name = "bntCancelar";
-            bntCancelar.Size = new Size(99, 53);
+            bntCancelar.Size = new Size(86, 53);
             bntCancelar.TabIndex = 7;
             bntCancelar.Text = "Cancelar";
             bntCancelar.TextAlign = ContentAlignment.MiddleRight;
             bntCancelar.UseVisualStyleBackColor = false;
+            bntCancelar.Click += bntCancelar_Click;
             // 
             // btnGuardar
             // 
@@ -177,29 +270,23 @@
             btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnGuardar.IconSize = 30;
             btnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGuardar.Location = new Point(159, 125);
+            btnGuardar.Location = new Point(491, 85);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(99, 53);
+            btnGuardar.Size = new Size(86, 53);
             btnGuardar.TabIndex = 6;
             btnGuardar.Text = "Guardar";
             btnGuardar.TextAlign = ContentAlignment.MiddleRight;
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
-            // txtNombre
+            // labelNombre
             // 
-            txtNombre.Location = new Point(198, 59);
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(245, 23);
-            txtNombre.TabIndex = 5;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(140, 70);
-            label2.Name = "label2";
-            label2.Size = new Size(54, 15);
-            label2.TabIndex = 4;
-            label2.Text = "Nombre:";
+            labelNombre.AutoSize = true;
+            labelNombre.Location = new Point(88, 93);
+            labelNombre.Name = "labelNombre";
+            labelNombre.Size = new Size(113, 15);
+            labelNombre.TabIndex = 4;
+            labelNombre.Text = "Nombre del Cliente:";
             // 
             // label1
             // 
@@ -240,11 +327,19 @@
         private TabPage tabPageAgregarEditar;
         private FontAwesome.Sharp.IconButton bntCancelar;
         private FontAwesome.Sharp.IconButton btnGuardar;
-        private TextBox txtNombre;
-        private Label label2;
+        private Label labelNombre;
         public Label label1;
         private FontAwesome.Sharp.IconButton btnEliminar;
         private FontAwesome.Sharp.IconButton btn_modificar;
         private FontAwesome.Sharp.IconButton bntAgregar;
+        private ComboBox comboCliente;
+        private ComboBox comboProductos;
+        private DateTimePicker dateTimeFecha;
+        private Label labelProductos;
+        private Label labelPrecio;
+        private TextBox txtPrecio;
+        private Label labelCantidad;
+        private TextBox txtCantidad;
+        private Label labelFecha;
     }
 }

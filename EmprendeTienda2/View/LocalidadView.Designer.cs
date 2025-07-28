@@ -180,6 +180,7 @@
             bntCancelar.Text = "Cancelar";
             bntCancelar.TextAlign = ContentAlignment.MiddleRight;
             bntCancelar.UseVisualStyleBackColor = false;
+            bntCancelar.Click += bntCancelar_Click;
             // 
             // btnGuardar
             // 

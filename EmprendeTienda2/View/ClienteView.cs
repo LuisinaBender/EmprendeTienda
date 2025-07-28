@@ -75,7 +75,7 @@ namespace EmprendeTiendaDesktop.View
             tabControlClientes.SelectedTab = tabPageAgregarEditar;
         }
 
-       
+
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
@@ -194,6 +194,11 @@ namespace EmprendeTiendaDesktop.View
             CargarGrilla();
             tabControlClientes.SelectedTab = tabPageLista;
             clienteEditandoId = null; // Resetea el Id para futuras operaciones
+        }
+
+        private void bntCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
