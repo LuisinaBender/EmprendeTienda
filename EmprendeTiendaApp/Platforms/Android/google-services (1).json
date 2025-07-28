@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "655962660436",
+    "project_id": "emprenderapp-bb156",
+    "storage_bucket": "emprenderapp-bb156.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655962660436:android:23eaad4d07a4508d3c97c1",
+        "android_client_info": {
+          "package_name": "com.companyname.emprendetiendaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy1kFwlj7E0izuRR8I1nX1x5ctz-rUJEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

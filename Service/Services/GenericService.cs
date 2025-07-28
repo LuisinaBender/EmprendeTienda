@@ -28,6 +28,10 @@ namespace Service.Services
             _endpoint = ApiEndpoints.GetEndpoint(typeof(T).Name);
         }
 
+        public GenericService()
+        {
+        }
+
         public async Task<List<T>> GetAllAsync()
         {
             try
