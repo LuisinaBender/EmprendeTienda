@@ -37,6 +37,7 @@ namespace EmprendeTiendaDescktop.View
                 listaProductos = new BindingSource();
                 listaProductos.DataSource = db.Productos.ToList();
                 dataGridProductos.DataSource = listaProductos;
+                
 
             }
 
@@ -164,5 +165,7 @@ namespace EmprendeTiendaDescktop.View
         {
             this.Close();
         }
+
+       
     }
 }

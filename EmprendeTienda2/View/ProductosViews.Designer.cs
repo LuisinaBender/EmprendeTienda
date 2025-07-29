@@ -156,6 +156,7 @@
             dataGridProductos.ReadOnly = true;
             dataGridProductos.Size = new Size(579, 305);
             dataGridProductos.TabIndex = 0;
+            
             // 
             // tabPageAgregarEditar
             // 

@@ -1,4 +1,5 @@
 ﻿using EmprendeTiendaApp.Views;
+using EmprendeTiendaApp.ContentViews;
 
 namespace EmprendeTiendaApp
 {
@@ -7,8 +8,8 @@ namespace EmprendeTiendaApp
         public EmprendeTiendaShell()
         {
             InitializeComponent();
-            FlyoutItemsPrincipal.IsVisible = false; 
-
+            FlyoutItemsPrincipal.IsVisible = false;
+            RegisterRoutes();
 
         }
         private void RegisterRoutes()
@@ -18,17 +19,16 @@ namespace EmprendeTiendaApp
 
         public void EnableAppAfterLogin()
         {
-            FlyoutBehavior = FlyoutBehavior.Flyout; // Habilita el FlyOut
-            FlyoutItemsPrincipal.IsVisible = true; // Muestra el menú lateral
-            Shell.Current.GoToAsync("//MainPage"); // Navega a la página principal
-            var viewmodel = this.BindingContext as KioscoShellViewModel;
+            FlyoutBehavior = FlyoutBehavior.Flyout; 
+            FlyoutItemsPrincipal.IsVisible = true; 
+            Shell.Current.GoToAsync("//MainPage"); 
+            var viewmodel = this.BindingContext as EmprendeTiendaShellViewModel;
             viewmodel.IsUserLogout = false;
         }
         public void DisableAppAfterLogin()
         {
-            FlyoutItemsPrincipal.IsVisible = false; // Oculta el menú lateral
-            FlyoutBehavior = FlyoutBehavior.Disabled; // Deshabilita el FlyOut
-            Shell.Current.GoToAsync("//Login"); // Navega a la página de login
-        }
+            FlyoutItemsPrincipal.IsVisible = false; 
+            FlyoutBehavior = FlyoutBehavior.Disabled; 
+            Shell.Current.GoToAsync("//Login");
     }
 }
