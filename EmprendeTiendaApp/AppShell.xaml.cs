@@ -2,9 +2,9 @@
 
 namespace EmprendeTiendaApp
 {
-    public partial class AppShell : Shell
+    public partial class EmprendeTiendaShell : Shell
     {
-        public AppShell()
+        public EmprendeTiendaShell()
         {
             InitializeComponent();
             

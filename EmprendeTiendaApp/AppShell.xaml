@@ -4,11 +4,20 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EmprendeTiendaApp"
+    xmlns:views="clr-namespace:EmprendeTiendaApp.Views"
     Title="EmprendeTiendaApp">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    <ShellContent
+        Title="Productos"
+        ContentTemplate="{DataTemplate local:ProductosView}"
+        Route="Productos" />
+    <ShellContent
+        Title="Agregar producto"
+        ContentTemplate="{DataTemplate local:AddEditProductoView}"
+        Route="AgregarProducto" />
 
 </Shell>

@@ -1,4 +1,7 @@
-﻿using EmprendeTiendaApp.Views;
+﻿
+using CommunityToolkit.Mvvm.Messaging;
+using EmprendeTiendaApp.Views;
+
 
 namespace EmprendeTiendaApp
 {
@@ -8,8 +11,10 @@ namespace EmprendeTiendaApp
         {
             InitializeComponent();
             MainPage = new NavigationPage(new IniciarSesionView());
-           
 
+
+
+            
         }
 
         

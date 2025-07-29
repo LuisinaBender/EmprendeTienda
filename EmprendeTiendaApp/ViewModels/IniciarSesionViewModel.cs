@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Messaging;
 using EmprendeTiendaApp.Class;
 
 namespace EmprendeTiendaApp.ViewModels
@@ -45,10 +46,16 @@ namespace EmprendeTiendaApp.ViewModels
             return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password);
         }
 
-        private void IniciarSesion(object obj)
+        private void  IniciarSesion(object obj)
         {
-            App.Current.MainPage.DisplayAlert("Iniciar Sesión", "Email: " + Email + "\nContraseña: " + Password, "OK");
+            WeakReferenceMessenger.Default.Send(new Message ("AprirAppShell"));
         }
+
+        // if (mensaje.Value == AbrirAppShell)
+        // {
+        //     await Navigation.PushAsync(new EmprendeTiendaShell());
+        // }
+
     }
 
 
