@@ -1,13 +1,12 @@
-﻿using EmprendeTiendaApp.Views;
+using Microsoft.Maui.Controls;
 
 namespace EmprendeTiendaApp
 {
-    public partial class EmprendeTiendaShell : Shell
+    public partial class AppShell : Shell
     {
-        public EmprendeTiendaShell()
+        public AppShell()
         {
             InitializeComponent();
-            
         }
     }
 }

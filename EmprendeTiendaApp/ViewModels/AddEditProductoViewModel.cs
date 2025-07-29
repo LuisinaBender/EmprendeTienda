@@ -1,4 +1,7 @@
-﻿using EmprendeTiendaApp.Class;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using EmprendeTiendaApp.Class;
+using Service.Models;
+using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,8 @@ namespace EmprendeTiendaApp.ViewModels
 {
     public  class AddEditProductoViewModel : ObjectNotification
     {
+
+        GenericService<Producto> productoService = new GenericService<Producto>();
         private string nombre;
 
         public string Nombre
@@ -43,6 +48,17 @@ namespace EmprendeTiendaApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private decimal stock;
+
+        public decimal Stock
+        {
+            get { return stock; }
+            set
+            {
+                stock = value;
+                OnPropertyChanged();
+            }
+        }
 
         private decimal cantidad;
 
@@ -54,6 +70,28 @@ namespace EmprendeTiendaApp.ViewModels
                 cantidad = value;
                 OnPropertyChanged();
             }
+        }
+
+        public Command SaveProductCommand { get; set; }
+
+        public AddEditProductoViewModel()
+        {
+            SaveProductCommand = new Command(async (obj) => await SaveProduct(obj));
+        }
+
+        private async Task SaveProduct(object obj)
+        {
+            var producto = new Producto
+            {
+                Nombre = Nombre,
+                Descripcion = Descripcion,
+                Precio = Precio,
+                Stock = (int)Stock,
+                Cantidad = Cantidad
+            };
+            
+            await productoService.AddAsync(producto);
+            WeakReferenceMessenger.Default.Send(new Message("CerrarProductos"));
         }
     }
 }

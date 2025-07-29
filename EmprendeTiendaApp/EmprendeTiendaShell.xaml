@@ -3,12 +3,53 @@
     x:Class="EmprendeTiendaApp.EmprendeTiendaShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ContentView="clr-namespace:EmprendeTiendaApp.ContentViews"
     xmlns:local="clr-namespace:EmprendeTiendaApp"
+    FlyoutBehavior="Disabled"
+    xmlns:views="clr-namespace:EmprendeTiendaApp.Views"
+    xmlns:viewmodels="clr-namespace:EmprendeTiendaApp.ViewModels"
     Title="EmprendeTiendaApp">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.BindingContext>
+        <viewmodels:EmprendeTiendaShellViewModel />
+    </Shell.BindingContext>
 
+    <FlyoutItem Route="nuestra_app" 
+            FlyoutDisplayOptions="AsMultipleItems" x:Name="FlyoutItemsPrincipal" >
+        
+            <Shell.FlyoutHeader>
+                 <ContentView:FlyoutHeader/>
+            </Shell.FlyoutHeader>
+
+            <Shell.FlyoutFooter>
+                <ContentView:FlyoutFooter/>
+            </Shell.FlyoutFooter>
+
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />    
+        
+                <Tab Title="Productos"
+                 Route="Productos">
+                    <ShellContent
+                               Title="Lista"
+                               ContentTemplate="{DataTemplate views:ProductosView}"
+                               Route="ListaProductos" />
+                    <ShellContent
+                       Title="Agregar producto"
+                       ContentTemplate="{DataTemplate views:AddEditProductoView}"
+                       Route="AgregarProducto" />
+                </Tab>
+    </FlyoutItem>
+    <MenuItem Text="Cerrar sesión"
+          Command="{Binding LogoutCommnad}"
+          IconImageSource="random.png"/> 
+
+    <ShellContent
+            Title="Login"
+            ContentTemplate="{DataTemplate views:IniciarSesionView}"
+            Route="Login" 
+            IsVisible="{Binding IsUserLogout}"
+        />
 </Shell>

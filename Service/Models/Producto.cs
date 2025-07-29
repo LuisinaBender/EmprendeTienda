@@ -11,6 +11,7 @@ namespace Service.Models
         public decimal Precio { get; set; }
         public int Stock { get; set; }
         public ICollection<DetalleVenta> DetalleVentas { get; set; } = new List<DetalleVenta>();
+        public decimal Cantidad { get; set; }
     }
 }
 

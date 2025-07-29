@@ -11,13 +11,6 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-    <ShellContent
-        Title="Productos"
-        ContentTemplate="{DataTemplate local:ProductosView}"
-        Route="Productos" />
-    <ShellContent
-        Title="Agregar producto"
-        ContentTemplate="{DataTemplate local:AddEditProductoView}"
-        Route="AgregarProducto" />
+ 
 
 </Shell>

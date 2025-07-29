@@ -10,7 +10,7 @@ namespace EmprendeTiendaApp
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new IniciarSesionView());
+            MainPage = new EmprendeTiendaShell();
 
 
 
