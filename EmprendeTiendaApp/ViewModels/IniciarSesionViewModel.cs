@@ -15,6 +15,7 @@ namespace EmprendeTiendaApp.ViewModels
             get { return email; }
             set {email = value;
                OnPropertyChanged();
+                IniciarSesionCommand.ChangeCanExecute();
             }
             
         }
@@ -25,7 +26,30 @@ namespace EmprendeTiendaApp.ViewModels
             get { return password; }
             set { password = value;
                 OnPropertyChanged();
+                IniciarSesionCommand.ChangeCanExecute();
             }
         }
+
+        public Command IniciarSesionCommand { get; set; }
+        public Command RegistrarseCommand { get; set; }
+
+        public IniciarSesionViewModel()
+        {
+
+            IniciarSesionCommand = new Command(IniciarSesion, PermitirIniciarSesion);
+
+        }
+
+        private bool PermitirIniciarSesion(object arg)
+        {
+            return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password);
+        }
+
+        private void IniciarSesion(object obj)
+        {
+            App.Current.MainPage.DisplayAlert("Iniciar Sesión", "Email: " + Email + "\nContraseña: " + Password, "OK");
+        }
     }
+
+
 }
