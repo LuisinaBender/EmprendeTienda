@@ -80,7 +80,7 @@ namespace Service.Services
             try
             {
                 var id = GetEntityId(entity);
-                var response = await _httpClient.PutAsJsonAsync($"{_endpoint}/{id}", entity, _jsonOptions);
+                var response = await _httpClient.PutAsJsonAsync($"{_endpoint}/{id}", entity);
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException ex)
