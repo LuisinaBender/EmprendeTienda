@@ -1,5 +1,6 @@
 ﻿using EmprendeTiendaApp.Views;
 using EmprendeTiendaApp.ContentViews;
+using EmprendeTiendaApp.ViewModels;
 
 namespace EmprendeTiendaApp
 {
@@ -14,21 +15,23 @@ namespace EmprendeTiendaApp
         }
         private void RegisterRoutes()
         {
-            Routing.RegisterRoute("Registrarse", typeof(RegistrarseView));
+            Routing.RegisterRoute("Registrarse", typeof(Registrarse));
         }
 
         public void EnableAppAfterLogin()
         {
-            FlyoutBehavior = FlyoutBehavior.Flyout; 
-            FlyoutItemsPrincipal.IsVisible = true; 
-            Shell.Current.GoToAsync("//MainPage"); 
-            var viewmodel = this.BindingContext as EmprendeTiendaShellViewModel;
-            viewmodel.IsUserLogout = false;
+            FlyoutBehavior = FlyoutBehavior.Flyout;
+            FlyoutItemsPrincipal.IsVisible = true;
+            Shell.Current.GoToAsync("//MainPage");
+            //var viewmodel = this.BindingContext as EmprendeTiendaShell;
+            //viewmodel.IsUserLogout = false;
         }
         public void DisableAppAfterLogin()
         {
-            FlyoutItemsPrincipal.IsVisible = false; 
-            FlyoutBehavior = FlyoutBehavior.Disabled; 
+            FlyoutItemsPrincipal.IsVisible = false;
+            FlyoutBehavior = FlyoutBehavior.Disabled;
             Shell.Current.GoToAsync("//Login");
+        }
     }
+
 }

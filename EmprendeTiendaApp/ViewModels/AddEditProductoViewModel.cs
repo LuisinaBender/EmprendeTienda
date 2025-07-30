@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace EmprendeTiendaApp.ViewModels
 {
-    public  class AddEditProductoViewModel : ObjectNotification
+    public class AddEditProductoViewModel : ObjectNotification, INotifyPropertyChanged
     {
 
         GenericService<Producto> productoService = new GenericService<Producto>();
@@ -69,6 +70,26 @@ namespace EmprendeTiendaApp.ViewModels
             {
                 cantidad = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private Producto _editProduct;
+        public Producto EditProduct
+        {
+            get => _editProduct;
+            set
+            {
+                _editProduct = value;
+                OnPropertyChanged(nameof(EditProduct));
+                // Si quieres, puedes mapear las propiedades aquí
+                if (_editProduct != null)
+                {
+                    Nombre = _editProduct.Nombre;
+                    Descripcion = _editProduct.Descripcion;
+                    Precio = _editProduct.Precio;
+                    Stock = _editProduct.Stock;
+                    Cantidad = _editProduct.Cantidad;
+                }
             }
         }
 

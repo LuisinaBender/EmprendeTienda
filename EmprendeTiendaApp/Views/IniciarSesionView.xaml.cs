@@ -4,6 +4,7 @@ using EmprendeTiendaApp.Views;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
 
+
 namespace EmprendeTiendaApp.Views;
 
 public partial class IniciarSesionView : ContentPage
@@ -11,7 +12,7 @@ public partial class IniciarSesionView : ContentPage
 	public IniciarSesionView()
 	{
 		InitializeComponent();
-		WeakReferenceMessenger.Default.Register<IniciarSesionViewModel>(this, (r, m) =>
+		WeakReferenceMessenger.Default.Register<ValueChangedMessage<string>>(this, (r, m) =>
 		{
 			OnReceiveMessage(m);
 		});
@@ -21,7 +22,7 @@ public partial class IniciarSesionView : ContentPage
 	{
 		if (mensaje.Value == "AbrirProductos")
 		{
-			await Navigation.PushAsync(new ProductosView());
+			await Navigation.PushAsync(new Productos());
 		}
 		if (mensaje.Value == "AgregarProductos")
 		{

@@ -1,3 +1,4 @@
+
 namespace EmprendeTiendaApp.Views;
 
 public partial class Registrarse : ContentPage
@@ -6,4 +7,6 @@ public partial class Registrarse : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    
 }

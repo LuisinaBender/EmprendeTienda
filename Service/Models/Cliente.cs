@@ -10,6 +10,7 @@ namespace Service.Models
         public string Email { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }
+        public string? Dni { get; set; }
 
         public int LocalidadId { get; set; }
         public Localidad? Localidad { get; set; }

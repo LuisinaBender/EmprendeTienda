@@ -10,21 +10,13 @@
     xmlns:viewmodels="clr-namespace:EmprendeTiendaApp.ViewModels"
     Title="EmprendeTiendaApp">
 
-    <Shell.BindingContext>
+    <!--<Shell.BindingContext>
         <viewmodels:EmprendeTiendaShellViewModel />
-    </Shell.BindingContext>
+    </Shell.BindingContext>-->
 
     <FlyoutItem Route="nuestra_app" 
             FlyoutDisplayOptions="AsMultipleItems" x:Name="FlyoutItemsPrincipal" >
-        
-            <Shell.FlyoutHeader>
-                 <ContentView:FlyoutHeader/>
-            </Shell.FlyoutHeader>
-
-            <Shell.FlyoutFooter>
-                <ContentView:FlyoutFooter/>
-            </Shell.FlyoutFooter>
-
+            
             <ShellContent
                 Title="Home"
                 ContentTemplate="{DataTemplate local:MainPage}"

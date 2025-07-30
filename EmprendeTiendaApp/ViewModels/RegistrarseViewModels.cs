@@ -23,7 +23,7 @@ namespace EmprendeTiendaApp.ViewModels
         private string nombre;
 
         [ObservableProperty]
-        private string Email;
+        private string email;
 
         [ObservableProperty]
         private string password;

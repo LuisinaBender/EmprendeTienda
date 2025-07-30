@@ -20,6 +20,7 @@ namespace EmprendeTiendaApp.ViewModels
         private FileUserRepository _userRepository;
         private UserInfo _userInfo;
         private FirebaseAuthProvider _authProvider;
+        private FirebaseCredential _firebaseCredential; // Agregar este campo
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(IniciarSesionCommand))]
@@ -28,6 +29,10 @@ namespace EmprendeTiendaApp.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(IniciarSesionCommand))]
         private string password;
+
+        
+        [ObservableProperty]
+        private bool recordarContraseña;
 
         public IRelayCommand IniciarSesionCommand { get; set; }
         public IRelayCommand RegistrarseCommand { get; set; }
