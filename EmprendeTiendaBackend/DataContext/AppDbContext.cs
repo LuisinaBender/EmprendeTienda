@@ -59,10 +59,10 @@ namespace BackendEmprendeTienda.DataContext
                     .IsRequired()
                     .HasMaxLength(200);
 
-                entity.HasOne(c => c.Localidad)
-                    .WithMany(l => l.Clientes)
-                    .HasForeignKey(c => c.LocalidadId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                //entity.HasOne(c => c.Localidad)
+                //    .WithMany(l => l.Clientes)
+                //    .HasForeignKey(c => c.LocalidadId)
+                //    .OnDelete(DeleteBehavior.Restrict);
             });
 
             // Producto
